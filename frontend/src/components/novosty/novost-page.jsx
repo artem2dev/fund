@@ -86,7 +86,13 @@ const NovostPage = ({ getNewById }) => {
 				</Flex>
 			)}
 			<Box isplay={"flex"} flexWrap={"wrap"}></Box>
-			<Text fontSize={17}>{newElem?.text}</Text>
+			<Text
+				fontSize={17}
+				css="white-space: pre; white-space: -moz-pre-wrap;"
+				textAlign={"left"}
+			>
+				{newElem?.text}
+			</Text>
 		</Box>
 	);
 };

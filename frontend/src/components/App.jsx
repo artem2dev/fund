@@ -13,7 +13,7 @@ const mockedNews = [
 		id: 1,
 		header:
 			"Эльман Пашаев навестил наших Z-штурмовиков, находящихся в одном из госпиталей",
-		text: "Други, а кто еще из известных (и не очень) адвокатов приезжает с гумпомощью к бойцам в зону СВО?",
+		text: `Други, а кто еще из известных (и не очень) адвокатов приезжает с гумпомощью к бойцам в зону СВО?`,
 		imageIds: [
 			"https://wp-s.ru/wallpapers/10/9/463314880930454/krasivyj-zakat-lesnoe-ozero-gory.jpg",
 			"https://avatars.mds.yandex.net/i?id=41e1b311d1c7043203a77c5f924a1296803f66a4-8176762-images-thumbs&ref=rim&n=33&w=267&h=150",
@@ -23,7 +23,7 @@ const mockedNews = [
 	{
 		id: 2,
 		header:
-			"Други, а кто еще из известных (и не очень) адвокатов приезжает с гумпомощью к бойцам в зону СВО?",
+			"Заголовок новости",
 		text: "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. ",
 		imageIds: [
 			"https://funik.ru/wp-content/uploads/2018/10/a552154533505340b7d7.jpg",
@@ -36,7 +36,7 @@ const mockedNews = [
 	{
 		id: 3,
 		header:
-			"Эльман Пашаев навестил наших Z-штурмовиков, находящихся в одном из госпиталейЭльман Пашаев навестил наших Z-штурмовиков, находящихся в одном из госпиталейЭльман Пашаев навестил наших Z-штурмовиков, находящихся в одном из госпиталей",
+			"Some header...",
 		text: "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
 		imageIds: [
 			"https://w-dog.ru/wallpapers/5/6/345534497514980/makro-klubnika-yagody.jpg",
@@ -48,9 +48,9 @@ const mockedNews = [
 		id: 4,
 		header: "Living room Sofa",
 		text: `This sofa is perfect for modern tropical spaces, baroque 
-		inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.`,
+inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.`,
 		imageIds: [
-			"https://get.pxhere.com/photo/forest-waterfall-wilderness-stream-body-of-water-rainforest-ravine-wasserfall-water-feature-watercourse-5554.jpg",
+			"https://funik.ru/wp-content/uploads/2018/10/a552154533505340b7d7.jpg",
 			"https://avatars.mds.yandex.net/i?id=41e1b311d1c7043203a77c5f924a1296803f66a4-8176762-images-thumbs&ref=rim&n=33&w=267&h=150",
 			"https://avatars.mds.yandex.net/i?id=16569a36be4e3576e21b02e9bd7c564e40345dc2-8744212-images-thumbs&ref=rim&n=33&w=240&h=150",
 		],
@@ -60,7 +60,7 @@ const mockedNews = [
 		header: "Living room Sofa",
 		text: "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
 		imageIds: [
-			"https://kartinkin.net/uploads/posts/2022-03/1647988946_3-kartinkin-net-p-panoramnie-kartinki-3.jpg",
+			"https://wp-s.ru/wallpapers/10/9/463314880930454/krasivyj-zakat-lesnoe-ozero-gory.jpg",
 			"https://avatars.mds.yandex.net/i?id=41e1b311d1c7043203a77c5f924a1296803f66a4-8176762-images-thumbs&ref=rim&n=33&w=267&h=150",
 			"https://avatars.mds.yandex.net/i?id=16569a36be4e3576e21b02e9bd7c564e40345dc2-8744212-images-thumbs&ref=rim&n=33&w=240&h=150",
 		],
