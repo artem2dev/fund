@@ -9,12 +9,13 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - .:/docker-entrypoint-initdb.d
+      - ./postgres-data:/var/lib/postgresql/data
     ports:
       - '5432:5432'
     networks:
       - bridge
   server:
-    container_name: todoListServer
+    container_name: backend
     build:
       context: ./backend
     ports:
@@ -26,7 +27,7 @@ services:
       - postgres
     command: npm start:prod
     volumes:
-      - ~/app/backend/.:/app/.
+      - ~/app/media/.:/app/media/.
     networks:
       - bridge
   client:
@@ -34,6 +35,8 @@ services:
     container_name: client_frontend
     ports:
       - '3000:3000'
+    networks:
+      - bridge
   nginx:
     image: nginx:bookworm
     volumes:
