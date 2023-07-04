@@ -31,12 +31,13 @@ services:
     networks:
       - bridge
   client:
-    build: ./client
+    context: ./frontend
     container_name: client_frontend
     ports:
       - '3000:3000'
     networks:
       - bridge
+    command: sh -c "npm install && npm npm run build && serve -s build"
   nginx:
     image: nginx:bookworm
     volumes:
