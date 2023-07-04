@@ -42,8 +42,7 @@ services:
     image: nginx:bookworm
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - /etc/letsencrypt/live/pashaev-fund.ru/fullchain.pem:ro
-      - /etc/letsencrypt/live/pashaev-fund.ru/privkey.pem:ro
+      - /etc/letsencrypt:/etc/letsencrypt
     ports:
       - "80:80"
       - "443:443"
