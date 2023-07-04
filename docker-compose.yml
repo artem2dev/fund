@@ -26,9 +26,14 @@ services:
       - postgres
     command: npm start:prod
     volumes:
-      - ./.:/app/.
+      - ~/app/backend/.:/app/.
     networks:
       - bridge
+  client:
+    build: ./client
+    container_name: client_frontend
+    ports:
+      - '3000:3000'
   nginx:
     image: nginx:bookworm
     volumes:
