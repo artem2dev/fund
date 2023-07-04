@@ -11,3 +11,38 @@ services:
       - .:/docker-entrypoint-initdb.d
     ports:
       - '5432:5432'
+    networks:
+      - bridge
+  server:
+    container_name: todoListServer
+    build:
+      context: ./backend
+    ports:
+      - '3001:3001'
+    environment:
+      NODE_ENV: production
+    env_file: ./.env
+    depends_on:
+      - postgres
+    command: npm start:prod
+    volumes:
+      - ./.:/app/.
+    networks:
+      - bridge
+  nginx:
+    image: nginx:bookworm
+    volumes:
+    - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+    - "80:80"
+    - "443:443"
+    environment:
+    - NGINX_HOST=localhost
+    - NGINX_PORT=80
+    networks:
+      - bridge
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+networks:
+  bridge:
+    driver: bridge
