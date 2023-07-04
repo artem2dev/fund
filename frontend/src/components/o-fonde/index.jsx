@@ -3,7 +3,7 @@ import React from "react";
 
 const OFonde = () => {
 	return (
-		<Box height={"100%"}>
+		<Box height={"100%"} pb={"30px"}>
 			<Heading py={5} color={"#2c2960"} textAlign={"center"}>
 				Благотворительный фонд Эльмана Пашаева
 			</Heading>

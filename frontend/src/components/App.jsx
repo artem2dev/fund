@@ -7,6 +7,8 @@ import MainPage from "./main";
 import Novosty from "./novosty";
 import NovostPage from "./novosty/novost-page";
 import OFonde from "./o-fonde";
+import KakPomoch from "./kak-pomoch";
+import Blagodarnosti from "./blagodarnosti";
 
 const mockedNews = [
 	{
@@ -22,8 +24,7 @@ const mockedNews = [
 	},
 	{
 		id: 2,
-		header:
-			"Заголовок новости",
+		header: "Заголовок новости",
 		text: "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. ",
 		imageIds: [
 			"https://funik.ru/wp-content/uploads/2018/10/a552154533505340b7d7.jpg",
@@ -35,8 +36,7 @@ const mockedNews = [
 	},
 	{
 		id: 3,
-		header:
-			"Some header...",
+		header: "Some header...",
 		text: "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
 		imageIds: [
 			"https://w-dog.ru/wallpapers/5/6/345534497514980/makro-klubnika-yagody.jpg",
@@ -102,14 +102,8 @@ function App() {
 								element={<NovostPage getNewById={getNewById} />}
 							/>
 							<Route path="o-fonde" element={<OFonde />} />
-							<Route
-								path="kak-pomoch"
-								element={<div>khdgfkjdhfgvsdjfghvdfjk</div>}
-							/>
-							<Route
-								path="blagodarnosti"
-								element={<div>khdgfkjdhfgvsdjfghvdfjk</div>}
-							/>
+							<Route path="kak-pomoch" element={<KakPomoch />} />
+							<Route path="blagodarnosti" element={<Blagodarnosti />} />
 							<Route path="/" element={<MainPage news={getNews()} />} />
 						</Routes>
 					</Router>
