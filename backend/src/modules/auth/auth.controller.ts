@@ -17,7 +17,7 @@ import { AuthService } from './auth.service';
 
 const { DOMAIN, REFRESH_TOKEN_EXPIRES_DAYS_IN_MILLISECONDS } = config;
 
-@Controller('auth')
+@Controller('admin/auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 

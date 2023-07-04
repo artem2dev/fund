@@ -24,8 +24,8 @@ const {
 export class AuthService {
   constructor(
     @InjectRepository(User)
-    private jwtService: JwtService,
-    private userRepository: Repository<User>
+    private userRepository: Repository<User>,
+    private jwtService: JwtService
   ) {}
 
   async login(userDto: LoginUserDto) {
