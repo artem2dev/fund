@@ -7,7 +7,9 @@ const Novosty = ({ news }) => {
 		<Box mb={20} display={"flex"} flexDir={"column"}>
 			<Box ml={3} my={5} display={"flex"} alignItems={"center"}>
 				<Box borderRadius={5} w={"40px"} h={"45px"} bgColor={"#4C70B4"} />
-				<Heading ml={3}>Новости</Heading>
+				<Heading ml={3} color={"#4C70B4"}>
+					Новости
+				</Heading>
 			</Box>
 
 			<Box display={"flex"} flexWrap={"wrap"} justifyContent={"center"}>

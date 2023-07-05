@@ -1,68 +1,46 @@
 import { Box, ChakraProvider } from "@chakra-ui/react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { theme } from "../themes/chakraWhiteTheme";
+import Blagodarnosti from "./blagodarnosti";
 import Footer from "./footer";
 import Navbar from "./header";
+import KakPomoch from "./kak-pomoch";
 import MainPage from "./main";
 import Novosty from "./novosty";
 import NovostPage from "./novosty/novost-page";
 import OFonde from "./o-fonde";
-import KakPomoch from "./kak-pomoch";
-import Blagodarnosti from "./blagodarnosti";
 
 const mockedNews = [
 	{
-		id: 1,
-		header:
-			"Эльман Пашаев навестил наших Z-штурмовиков, находящихся в одном из госпиталей",
-		text: `Други, а кто еще из известных (и не очень) адвокатов приезжает с гумпомощью к бойцам в зону СВО?`,
-		imageIds: [
-			"https://wp-s.ru/wallpapers/10/9/463314880930454/krasivyj-zakat-lesnoe-ozero-gory.jpg",
-			"https://avatars.mds.yandex.net/i?id=41e1b311d1c7043203a77c5f924a1296803f66a4-8176762-images-thumbs&ref=rim&n=33&w=267&h=150",
-			"https://avatars.mds.yandex.net/i?id=16569a36be4e3576e21b02e9bd7c564e40345dc2-8744212-images-thumbs&ref=rim&n=33&w=240&h=150",
-		],
-	},
-	{
-		id: 2,
-		header: "Заголовок новости",
-		text: "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design. ",
-		imageIds: [
-			"https://funik.ru/wp-content/uploads/2018/10/a552154533505340b7d7.jpg",
-			"https://wp-s.ru/wallpapers/10/9/463314880930454/krasivyj-zakat-lesnoe-ozero-gory.jpg",
-			"https://w-dog.ru/wallpapers/5/6/345534497514980/makro-klubnika-yagody.jpg",
-			"https://get.pxhere.com/photo/forest-waterfall-wilderness-stream-body-of-water-rainforest-ravine-wasserfall-water-feature-watercourse-5554.jpg",
-			"https://kartinkin.net/uploads/posts/2022-03/1647988946_3-kartinkin-net-p-panoramnie-kartinki-3.jpg",
-		],
-	},
-	{
-		id: 3,
-		header: "Some header...",
-		text: "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
-		imageIds: [
-			"https://w-dog.ru/wallpapers/5/6/345534497514980/makro-klubnika-yagody.jpg",
-			"https://avatars.mds.yandex.net/i?id=41e1b311d1c7043203a77c5f924a1296803f66a4-8176762-images-thumbs&ref=rim&n=33&w=267&h=150",
-			"https://avatars.mds.yandex.net/i?id=16569a36be4e3576e21b02e9bd7c564e40345dc2-8744212-images-thumbs&ref=rim&n=33&w=240&h=150",
-		],
+		id: 5,
+		header: `"РАБОТАЕМ, БРАТ!"`,
+		text: `В четверг, 6 июля, в одном из московских ресторанов состоится благотворительный вечер в поддержку бойцов СВО "Работаем, брат!" Цель мероприятия - сбор средств на закупку необходимого для наших ребят, воюющих на передовой.
+
+Организатор - БФ "Пашаев Фонд" и его руководитель - известный российский юрист Эльман Пашаев.
+Эльман Пашаев регулярно помогает бойцам в зоне СВО, непосредственно посещая передовую. Он открыто заявляет о своей гражданской позиции с целью объединить для помощи фронту как можно больше неравнодушных людей.
+На мероприятие приглашены спонсоры, благотворители и предприниматели - те, кто уже помогает бойцам и те, кто намерен определиться с оказанием помощи. Желающие помочь фронту будут проинформированы о потребностях тех или иных подразделений ВС РФ в плане их адресной поддержки.  
+В благотворительном вечере примут участие артисты.
+На благотворительный вечер также приглашены военнослужащие. Само мероприятие пройдет в закрытом формате.`,
+		imageIds: [`${process.env.REACT_APP_SERVER}/media/novost5.jpeg`],
 	},
 	{
 		id: 4,
-		header: "Living room Sofa",
-		text: `This sofa is perfect for modern tropical spaces, baroque 
-inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.`,
-		imageIds: [
-			"https://funik.ru/wp-content/uploads/2018/10/a552154533505340b7d7.jpg",
-			"https://avatars.mds.yandex.net/i?id=41e1b311d1c7043203a77c5f924a1296803f66a4-8176762-images-thumbs&ref=rim&n=33&w=267&h=150",
-			"https://avatars.mds.yandex.net/i?id=16569a36be4e3576e21b02e9bd7c564e40345dc2-8744212-images-thumbs&ref=rim&n=33&w=240&h=150",
-		],
+		header: "Феликс Романович Комаров. О помощи фронту.",
+		text: `Я Россиянин. Россия - моя Родина. Здесь я родился и живу. Я объездил пол мира, но Россия - это мой дом! Здесь счастлива моя душа. Я очень переживаю за свою Родину, и очень стараюсь быть полезным ей.`,
+		imageIds: [`${process.env.REACT_APP_SERVER}/media/novost4.jpeg`],
 	},
 	{
-		id: 5,
-		header: "Living room Sofa",
-		text: "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
+		id: 2,
+		header: "Эльман Пашаев с нашими Z-штурмовиками",
+		text: `Друзья, а кто еще из известных (и не очень) адвокатов приезжает с гумпомощью к бойцам в зону СВО?`,
 		imageIds: [
-			"https://wp-s.ru/wallpapers/10/9/463314880930454/krasivyj-zakat-lesnoe-ozero-gory.jpg",
-			"https://avatars.mds.yandex.net/i?id=41e1b311d1c7043203a77c5f924a1296803f66a4-8176762-images-thumbs&ref=rim&n=33&w=267&h=150",
-			"https://avatars.mds.yandex.net/i?id=16569a36be4e3576e21b02e9bd7c564e40345dc2-8744212-images-thumbs&ref=rim&n=33&w=240&h=150",
+			`${process.env.REACT_APP_SERVER}/media/novost1_1.jpg`,
+			`${process.env.REACT_APP_SERVER}/media/novost1_2.jpg`,
+			`${process.env.REACT_APP_SERVER}/media/novost1_3.jpg`,
+			`${process.env.REACT_APP_SERVER}/media/novost1_4.jpg`,
+			`${process.env.REACT_APP_SERVER}/media/novost1_5.jpg`,
+			`${process.env.REACT_APP_SERVER}/media/novost1_6.jpg`,
+			`${process.env.REACT_APP_SERVER}/media/novost1_7.jpg`,
 		],
 	},
 ];

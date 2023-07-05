@@ -12,7 +12,6 @@ import {
 	useColorModeValue,
 	useDisclosure,
 } from "@chakra-ui/react";
-import logo from "../../assets/logo.png";
 
 const url = window.location.href;
 
@@ -62,7 +61,13 @@ export default function WithSubnavigation({ children }) {
 						justify={{ base: "space-between", md: "space-between" }}
 					>
 						<Link href="/">
-							<Image position={"relative"} height={"100px"} src={logo}></Image>
+							<Image
+								pointerEvents={"none"}
+								userSelect={"none"}
+								position={"relative"}
+								height={"100px"}
+								src={`${process.env.REACT_APP_SERVER}/media/logo.png`}
+							></Image>
 						</Link>
 						<Flex
 							display={{ base: "none", md: "flex" }}

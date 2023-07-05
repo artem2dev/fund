@@ -1,8 +1,7 @@
 import { Box, Heading, Image, Link, Text } from "@chakra-ui/react";
 import React from "react";
-import { SlSocialVkontakte, SlSocialInstagram } from "react-icons/sl";
 import { LiaTelegramPlane } from "react-icons/lia";
-import logo from "../../assets/logo-no-bg.png";
+import { SlSocialVkontakte /* SlSocialInstagram */ } from "react-icons/sl";
 
 const Footer = () => {
 	return (
@@ -55,7 +54,7 @@ const Footer = () => {
 									<SlSocialVkontakte size={35} color="#4C70B4" />
 								</Link>
 							</Box>
-							<Box
+							{/* <Box
 								w={"45px"}
 								h={"45px"}
 								bgColor={"white"}
@@ -69,7 +68,7 @@ const Footer = () => {
 								<Link href="https://instagram.com/pashaev.elman?igshid=NTc4MTIwNjQ2YQ==">
 									<SlSocialInstagram size={28} color="#4C70B4" />
 								</Link>
-							</Box>
+							</Box> */}
 							<Box
 								w={"45px"}
 								h={"45px"}
@@ -127,9 +126,12 @@ const Footer = () => {
 							Наши меценаты и благодарности фонду
 						</Link>
 					</Box>
-					<Box>
-						<Image w={"150px"} src={logo}></Image>
-					</Box>
+					<Image
+						pointerEvents={"none"}
+						userSelect={"none"}
+						w={"150px"}
+						src={`${process.env.REACT_APP_SERVER}/media/logo.png`}
+					></Image>
 				</Box>
 			) : (
 				<Box>
@@ -165,7 +167,7 @@ const Footer = () => {
 									<SlSocialVkontakte size={35} color="#4C70B4" />
 								</Link>
 							</Box>
-							<Box
+							{/* <Box
 								w={"45px"}
 								h={"45px"}
 								bgColor={"white"}
@@ -179,7 +181,7 @@ const Footer = () => {
 								<Link href="https://instagram.com/pashaev.elman?igshid=NTc4MTIwNjQ2YQ==">
 									<SlSocialInstagram size={28} color="#4C70B4" />
 								</Link>
-							</Box>
+							</Box> */}
 							<Box
 								w={"45px"}
 								h={"45px"}

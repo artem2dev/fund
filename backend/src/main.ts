@@ -1,15 +1,17 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 import { config } from './config/app.config';
-import * as cookieParser from 'cookie-parser';
+import { join } from 'path';
 
 const { PORT } = config;
 
 async function bootstrap() {
   const logger = new Logger('SERVER');
 
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.enableCors({
     origin: true,
@@ -20,6 +22,13 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
-  await app.listen(PORT, () => logger.log(`App successfully started on port ${PORT}`));
+  app.useStaticAssets(join(__dirname, '..', '..', 'media'), {
+    index: false,
+    prefix: '/media',
+  });
+
+  await app.listen(PORT, () =>
+    logger.log(`App successfully started on port ${PORT}`),
+  );
 }
 bootstrap();

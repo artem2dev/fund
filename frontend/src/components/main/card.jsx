@@ -1,6 +1,6 @@
 import { Box, Card, Heading, Image } from "@chakra-ui/react";
-import "./index.css";
 import { useNavigate } from "react-router-dom";
+import "./index.css";
 
 export default function BlogPostWithImage({ newElem }) {
 	const navigate = useNavigate();
@@ -25,15 +25,28 @@ export default function BlogPostWithImage({ newElem }) {
 				alignItems={"center"}
 				justifyContent={"center"}
 			>
-				<Image
-					className="news-image"
-					objectFit="cover"
-					maxW={"180px"}
-					maxH={"120px"}
-					borderLeftRadius={5}
-					src={newElem?.imageIds[0]}
-					alt="Caffe Latte"
-				/>
+				{newElem?.imageIds[0] ? (
+					<Image
+						className="news-image"
+						objectFit="cover"
+						maxW={"180px"}
+						maxH={"120px"}
+						borderLeftRadius={5}
+						src={newElem.imageIds[0]}
+						alt=""
+					/>
+				) : (
+					<Image
+						className="news-image"
+						objectFit="cover"
+						maxW={"180px"}
+						maxH={"120px"}
+						borderLeftRadius={5}
+						src={`${process.env.REACT_APP_SERVER}/media/logo-no-text.png`}
+						padding={"10px"}
+						alt=""
+					/>
+				)}
 			</Box>
 
 			<Box>
@@ -43,7 +56,7 @@ export default function BlogPostWithImage({ newElem }) {
 						maxH={24}
 						maxW={286}
 						overflow="hidden"
-						color={"#2c2960"}
+						color={"#4C70B4"}
 					>
 						{newElem?.header}
 					</Heading>
