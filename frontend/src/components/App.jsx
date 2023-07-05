@@ -66,6 +66,7 @@ function App() {
 				<Navbar />
 				<Box
 					className="shh"
+					backgroundImage={`${process.env.REACT_APP_SERVER}/media/prozrachnoe-logo.png`}
 					w="100%"
 					minH="87.486vh"
 					maxW={"1200px"}
