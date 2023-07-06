@@ -10,8 +10,8 @@ import { join } from 'path';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'media'),
-      renderPath: '/media/',
+      rootPath: join(__dirname, '..', 'media'),
+      renderPath: '/media',
     }),
     AuthModule, 
     TypeOrmModule.forRoot(OrmConfig)],
