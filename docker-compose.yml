@@ -31,6 +31,8 @@ services:
       - ~/app/media/.:/app/media/.
     networks:
       - bridge
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   client:
     build: ./frontend
     env_file: ./frontend/.env
