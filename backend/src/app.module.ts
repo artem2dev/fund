@@ -6,7 +6,13 @@ import { AppService } from './app.service';
 import { AppController } from './app.controller';
 
 @Module({
-  imports: [AuthModule, TypeOrmModule.forRoot(OrmConfig)],
+  imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'media'),
+      renderPath: '/media',
+    }),
+    AuthModule, 
+    TypeOrmModule.forRoot(OrmConfig)],
   providers: [AppService],
   controllers: [AppController]
 })
