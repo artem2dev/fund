@@ -4,6 +4,7 @@ import OrmConfig from './config/orm.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
