@@ -9,9 +9,9 @@ import { join } from 'path';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'media')
-    }),
+    //ServeStaticModule.forRoot({
+    //  rootPath: join(__dirname, '..', 'media')
+    //}),
     AuthModule, 
     TypeOrmModule.forRoot(OrmConfig)],
   providers: [AppService],
