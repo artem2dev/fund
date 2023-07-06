@@ -17,7 +17,7 @@ async function bootstrap() {
     origin: true,
     credentials: true,
   });
-
+  app.setGlobalPrefix('api');
   app.use(cookieParser());
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
