@@ -11,7 +11,7 @@ import { join } from 'path';
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '..', 'media'),
-      renderPath: '/media',
+      renderPath: '/media/',
     }),
     AuthModule, 
     TypeOrmModule.forRoot(OrmConfig)],
