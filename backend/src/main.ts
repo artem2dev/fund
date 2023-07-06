@@ -24,7 +24,7 @@ async function bootstrap() {
 
   app.useStaticAssets(join(__dirname, '..', '..', 'media'), {
     index: false,
-    prefix: '/media',
+    prefix: 'api/media',
   });
 
   await app.listen(PORT, () =>
