@@ -22,10 +22,9 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
-  // app.useStaticAssets(join(__dirname, '..', '..', 'media'), {
-  //   index: false,
-  //   prefix: 'api/media',
-  // });
+  app.useStaticAssets(join(__dirname, '..', 'media'), {
+     index: false
+  });
 
   await app.listen(PORT, () =>
     logger.log(`App successfully started on port ${PORT}`),
