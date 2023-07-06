@@ -5,6 +5,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
