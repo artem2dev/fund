@@ -11,7 +11,7 @@ export default function BlogPostWithImage({ newElem }) {
 			w={"100%"}
 			direction={"row"}
 			overflow="hidden"
-			variant="outline"
+			// variant="outline"
 			my={2}
 			onClick={() => {
 				navigate(`/novosty/${newElem?.id}`);

@@ -1,14 +1,14 @@
 import { Box, ChakraProvider } from "@chakra-ui/react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { theme } from "../themes/chakraWhiteTheme";
-import Blagodarnosti from "./blagodarnosti";
-import Footer from "./footer";
-import Navbar from "./header";
-import KakPomoch from "./kak-pomoch";
-import MainPage from "./main";
-import Novosty from "./novosty";
-import NovostPage from "./novosty/novost-page";
-import OFonde from "./o-fonde";
+import Blagodarnosti from "./fund/blagodarnosti";
+import Footer from "./fund/footer";
+import Navbar from "./fund/header";
+import KakPomoch from "./fund/kak-pomoch";
+import MainPage from "./fund/main";
+import Novosty from "./fund/novosty";
+import NovostPage from "./fund/novosty/novost-page";
+import OFonde from "./fund/o-fonde";
 
 const mockedNews = [
 	{
@@ -70,7 +70,7 @@ function App() {
 					w="100%"
 					minH="87.486vh"
 					maxW={"1200px"}
-					mt={"117px"}
+					mt={"127px"}
 					px={5}
 				>
 					<Router basename={"/"}>

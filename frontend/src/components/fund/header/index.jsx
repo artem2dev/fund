@@ -20,13 +20,15 @@ export default function WithSubnavigation({ children }) {
 
 	return (
 		<Box
-			w={"100vw"}
+			w={"98vw"}
 			position={"fixed"}
 			zIndex={10}
-			bgColor={"white"}
+			bgColor={"#6288d0"}
 			display={"flex"}
 			justifyContent={"center"}
-			boxShadow={"-4px 7px 20px -16px #000000"}
+			boxShadow={"2px 6px 20px -10px #000000"}
+			margin={"10px 10px 0 10px"}
+			borderRadius={"10px"}
 		>
 			<Box maxW={"1200px"}>
 				<Flex
@@ -35,7 +37,7 @@ export default function WithSubnavigation({ children }) {
 					py={{ base: 2 }}
 					px={{ base: 4 }}
 					align={"center"}
-					bgColor={"white"}
+					bgColor={"#6288d0"}
 				>
 					<Flex
 						flex={{ base: 0.7 }}
@@ -83,9 +85,10 @@ export default function WithSubnavigation({ children }) {
 				</Collapse>
 				<hr
 					style={{
-						width: "100vw",
+						width: "90vw",
 						position: "relative",
-						left: "calc(-50vw + 50%)",
+						left: "calc(-45vw + 50%)",
+						borderColor: "#6288d0",
 					}}
 				/>
 				<Box>{children}</Box>
@@ -95,7 +98,7 @@ export default function WithSubnavigation({ children }) {
 }
 
 const DesktopNav = () => {
-	const linkColor = useColorModeValue("#d7e6ff");
+	const linkColor = useColorModeValue("white");
 
 	return (
 		<Stack direction={"row"} spacing={4}>
@@ -106,12 +109,15 @@ const DesktopNav = () => {
 					py={1}
 					rounded={"md"}
 					_hover={{
-						textDecoration: "none",
-						bg: linkColor,
+						transition: "color .5s ease-in-out, box-shadow .5s ease-in-out",
+						boxShadow: `${navItem.hover}`,
+						color: "#6288d0",
 					}}
 					href={navItem.href}
 					fontWeight={500}
 					bgColor={url.includes(navItem.href) ? linkColor : ""}
+					color={url.includes(navItem.href) ? "#6288d0" : "white"}
+					__css={`box-shadow: inset 0 0 0 0 #fff;`}
 				>
 					{navItem.label}
 				</Link>
@@ -121,10 +127,10 @@ const DesktopNav = () => {
 };
 
 const MobileNav = () => {
-	const linkColor = useColorModeValue("gray.100");
+	const linkColor = useColorModeValue("white");
 
 	return (
-		<Stack p={4} display={{ md: "none" }} zIndex={10} bgColor={"white"}>
+		<Stack p={4} display={{ md: "none" }} zIndex={10} bgColor={"#6288d0"}>
 			{NAV_ITEMS.map((navItem) => (
 				<MobileNavItem
 					rounded={"md"}
@@ -155,15 +161,13 @@ const MobileNavItem = ({ label, children, href }) => {
 					textDecoration: "none",
 				}}
 			>
-				<Text
-					fontWeight={600}
-					color={useColorModeValue("gray.600", "gray.200")}
-				>
+				<Text fontWeight={600} color={useColorModeValue("white")}>
 					{label}
 				</Text>
 				{children && (
 					<Icon
 						as={ChevronDownIcon}
+						bgColor={"black"}
 						transition={"all .25s ease-in-out"}
 						transform={isOpen ? "rotate(180deg)" : ""}
 						w={6}
@@ -178,7 +182,7 @@ const MobileNavItem = ({ label, children, href }) => {
 					pl={4}
 					borderLeft={1}
 					borderStyle={"solid"}
-					borderColor={useColorModeValue("gray.200", "gray.700")}
+					borderColor={useColorModeValue("white")}
 					align={"start"}
 				>
 					{children &&
@@ -197,17 +201,21 @@ const NAV_ITEMS = [
 	{
 		label: "О фонде",
 		href: "/o-fonde",
+		hover: "inset 81px 0 0 0 #fff",
 	},
 	{
 		label: "Новости",
 		href: "/novosty",
+		hover: "inset 80px 0 0 0 #fff",
 	},
 	{
 		label: "Как помочь ",
 		href: "/kak-pomoch",
+		hover: "inset 106px 0 0 0 #fff",
 	},
 	{
 		label: "Наши меценаты и Благодарности Фонду ",
 		href: "/blagodarnosti",
+		hover: "inset 324px 0 0 0 #fff",
 	},
 ];

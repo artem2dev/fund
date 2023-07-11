@@ -8,7 +8,7 @@ const Footer = () => {
 		<Box
 			color={"white"}
 			w={"100%"}
-			bgColor={"#4C70B4"}
+			bgColor={"#6288d0"}
 			height={document.documentElement.clientWidth > 767 ? "380px" : "100%"}
 			display={"flex"}
 			justifyContent={"center"}
