@@ -1,0 +1,94 @@
+import { Box, Flex, Heading, ListItem, UnorderedList } from "@chakra-ui/react";
+import BlogPostWithImage from "./card";
+
+export default function MainPage({ news }) {
+	return (
+		<Box mb={20}>
+			<Box
+				display={"flex"}
+				flexDirection={
+					document.documentElement.clientWidth > 767 ? "row" : "column"
+				}
+				justifyContent={
+					document.documentElement.clientWidth > 767
+						? "space-between"
+						: "center"
+				}
+			>
+				<Box
+					fontSize={25}
+					fontWeight={600}
+					mt={"30px"}
+					mr={"30px"}
+					textAlign={
+						document.documentElement.clientWidth > 767 ? "justify" : "left"
+					}
+					maxW={"650px"}
+				>
+					<span
+						style={{
+							fontWeight: "900",
+							fontSize: "28px",
+							color: "#4C70B4",
+							marginRight: "10px",
+						}}
+					>
+						Целью нашего фонда
+					</span>
+					является поддержка детей из детских домов, талантливой молодежи, а в
+					данный момент бойцов на передовой и их семей.
+					<br />
+					<br />
+					Сейчас мы оказываем всестороннюю поддержку солдатам и их семьям:
+					{
+						<UnorderedList>
+							<ListItem>
+								доставляем в зону боевых действий продукты питания
+							</ListItem>
+							<ListItem>лекарственные средства</ListItem>
+							<ListItem>транспортные средства</ListItem>
+							<ListItem>
+								оказываем правовую и юридическую поддержку лицам - участникам
+								боевых действий
+							</ListItem>
+						</UnorderedList>
+					}
+				</Box>
+				<Box display={"flex"} justifyContent={"center"}>
+					<Box
+						maxW={500}
+						p={2}
+						bgColor={"#f6faff"}
+						borderRadius={7}
+						borderColor={"#ccc"}
+						borderWidth={"1px"}
+						mt={5}
+						display={"flex"}
+						flexDirection={"column"}
+						alignItems={"center"}
+					>
+						<Heading color={"#4C70B4"}>Новости</Heading>
+						{news?.map((newElem, i) => {
+							return <BlogPostWithImage key={i} newElem={newElem} />;
+						})}
+					</Box>
+				</Box>
+			</Box>
+			<Flex w={"100%"} justifyContent={"center"}>
+				<form
+					method="POST"
+					action="https://pashaev-fund.server.paykeeper.ru/create/"
+				>
+					Введите сумму оплаты:
+					<input type="text" name="sum" value="100" /> <br />
+					Введите номер заказа:
+					<input type="text" name="orderid" value="123456" /> <br />
+					Введите название услуги:
+					<input type="text" name="service_name" value="Тестовая оплата" />{" "}
+					<br />
+					<input type="submit" value="Перейти к оплате" />
+				</form>
+			</Flex>
+		</Box>
+	);
+}

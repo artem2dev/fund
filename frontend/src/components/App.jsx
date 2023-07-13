@@ -1,14 +1,14 @@
 import { Box, ChakraProvider } from "@chakra-ui/react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { theme } from "../themes/chakraWhiteTheme";
-import Blagodarnosti from "./fund/blagodarnosti";
-import Footer from "./fund/footer";
-import Navbar from "./fund/header";
-import KakPomoch from "./fund/kak-pomoch";
-import MainPage from "./fund/main";
-import Novosty from "./fund/novosty";
-import NovostPage from "./fund/novosty/novost-page";
-import OFonde from "./fund/o-fonde";
+import Thanks from "./Fund/Thanks";
+import Footer from "./Fund/Footer";
+import Header from "./Fund/Header";
+import Help from "./Fund/Help";
+import MainPage from "./Fund/Main-page";
+import News from "./Fund/News";
+import NewPage from "./Fund/News/novost-page";
+import About from "./Fund/About";
 
 const mockedNews = [
 	{
@@ -63,9 +63,9 @@ function App() {
 			}}
 		>
 			<ChakraProvider theme={theme}>
-				<Navbar />
+				<Header />
 				<Box
-					className="shh"
+					className="container"
 					backgroundImage={`${process.env.REACT_APP_SERVER}/media/prozrachnoe-logo.png`}
 					w="100%"
 					minH="87.486vh"
@@ -75,14 +75,14 @@ function App() {
 				>
 					<Router basename={"/"}>
 						<Routes>
-							<Route path="novosty" element={<Novosty news={getNews()} />} />
+							<Route path="novosty" element={<News news={getNews()} />} />
 							<Route
 								path="novosty/*"
-								element={<NovostPage getNewById={getNewById} />}
+								element={<NewPage getNewById={getNewById} />}
 							/>
-							<Route path="o-fonde" element={<OFonde />} />
-							<Route path="kak-pomoch" element={<KakPomoch />} />
-							<Route path="blagodarnosti" element={<Blagodarnosti />} />
+							<Route path="o-fonde" element={<About />} />
+							<Route path="kak-pomoch" element={<Help />} />
+							<Route path="blagodarnosti" element={<Thanks />} />
 							<Route path="/" element={<MainPage news={getNews()} />} />
 						</Routes>
 					</Router>

@@ -12,7 +12,7 @@ code {
 		monospace;
 }
 
-.shh {
+.container {
 	background-position: 25% 50%;
 	background-attachment: fixed;
 	background-size: 67vh;
@@ -20,7 +20,7 @@ code {
 }
 
 @media only screen and (max-width: 767px) {
-	.shh {
+	.container {
 		background-size: contain;
 		background-position: center;
 	}
