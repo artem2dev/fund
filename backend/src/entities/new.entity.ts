@@ -15,6 +15,6 @@ export class New extends ExtendedBaseEntity {
   @Column()
   mainPicture: string;
 
-  @Column('simple-array', { nullable: true, array: true })
+  @Column('simple-array', { nullable: true })
   medias: string[];
 }

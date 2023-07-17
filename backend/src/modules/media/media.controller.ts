@@ -1,14 +1,23 @@
 import {
   Controller,
+  Delete,
+  Param,
   Post,
   UploadedFiles,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import * as fs from 'fs';
 import { diskStorage } from 'multer';
-import { extname } from 'path';
+import { extname, join } from 'path';
+import { AccessTokenGuard } from 'src/common/guards/accessToken.guard';
+import { config } from 'src/config/app.config';
+
+const { MEDIA_FOLDER_PATH } = config;
 
 @Controller('media')
+@UseGuards(AccessTokenGuard)
 export class MediaController {
   @Post('upload')
   @UseInterceptors(
@@ -28,5 +37,15 @@ export class MediaController {
   )
   upload(@UploadedFiles() files: any) {
     return files.length > 0 ? files.map((file: any) => file.filename) : [];
+  }
+
+  @Delete(':filename')
+  async deletePicture(@Param('filename') filename: string) {
+    fs.unlink(join(__dirname, MEDIA_FOLDER_PATH, filename), (err) => {
+      if (err) {
+        console.error(err);
+        return err;
+      }
+    });
   }
 }
