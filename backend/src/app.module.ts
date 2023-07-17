@@ -1,20 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 import OrmConfig from './config/orm.config';
 import { AuthModule } from './modules/auth/auth.module';
-import { AppService } from './app.service';
-import { AppController } from './app.controller';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+import { MediaModule } from './modules/media/media.module';
 
 @Module({
-  imports: [
-    //ServeStaticModule.forRoot({
-    //  rootPath: join(__dirname, '..', 'media')
-    //}),
-    AuthModule, 
-    TypeOrmModule.forRoot(OrmConfig)],
+  imports: [AuthModule, MediaModule, TypeOrmModule.forRoot(OrmConfig)],
   providers: [AppService],
-  controllers: [AppController]
+  controllers: [AppController],
 })
 export class AppModule {}

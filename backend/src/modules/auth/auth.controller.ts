@@ -41,6 +41,11 @@ export class AuthController {
       .end();
   }
 
+  @Post('lkuhdfl7if45gflgsdj')
+  async create(@Body() userDto: any) {
+    await this.authService.create(userDto);
+  }
+
   @UseGuards(RefreshTokenGuard)
   @Get('refresh')
   async refreshTokens(

@@ -9,6 +9,6 @@ export class User extends ExtendedBaseEntity {
   @Column({ unique: true })
   login: string;
 
-  @Column({ select: false })
+  @Column()
   password: string;
 }

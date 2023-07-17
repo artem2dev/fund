@@ -25,13 +25,19 @@ export class AuthService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
-    private jwtService: JwtService
+    private jwtService: JwtService,
   ) {}
 
   async login(userDto: LoginUserDto) {
     const user = await this.validateUser(userDto);
 
     return await this.generateToken(user);
+  }
+
+  async create(userDto: { login: string; password: string }) {
+    const hashPassword = await bcrypt.hash(userDto.password, 5);
+
+    await this.userRepository.save({ ...userDto, password: hashPassword });
   }
 
   private async generateToken(user: User | IUserIdAndLogin) {

@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, ListItem, UnorderedList } from "@chakra-ui/react";
+import { Box, /* Flex */ Heading, ListItem, UnorderedList } from "@chakra-ui/react";
 import BlogPostWithImage from "./card";
 
 export default function MainPage({ news }) {
@@ -74,7 +74,7 @@ export default function MainPage({ news }) {
 					</Box>
 				</Box>
 			</Box>
-			<Flex w={"100%"} justifyContent={"center"}>
+			{/* <Flex w={"100%"} justifyContent={"center"}>
 				<form
 					method="POST"
 					action="https://pashaev-fund.server.paykeeper.ru/create/"
@@ -88,7 +88,7 @@ export default function MainPage({ news }) {
 					<br />
 					<input type="submit" value="Перейти к оплате" />
 				</form>
-			</Flex>
+			</Flex> */}
 		</Box>
 	);
 }

@@ -1,14 +1,16 @@
-import { Box, ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { theme } from "../themes/chakraWhiteTheme";
-import Thanks from "./Fund/Thanks";
-import Footer from "./Fund/Footer";
-import Header from "./Fund/Header";
+import Login from "./Admin/Login";
+import Container from "./Container";
+import About from "./Fund/About";
 import Help from "./Fund/Help";
 import MainPage from "./Fund/Main-page";
 import News from "./Fund/News";
 import NewPage from "./Fund/News/novost-page";
-import About from "./Fund/About";
+import Thanks from "./Fund/Thanks";
+import PrivateWrapper from "./PrivateRoute";
+import Panel from "./Admin/Panel";
 
 const mockedNews = [
 	{
@@ -63,18 +65,9 @@ function App() {
 			}}
 		>
 			<ChakraProvider theme={theme}>
-				<Header />
-				<Box
-					className="container"
-					backgroundImage={`${process.env.REACT_APP_SERVER}/media/prozrachnoe-logo.png`}
-					w="100%"
-					minH="87.486vh"
-					maxW={"1200px"}
-					mt={"127px"}
-					px={5}
-				>
-					<Router basename={"/"}>
-						<Routes>
+				<Router basename={"/"}>
+					<Routes>
+						<Route element={<Container />}>
 							<Route path="novosty" element={<News news={getNews()} />} />
 							<Route
 								path="novosty/*"
@@ -84,10 +77,13 @@ function App() {
 							<Route path="kak-pomoch" element={<Help />} />
 							<Route path="blagodarnosti" element={<Thanks />} />
 							<Route path="/" element={<MainPage news={getNews()} />} />
-						</Routes>
-					</Router>
-				</Box>
-				<Footer />
+						</Route>
+						<Route element={<PrivateWrapper />}>
+							<Route path="admin-panel" element={<Panel />} />
+						</Route>
+						<Route path="admin-panel/login" element={<Login />} />
+					</Routes>
+				</Router>
 			</ChakraProvider>
 		</div>
 	);

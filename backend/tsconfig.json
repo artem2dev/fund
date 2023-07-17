@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "assets": ["media/**"],
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,

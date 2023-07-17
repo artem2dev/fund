@@ -2,9 +2,9 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as cookieParser from 'cookie-parser';
+import { join } from 'path';
 import { AppModule } from './app.module';
 import { config } from './config/app.config';
-import { join } from 'path';
 
 const { PORT } = config;
 
@@ -23,7 +23,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
   app.useStaticAssets(join(__dirname, '..', 'media'), {
-     prefix: '/api/media/'
+    prefix: '/api/media/',
   });
 
   await app.listen(PORT, () =>
