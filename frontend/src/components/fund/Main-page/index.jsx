@@ -1,94 +1,306 @@
-import { Box, /* Flex */ Heading, ListItem, UnorderedList } from "@chakra-ui/react";
-import BlogPostWithImage from "./card";
+import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import mainBg from "../../../assets/mainBg.jpg";
+import mainPashaev from "../../../assets/mainPashaev.jpg";
+import mainQuotes from "../../../assets/mainQuotes.png";
+import NewCard from "../News/new-card";
+import ProjectCard from "../Projects/project-card";
+import Payment from "../Payment/payment";
 
 export default function MainPage({ news }) {
 	return (
-		<Box mb={20}>
-			<Box
-				display={"flex"}
-				flexDirection={
-					document.documentElement.clientWidth > 767 ? "row" : "column"
-				}
-				justifyContent={
-					document.documentElement.clientWidth > 767
-						? "space-between"
-						: "center"
-				}
+		<Box>
+			<Flex
+				align={"center"}
+				w={"100%"}
+				h={"911px"}
+				bgPos={"center"}
+				bgRepeat={"no-repeat"}
+				bgImage={mainBg}
 			>
-				<Box
-					fontSize={25}
-					fontWeight={600}
-					mt={"30px"}
-					mr={"30px"}
-					textAlign={
-						document.documentElement.clientWidth > 767 ? "justify" : "left"
-					}
-					maxW={"650px"}
-				>
-					<span
-						style={{
-							fontWeight: "900",
-							fontSize: "28px",
-							color: "#4C70B4",
-							marginRight: "10px",
+				<Flex direction="column" marginLeft={"101px"}>
+					<Heading
+						fontFamily={"Oswald"}
+						color={"#1f243a"}
+						fontSize={"65px"}
+						fontWeight={"600"}
+						textTransform={"uppercase"}
+					>
+						<span
+							style={{
+								color: "#bf3132",
+								fontFamily: "Oswald",
+							}}
+						>
+							Благотворительный
+						</span>
+						<br />
+						фонд «Пашаев Фонд»
+					</Heading>
+					<Button
+						borderRadius={"3px"}
+						mt={"53px"}
+						w={"245px"}
+						h={"60px"}
+						bg={
+							"linear-gradient(to right, #771e2e 0%, #bf3132 99%, #bf3132 100%)"
+						}
+						transition={"all 0.5s"}
+						_hover={{
+							bg: "linear-gradient(to right, #771e2e 0%, #771e2e 99%, #771e2e 100%)",
 						}}
+						_active={{
+							bg: "linear-gradient(to right, #6d1424 0%, #6d1424 99%, #6d1424 100%)",
+						}}
+						color={"white"}
 					>
-						Целью нашего фонда
-					</span>
-					является поддержка детей из детских домов, талантливой молодежи, а в
-					данный момент бойцов на передовой и их семей.
-					<br />
-					<br />
-					Сейчас мы оказываем всестороннюю поддержку солдатам и их семьям:
-					{
-						<UnorderedList>
-							<ListItem>
-								доставляем в зону боевых действий продукты питания
-							</ListItem>
-							<ListItem>лекарственные средства</ListItem>
-							<ListItem>транспортные средства</ListItem>
-							<ListItem>
-								оказываем правовую и юридическую поддержку лицам - участникам
-								боевых действий
-							</ListItem>
-						</UnorderedList>
-					}
-				</Box>
-				<Box display={"flex"} justifyContent={"center"}>
-					<Box
-						maxW={500}
-						p={2}
-						bgColor={"#f6faff"}
-						borderRadius={7}
-						borderColor={"#ccc"}
-						borderWidth={"1px"}
-						mt={5}
-						display={"flex"}
-						flexDirection={"column"}
-						alignItems={"center"}
-					>
-						<Heading color={"#4C70B4"}>Новости</Heading>
-						{news?.map((newElem, i) => {
-							return <BlogPostWithImage key={i} newElem={newElem} />;
-						})}
-					</Box>
-				</Box>
-			</Box>
-			{/* <Flex w={"100%"} justifyContent={"center"}>
-				<form
-					method="POST"
-					action="https://pashaev-fund.server.paykeeper.ru/create/"
-				>
-					Введите сумму оплаты:
-					<input type="text" name="sum" value="100" /> <br />
-					Введите номер заказа:
-					<input type="text" name="orderid" value="123456" /> <br />
-					Введите название услуги:
-					<input type="text" name="service_name" value="Тестовая оплата" />{" "}
-					<br />
-					<input type="submit" value="Перейти к оплате" />
-				</form>
-			</Flex> */}
+						Хочу помогать
+					</Button>
+				</Flex>
+			</Flex>
+			<Flex justify={"center"} width={"100%"} pt={"66px"} pb={"75px"}>
+				<Flex w={"1133px"}>
+					<Flex direction={"column"}>
+						<Flex>
+							<Box
+								marginLeft={"8px"}
+								display={"flex"}
+								justifyContent={"center"}
+								alignItems={"center"}
+								css={`
+									width: 100px;
+									height: 45px;
+									transform: skew(160deg);
+									background: #bf3132;
+									border-radius: 5px;
+								`}
+							>
+								<Text
+									fontWeight={500}
+									color={"white"}
+									fontSize={"30px"}
+									fontFamily={"Oswald"}
+									textTransform={"uppercase"}
+									css={"transform: skew(20deg);"}
+								>
+									Цель
+								</Text>
+							</Box>
+							<Text
+								fontWeight={500}
+								fontSize={"30px"}
+								fontFamily={"Oswald"}
+								textTransform={"uppercase"}
+								ml={"5px"}
+								color={"#1f243a"}
+							>
+								нашего фонда
+							</Text>
+						</Flex>
+						<Text w={"560px"} mt={"30px"} color={"#1f243a"}>
+							Подержка детских домов, талантливой молодежи, а в данный момент
+							бойцов на передовой и их семей.
+							<br />
+							<br />
+							Сейчас мы оказываем всестороннюю поддержку солдатам и их семьям:
+						</Text>
+						<ul
+							style={{
+								listStyle: "square",
+								width: "445px",
+								marginLeft: "18px",
+								marginTop: "33px",
+							}}
+						>
+							<li style={{ color: "#33438e" }}>
+								<span style={{ color: "#1f243a" }}>
+									доставляем в зону боевых действий продукты питания
+								</span>
+							</li>
+							<li style={{ color: "#33438e" }}>
+								<span style={{ color: "#1f243a" }}>лекарственные средства</span>
+							</li>
+							<li style={{ color: "#33438e" }}>
+								<span style={{ color: "#1f243a" }}>транспортные средства</span>
+							</li>
+							<li style={{ color: "#33438e" }}>
+								<span style={{ color: "#1f243a" }}>
+									оказываем правовую и юридическую поддержку лицам - участникам
+									боевых действий
+								</span>
+							</li>
+						</ul>
+						<Box
+							w={"746px"}
+							h={"274px"}
+							bgColor={"#f8f8f8"}
+							mt={"44px"}
+							borderRadius={"3px"}
+							bgRepeat={"no-repeat"}
+							bgPos={"35px 31px"}
+							bgImage={mainQuotes}
+						>
+							<Text w={"553px"} ml={"67px"} mt={"50px"} fontSize={"18px"}>
+								Благотворительность для меня это важно и просто в наше сложное
+								время. Ранее я принял участие своими силами и средствами
+								помогать детям, талантливым молодым, а теперь и защитникам нашей
+								Родины. Не имею морального права оставаться безучастным. Это
+								наши дети, это наш народ. Наша сила в единстве!
+							</Text>
+						</Box>
+					</Flex>
+					<Image src={mainPashaev} ml={"29px"} />
+				</Flex>
+			</Flex>
+			<Flex
+				justify={"center"}
+				width={"100%"}
+				pt={"66px"}
+				pb={"75px"}
+				bgColor={"#1f243a"}
+			>
+				<Flex w={"1133px"} flexDir={"column"}>
+					<Flex mb={"35px"}>
+						<Box
+							marginLeft={"8px"}
+							display={"flex"}
+							justifyContent={"center"}
+							alignItems={"center"}
+							css={`
+								width: 145px;
+								height: 45px;
+								transform: skew(160deg);
+								background: #bf3132;
+								border-radius: 5px;
+							`}
+						>
+							<Text
+								fontWeight={500}
+								color={"white"}
+								fontSize={"30px"}
+								fontFamily={"Oswald"}
+								textTransform={"uppercase"}
+								css={"transform: skew(20deg);"}
+							>
+								Проекты
+							</Text>
+						</Box>
+						<Text
+							fontWeight={500}
+							fontSize={"30px"}
+							fontFamily={"Oswald"}
+							textTransform={"uppercase"}
+							ml={"5px"}
+							color={"#fff"}
+						>
+							фонда
+						</Text>
+					</Flex>
+					<Flex justify={"space-between"} flexWrap={"wrap"}>
+						<ProjectCard
+							title={"День знаний"}
+							description={"Акция помощи детям-сиротам"}
+							image={"project1.jpg"}
+							targetAmount={1600000}
+							amount={1047000}
+						/>
+						<ProjectCard
+							title={"Работаем, брат 2"}
+							description={
+								"Благотворительный концерт для Zащитников в зоне СВО"
+							}
+							image={"project2.jpg"}
+							targetAmount={1000000}
+							amount={176660}
+						/>
+						<ProjectCard
+							title={"Работаем, брат"}
+							description={"Благотворительный вечер"}
+							image={"project3.jpg"}
+							targetAmount={732440}
+							amount={732440}
+						/>
+					</Flex>
+				</Flex>
+			</Flex>
+			<Flex
+				justify={"center"}
+				width={"100%"}
+				pt={"66px"}
+				pb={"75px"}
+				bgColor={"#fff"}
+			>
+				<Flex w={"1133px"} flexDir={"column"}>
+					<Flex flexDirection={"column"}>
+						<Heading
+							fontFamily={"Oswald"}
+							color={"#1f243a"}
+							fontSize={"30px"}
+							fontWeight={700}
+							textTransform={"uppercase"}
+							mb={"39px"}
+						>
+							Новости
+						</Heading>
+						<Flex justify={"space-between"} flexWrap={"wrap"}>
+							<NewCard
+								title={"РАБОТАЕМ, БРАТ!"}
+								description={
+									"В четверг, 6 июля, в одном из московских ресторанов состоится благотворительный вечер в поддержку бойцов СВО мероприятия - сбор средств на закупку необходимого для наших ребят, воюющих на передовой."
+								}
+								image={"novost1_4.jpg"}
+								createdAt={"12.07.2023"}
+							/>
+							<NewCard
+								title={"Феликс Романович Комаров. О помощи фронту"}
+								description={
+									"Я Россиянин. Россия - моя Родина. Здесь я родился и живу. Я объездил пол мира, но Россия - это мой дом"
+								}
+								image={"novost4.jpg"}
+								createdAt={"12.07.2023"}
+							/>
+							<NewCard
+								title={"Эльман Пашаев с нашими Z-штурмовиками"}
+								description={
+									"Друзья, а кто еще из известных (и не очень) адвокатов приезжает с гумпомощью к бойцам в зону СВО	"
+								}
+								image={"novost5.jpg"}
+								createdAt={"12.07.2023"}
+							/>
+						</Flex>
+						<Flex justify={"center"} mt={"45px"}>
+							<Button
+								backgroundColor="#33438e"
+								borderRadius={"3px"}
+								color={"white"}
+								fontWeight={400}
+								_hover={{
+									bgColor: "#263475",
+								}}
+								_active={{
+									bgColor: "#1d2a67",
+								}}
+								width={"170px"}
+								height={"45px"}
+								marginRight={"23px"}
+							>
+								Еще новости
+							</Button>
+						</Flex>
+					</Flex>
+				</Flex>
+			</Flex>
+			<Flex
+				justify={"center"}
+				width={"100%"}
+				pt={"66px"}
+				pb={"75px"}
+				bgColor={"#f2f5f8"}
+			>
+				<Flex w={"1133px"} flexDir={"column"}>
+					<Heading></Heading>
+					<Payment />
+				</Flex>
+			</Flex>
 		</Box>
 	);
 }

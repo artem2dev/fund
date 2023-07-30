@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Post,
   UseGuards,
@@ -14,6 +15,16 @@ import { NewService } from './new.service';
 @UseGuards(AccessTokenGuard)
 export class NewController {
   constructor(private newService: NewService) {}
+
+  @Get()
+  async getNews() {
+    return await this.newService.getNews();
+  }
+
+  @Get(':newId')
+  async getNew(@Param('newId') newId: string) {
+    return await this.newService.getNew(newId);
+  }
 
   @Post()
   async createNew(@Body() createNewDto: CreateNewDto) {

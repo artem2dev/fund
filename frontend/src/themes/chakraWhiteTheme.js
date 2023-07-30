@@ -1,6 +1,27 @@
 import { extendTheme } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
 
+import { checkboxAnatomy } from "@chakra-ui/anatomy";
+import { createMultiStyleConfigHelpers } from "@chakra-ui/react";
+
+const { definePartsStyle, defineMultiStyleConfig } =
+	createMultiStyleConfigHelpers(checkboxAnatomy.keys);
+
+const baseStyle = definePartsStyle({
+	label: {
+		fontSize: "16px",
+		marginLeft: "11px",
+	},
+	control: {
+		width: "20px",
+		height: "20px",
+		border: "1px solid #cdcdcd",
+		color: "#bf3132",
+	},
+});
+
+const checkboxTheme = defineMultiStyleConfig({ baseStyle });
+
 export const theme = extendTheme({
 	config: {
 		initialColorMode: "light",
@@ -52,5 +73,6 @@ export const theme = extendTheme({
 				variant: "default",
 			},
 		},
+		Checkbox: checkboxTheme,
 	},
 });

@@ -1,23 +1,23 @@
 import {
   Controller,
   Delete,
+  Get,
   Param,
   Post,
+  StreamableFile,
   UploadedFiles,
-  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import * as fs from 'fs';
 import { diskStorage } from 'multer';
 import { extname, join } from 'path';
-import { AccessTokenGuard } from 'src/common/guards/accessToken.guard';
 import { config } from 'src/config/app.config';
 
 const { MEDIA_FOLDER_PATH } = config;
 
 @Controller('media')
-@UseGuards(AccessTokenGuard)
+// @UseGuards(AccessTokenGuard)
 export class MediaController {
   @Post('upload')
   @UseInterceptors(
@@ -37,6 +37,15 @@ export class MediaController {
   )
   upload(@UploadedFiles() files: any) {
     return files.length > 0 ? files.map((file: any) => file.filename) : [];
+  }
+
+  @Get(':filename')
+  async getPicture(@Param('filename') filename: string) {
+    const file = fs.createReadStream(
+      join(__dirname, MEDIA_FOLDER_PATH, filename),
+    );
+
+    return new StreamableFile(file);
   }
 
   @Delete(':filename')

@@ -11,6 +11,18 @@ export class NewService {
     private newRepository: Repository<New>,
   ) {}
 
+  async getNews() {
+    return await this.newRepository.find({
+      order: {
+        createdAt: 'DESC',
+      },
+    });
+  }
+
+  async getNew(newId: string) {
+    return await this.newRepository.findOne({ where: { id: newId } });
+  }
+
   async createNew(createNewDto: CreateNewDto) {
     return await this.newRepository.save(
       this.newRepository.create(createNewDto),

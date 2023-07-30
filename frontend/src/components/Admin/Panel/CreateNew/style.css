@@ -16,7 +16,7 @@
 	border-radius: 7px;
 	background-color: #007771;
 	line-height: 22px;
-	height: 40px;
+	height: min-content;
 	padding: 10px 20px;
 	box-sizing: border-box;
 	border: none;
@@ -69,7 +69,7 @@
 	border-radius: 7px;
 	background-color: #5900ff;
 	line-height: 22px;
-	height: 40px;
+	height: min-content;
 	padding: 10px 20px;
 	box-sizing: border-box;
 	border: none;

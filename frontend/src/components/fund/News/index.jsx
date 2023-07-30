@@ -13,9 +13,9 @@ const Novosty = ({ news }) => {
 			</Box>
 
 			<Box display={"flex"} flexWrap={"wrap"} justifyContent={"center"}>
-				{news.map(({ id, header, text, imageIds }) => (
+				{news.map(({ id, title, content, mainPicture }) => (
 					<Box key={id}>
-						<BigCard id={id} header={header} text={text} image={imageIds[0]} />
+						<BigCard id={id} header={title} text={content} image={mainPicture} />
 					</Box>
 				))}
 			</Box>

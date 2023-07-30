@@ -1,5 +1,6 @@
 import { Box, Card, Heading, Image } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { getMediaUrl } from "../../../helpers/getMediaUrl";
 import "./index.css";
 
 export default function BlogPostWithImage({ newElem }) {
@@ -11,7 +12,6 @@ export default function BlogPostWithImage({ newElem }) {
 			w={"100%"}
 			direction={"row"}
 			overflow="hidden"
-			// variant="outline"
 			my={2}
 			onClick={() => {
 				navigate(`/novosty/${newElem?.id}`);
@@ -25,30 +25,16 @@ export default function BlogPostWithImage({ newElem }) {
 				alignItems={"center"}
 				justifyContent={"center"}
 			>
-				{newElem?.imageIds[0] ? (
-					<Image
-						className="news-image"
-						objectFit="cover"
-						maxW={"180px"}
-						maxH={"120px"}
-						borderLeftRadius={5}
-						src={newElem.imageIds[0]}
-						alt=""
-					/>
-				) : (
-					<Image
-						className="news-image"
-						objectFit="cover"
-						maxW={"180px"}
-						maxH={"120px"}
-						borderLeftRadius={5}
-						src={`${process.env.REACT_APP_SERVER}/media/logo-no-text.png`}
-						padding={"10px"}
-						alt=""
-					/>
-				)}
+				<Image
+					className="news-image"
+					objectFit="cover"
+					maxW={"180px"}
+					maxH={"120px"}
+					borderLeftRadius={5}
+					src={getMediaUrl(newElem.mainPicture)}
+					alt=""
+				/>
 			</Box>
-
 			<Box>
 				<Box p="2" display={"flex"} h={"100%"} alignItems={"center"}>
 					<Heading
@@ -58,7 +44,7 @@ export default function BlogPostWithImage({ newElem }) {
 						overflow="hidden"
 						color={"#4C70B4"}
 					>
-						{newElem?.header}
+						{newElem?.title}
 					</Heading>
 				</Box>
 			</Box>

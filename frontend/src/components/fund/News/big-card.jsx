@@ -9,9 +9,10 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { getMediaUrl } from "../../../helpers/getMediaUrl";
 import "./index.css";
 
-const BigCard = ({ id, header, text, image = `${process.env.REACT_APP_SERVER}/media/logo-no-text.png` }) => {
+const BigCard = ({ id, header, text, image }) => {
 	const navigate = useNavigate();
 
 	return (
@@ -41,7 +42,7 @@ const BigCard = ({ id, header, text, image = `${process.env.REACT_APP_SERVER}/me
 						maxH={"220px"}
 						h={"100%"}
 						objectFit={"cover"}
-						src={image}
+						src={getMediaUrl(image)}
 						borderRadius="lg"
 					/>
 				</Box>

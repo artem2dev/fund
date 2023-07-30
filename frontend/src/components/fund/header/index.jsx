@@ -1,6 +1,7 @@
 import { ChevronDownIcon, CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
 	Box,
+	Button,
 	Collapse,
 	Flex,
 	Icon,
@@ -13,111 +14,168 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 
+import { useState } from "react";
+import tg from "../../../assets/telegram.svg";
+import vk from "../../../assets/vk.svg";
+
 const url = window.location.href;
 
 export default function WithSubnavigation({ children }) {
 	const { isOpen, onToggle } = useDisclosure();
+	const [headerBg, setHeaderBg] = useState("");
+
+	window.onscroll = function () {
+		if (window.scrollY > 30) {
+			setHeaderBg("white");
+		} else {
+			setHeaderBg("");
+		}
+	};
 
 	return (
 		<Box
-			w={"98vw"}
 			position={"fixed"}
+			left={"0px"}
+			w={"100%"}
 			zIndex={10}
-			bgColor={"#6288d0"}
-			display={"flex"}
-			justifyContent={"center"}
-			boxShadow={"2px 6px 20px -10px #000000"}
-			margin={"10px 10px 0 10px"}
-			borderRadius={"10px"}
+			bgColor={headerBg}
+			transitionDuration={"1s"}
 		>
-			<Box maxW={"1200px"}>
+			<Flex h={"100px"} width={"100%"} align={"center"}>
 				<Flex
-					minH={"60px"}
-					width={"100%"}
-					py={{ base: 2 }}
-					px={{ base: 4 }}
-					align={"center"}
-					bgColor={"#6288d0"}
+					flex={{ base: 0.7 }}
+					ml={{ base: -2 }}
+					display={{ base: "flex", md: "none" }}
 				>
-					<Flex
-						flex={{ base: 0.7 }}
-						ml={{ base: -2 }}
-						display={{ base: "flex", md: "none" }}
-					>
-						<IconButton
-							onClick={onToggle}
-							icon={
-								isOpen ? (
-									<CloseIcon w={3} h={3} />
-								) : (
-									<HamburgerIcon w={5} h={5} />
-								)
-							}
-							variant={"ghost"}
-							aria-label={"Toggle Navigation"}
-						/>
-					</Flex>
-					<Flex
-						flex={{ base: 1 }}
-						w={"100%"}
-						justify={{ base: "space-between", md: "space-between" }}
-					>
-						<Link href="/">
-							<Image
-								pointerEvents={"none"}
-								userSelect={"none"}
-								position={"relative"}
-								height={"100px"}
-								src={`${process.env.REACT_APP_SERVER}/media/logo.png`}
-							></Image>
-						</Link>
+					<IconButton
+						onClick={onToggle}
+						icon={
+							isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
+						}
+						variant={"ghost"}
+					/>
+				</Flex>
+				<Flex flex={1} w={"100%"} h={"100%"} justify={"space-between"}>
+					<Flex w={"867px"}>
+						<Flex
+							w={"100px"}
+							h={"100px"}
+							justifyContent={"center"}
+							alignItems={"center"}
+							borderRight={"1px"}
+							borderColor={"#f2f2f2"}
+							bgColor={"white"}
+						>
+							<Link href="/">
+								<Image
+									pointerEvents={"none"}
+									userSelect={"none"}
+									position={"relative"}
+									height={"76px"}
+									src={`${process.env.REACT_APP_SERVER}/media/logo.png`}
+								/>
+							</Link>
+						</Flex>
 						<Flex
 							display={{ base: "none", md: "flex" }}
 							alignItems={"center"}
-							ml={10}
+							flex={"1"}
+							// minW={"-webkit-fill-available"}
+							maxW={"767px"}
+							bgColor={"white"}
 						>
 							<DesktopNav />
 						</Flex>
 					</Flex>
+
+					<Flex align={"center"}>
+						<Image
+							width={"22px"}
+							cursor={"pointer"}
+							src={vk}
+							marginRight={"20px"}
+							marginLeft={"20px"}
+						/>
+						<Image
+							width={"20px"}
+							cursor={"pointer"}
+							src={tg}
+							marginRight={"22px"}
+						/>
+						<Text>
+							<a
+								color={"#1f243a"}
+								style={{
+									fontWeight: "700",
+									fontSize: "16px",
+									marginRight: "16px",
+								}}
+								href="tel: +7 (915) 233-33-38"
+							>
+								+7 (915) 233-33-38
+							</a>
+						</Text>
+						<Button
+							backgroundColor="#bf3132"
+							borderRadius={"3px"}
+							color={"white"}
+							fontWeight={400}
+							_hover={{
+								bgColor: "#771e2e",
+							}}
+							_active={{
+								bgColor: "#6d1424"
+							}}
+							width={"170px"}
+							height={"45px"}
+							marginRight={"16px"}
+						>
+							Хочу помочь
+						</Button>
+						<Button
+							backgroundColor="#33438e"
+							borderRadius={"3px"}
+							color={"white"}
+							fontWeight={400}
+							_hover={{
+								bgColor: "#263475",
+							}}
+							_active={{
+								bgColor: "#1d2a67"
+							}}
+							width={"170px"}
+							height={"45px"}
+							marginRight={"23px"}
+						>
+							Нужна помощь
+						</Button>
+					</Flex>
 				</Flex>
-				<Collapse in={isOpen} animateOpacity>
-					<MobileNav />
-				</Collapse>
-				<hr
-					style={{
-						width: "90vw",
-						position: "relative",
-						left: "calc(-45vw + 50%)",
-						borderColor: "#6288d0",
-					}}
-				/>
-				<Box>{children}</Box>
-			</Box>
+			</Flex>
+			<Collapse in={isOpen} animateOpacity>
+				<MobileNav />
+			</Collapse>
+			<Box>{children}</Box>
 		</Box>
 	);
 }
 
 const DesktopNav = () => {
-	const linkColor = useColorModeValue("white");
-
 	return (
-		<Stack direction={"row"} spacing={4}>
+		<Stack direction={"row"} w={"100%"} justifyContent={"space-between"}>
 			{NAV_ITEMS.map((navItem) => (
 				<Link
 					key={navItem.label}
-					px={2}
-					py={1}
+					marginLeft={navItem.marginLeft}
+					marginRight={navItem?.marginRight}
 					rounded={"md"}
 					_hover={{
-						transition: "color .5s ease-in-out, box-shadow .5s ease-in-out",
-						boxShadow: `${navItem.hover}`,
-						color: "#6288d0",
+						transition: "color .16s ease-in-out",
+						color: "#bf3132",
 					}}
 					href={navItem.href}
 					fontWeight={500}
-					bgColor={url.includes(navItem.href) ? linkColor : ""}
-					color={url.includes(navItem.href) ? "#6288d0" : "white"}
-					__css={`box-shadow: inset 0 0 0 0 #fff;`}
+					color={url.includes(navItem.href) ? "#bf3132" : "black"}
 				>
 					{navItem.label}
 				</Link>
@@ -201,21 +259,22 @@ const NAV_ITEMS = [
 	{
 		label: "О фонде",
 		href: "/o-fonde",
-		hover: "inset 81px 0 0 0 #fff",
+		marginLeft: "29px",
 	},
 	{
 		label: "Новости",
 		href: "/novosty",
-		hover: "inset 80px 0 0 0 #fff",
+		marginLeft: "5px",
 	},
 	{
-		label: "Как помочь ",
+		label: "Как помочь",
 		href: "/kak-pomoch",
-		hover: "inset 106px 0 0 0 #fff",
+		marginLeft: "5px",
 	},
 	{
-		label: "Наши меценаты и Благодарности Фонду ",
+		label: "Наши меценаты и благодарности фонду",
 		href: "/blagodarnosti",
-		hover: "inset 324px 0 0 0 #fff",
+		marginLeft: "5px",
+		marginRight: "29px",
 	},
 ];
