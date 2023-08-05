@@ -4,11 +4,11 @@ import { getParticipants } from "../../../api/participants";
 import mainBg from "../../../assets/mainBg.jpg";
 import mainPashaev from "../../../assets/mainPashaev.jpg";
 import mainQuotes from "../../../assets/mainQuotes.png";
-import NewCard from "../News/new-card";
-import PaymentWithHistory from "../Payment";
-import ParticipantCard from "../PopechitelskiySovet/participant-card";
-import ProjectCard from "../Projects/project-card";
-import Thank from "../Thanks/thank";
+import NewCard from "../news/new-card";
+import PaymentWithHistory from "../payment";
+import ParticipantCard from "../popechitelskiySovet/participant-card";
+import ProjectCard from "../projects/project-card";
+import Thank from "../thanks/thank";
 
 export default function MainPage({ news }) {
 	const [participants, setParticipants] = useState([]);

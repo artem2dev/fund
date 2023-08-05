@@ -1,9 +1,9 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { deleteNew, getNews } from "../../../api/news";
-import { CreateNew } from "./CreateNew";
-import BigCardToDelete from "./DeleteNew";
-import SimpleSidebar from "./Sidebar";
+import { CreateNew } from "./createNew";
+import BigCardToDelete from "./deleteNew";
+import SimpleSidebar from "./sidebar";
 
 const pages = [0, 1, 2, 3];
 

@@ -1,9 +1,9 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Footer from "./Fund/Footer";
-import PreFooter from "./Fund/Footer/pre-footer";
-import Header from "./Fund/Header";
+import Footer from "./fund/footer";
+import PreFooter from "./fund/footer/pre-footer";
+import Header from "./fund/header";
 
 const Container = () => {
 	return (
