@@ -15,8 +15,9 @@ import {
 } from "@chakra-ui/react";
 
 import { useState } from "react";
-import tg from "../../../assets/telegram.svg";
-import vk from "../../../assets/vk.svg";
+import { ReactComponent as tg } from "../../../assets/telegram.svg";
+import { ReactComponent as vk } from "../../../assets/vk.svg";
+import logo from "../../../assets/logo.png";
 
 const url = window.location.href;
 
@@ -72,7 +73,7 @@ export default function WithSubnavigation({ children }) {
 									userSelect={"none"}
 									position={"relative"}
 									height={"76px"}
-									src={`${process.env.REACT_APP_SERVER}/media/logo.png`}
+									src={logo}
 								/>
 							</Link>
 						</Flex>
@@ -80,7 +81,6 @@ export default function WithSubnavigation({ children }) {
 							display={{ base: "none", md: "flex" }}
 							alignItems={"center"}
 							flex={"1"}
-							// minW={"-webkit-fill-available"}
 							maxW={"767px"}
 							bgColor={"white"}
 						>
@@ -89,22 +89,50 @@ export default function WithSubnavigation({ children }) {
 					</Flex>
 
 					<Flex align={"center"}>
-						<Image
-							width={"22px"}
-							cursor={"pointer"}
-							src={vk}
-							marginRight={"20px"}
-							marginLeft={"20px"}
-						/>
-						<Image
-							width={"20px"}
-							cursor={"pointer"}
-							src={tg}
-							marginRight={"22px"}
-						/>
-						<Text>
+						<Link
+							display={"flex"}
+							justifyContent={"center"}
+							alignItems={"center"}
+							href="https://vk.com/id810628743"
+						>
+							<Icon
+								w={"20px"}
+								h={"20px"}
+								as={vk}
+								fill={"#000000"}
+								marginRight={"20px"}
+								marginLeft={"20px"}
+								cursor={"pointer"}
+								_hover={{
+									fill: "#bf3132",
+								}}
+							/>
+						</Link>
+						<Link
+							display={"flex"}
+							justifyContent={"center"}
+							alignItems={"center"}
+							href="https://t.me/elmanpashaev"
+						>
+							<Icon
+								w={"20px"}
+								h={"20px"}
+								as={tg}
+								fill={"#000000"}
+								marginRight={"22px"}
+								cursor={"pointer"}
+								_hover={{
+									fill: "#bf3132",
+								}}
+							/>
+						</Link>
+						<Text
+							color={"#1f243a"}
+							_hover={{
+								color: "#bf3132",
+							}}
+						>
 							<a
-								color={"#1f243a"}
 								style={{
 									fontWeight: "700",
 									fontSize: "16px",
@@ -124,7 +152,7 @@ export default function WithSubnavigation({ children }) {
 								bgColor: "#771e2e",
 							}}
 							_active={{
-								bgColor: "#6d1424"
+								bgColor: "#6d1424",
 							}}
 							width={"170px"}
 							height={"45px"}
@@ -141,7 +169,7 @@ export default function WithSubnavigation({ children }) {
 								bgColor: "#263475",
 							}}
 							_active={{
-								bgColor: "#1d2a67"
+								bgColor: "#1d2a67",
 							}}
 							width={"170px"}
 							height={"45px"}

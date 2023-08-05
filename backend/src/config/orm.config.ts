@@ -2,6 +2,8 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { New } from 'src/entities/new.entity';
 import { User } from 'src/entities/user.entity';
 
+import { Participant } from 'src/entities/participant.entity';
+import { Thank } from 'src/entities/thank.entity';
 import { config } from './app.config';
 
 const { DB_PORT, DB_USER, DB_PASSWORD, DB_DATABASE, DB_HOST } = config;
@@ -13,7 +15,7 @@ export const typeOrmModuleOptions: TypeOrmModuleOptions = {
   username: DB_USER,
   password: DB_PASSWORD,
   database: DB_DATABASE,
-  entities: [User, New],
+  entities: [User, New, Participant, Thank],
   synchronize: true,
   autoLoadEntities: true,
   logging: false,

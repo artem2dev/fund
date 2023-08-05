@@ -16,6 +16,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../../api/auth";
 import { removeItem, setItem } from "../../../helpers/localStorage";
+import logo from "../../../assets/logo.png";
 
 const defaultLabels = {
 	email: "Логин",
@@ -126,7 +127,7 @@ const Login = () => {
 							userSelect={"none"}
 							position={"relative"}
 							height={"120px"}
-							src={`${process.env.REACT_APP_SERVER}/media/logo.png`}
+							src={logo}
 						/>
 					</Center>
 

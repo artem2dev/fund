@@ -7,34 +7,36 @@ import {
 	Heading,
 	Image,
 	Input,
-	InputGroup,
 	Stack,
 	Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import paymentsLogo from "../../../assets/paymentsLogo.png";
 import qrLogo from "../../../assets/qrLogo.png";
 
 const defaultLabels = {
 	email: "Ваш e-mail",
 	name: "Ваше имя",
+	otherAmount: "Другая сумма",
 };
 
-const defaultErrorLabels = {
-	nameMinLength: "Слишком короткое имя",
-	emailCannotBeEmpty: "E-mail не может быть пустой",
-};
+// const defaultErrorLabels = {
+// 	nameMinLength: "Слишком короткое имя",
+// 	emailCannotBeEmpty: "E-mail не может быть пустой",
+// };
 
 const initialIsFieldError = {
 	email: false,
 	name: false,
+	otherAmount: false,
 };
 
 const Payment = () => {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
+	const [otherAmount, setOtherAmount] = useState("");
 	const [labels, setLabels] = useState(defaultLabels);
+	const [activeButton, setActiveButton] = useState("");
 	// const [isLoading, setIsLoading] = useState(false);
 	const [isFieldError, setIsFieldError] = useState(initialIsFieldError);
 
@@ -58,31 +60,42 @@ const Payment = () => {
 		setName(e.target.value);
 	};
 
-	const fieldsVerification = (email, name) => {
-		if (!email.length) {
-			setLabels({
-				...labels,
-				email: defaultErrorLabels.emailCannotBeEmpty,
-			});
+	const onOtherAmountChange = (e) => {
+		setActiveButton("");
+		setIsFieldError({
+			...isFieldError,
+			otherAmount: false,
+		});
+		setLabels({ ...labels, otherAmount: defaultLabels.otherAmount });
 
-			setIsFieldError({ ...isFieldError, email: true });
-
-			return false;
-		}
-
-		if (name.length < 2) {
-			setLabels({
-				...labels,
-				name: defaultErrorLabels.nameMinLength,
-			});
-
-			setIsFieldError({ ...isFieldError, name: true });
-
-			return false;
-		}
-
-		return true;
+		setOtherAmount(e.target.value);
 	};
+
+	// const fieldsVerification = (email, name) => {
+	// 	if (!email.length) {
+	// 		setLabels({
+	// 			...labels,
+	// 			email: defaultErrorLabels.emailCannotBeEmpty,
+	// 		});
+
+	// 		setIsFieldError({ ...isFieldError, email: true });
+
+	// 		return false;
+	// 	}
+
+	// 	if (name.length < 2) {
+	// 		setLabels({
+	// 			...labels,
+	// 			name: defaultErrorLabels.nameMinLength,
+	// 		});
+
+	// 		setIsFieldError({ ...isFieldError, name: true });
+
+	// 		return false;
+	// 	}
+
+	// 	return true;
+	// };
 
 	// const onLogin = (e) => {
 	// 	e.preventDefault();
@@ -116,10 +129,16 @@ const Payment = () => {
 						border={"1px solid #cdcdcd"}
 						borderRadius={"3px"}
 						bgColor={"white"}
+						color={"#666666"}
+						fontWeight={500}
+						isActive={activeButton === 100}
 						_active={{
 							border: "1px solid #bf3132",
 							bgColor: "#ffe4e4",
+							color: "#1f243a",
+							fontWeight: 700,
 						}}
+						onClick={() => setActiveButton(100)}
 					>
 						100 ₽
 					</Button>
@@ -129,10 +148,16 @@ const Payment = () => {
 						border={"1px solid #cdcdcd"}
 						borderRadius={"3px"}
 						bgColor={"white"}
+						color={"#666666"}
+						fontWeight={500}
+						isActive={activeButton === 250}
 						_active={{
 							border: "1px solid #bf3132",
 							bgColor: "#ffe4e4",
+							color: "#1f243a",
+							fontWeight: 700,
 						}}
+						onClick={() => setActiveButton(250)}
 					>
 						250 ₽
 					</Button>
@@ -142,26 +167,35 @@ const Payment = () => {
 						border={"1px solid #cdcdcd"}
 						borderRadius={"3px"}
 						bgColor={"white"}
+						color={"#666666"}
+						fontWeight={500}
+						isActive={activeButton === 500}
 						_active={{
 							border: "1px solid #bf3132",
 							bgColor: "#ffe4e4",
+							color: "#1f243a",
+							fontWeight: 700,
 						}}
+						onClick={() => setActiveButton(500)}
 					>
 						500 ₽
 					</Button>
-					<Button
-						w={"148px"}
-						h={"60px"}
+					<Input
+						onChange={onOtherAmountChange}
+						value={otherAmount}
+						isInvalid={isFieldError.otherAmount}
+						bgColor={"#f8f8f8"}
 						border={"1px solid #cdcdcd"}
 						borderRadius={"3px"}
-						bgColor={"#f8f8f8"}
-						_active={{
+						w={"148px"}
+						h={"60px"}
+						_focus={{
 							border: "1px solid #bf3132",
 							bgColor: "#ffe4e4",
 						}}
-					>
-						Другая сумма
-					</Button>
+						_focusVisible={{}}
+						placeholder={labels.otherAmount}
+					/>
 				</Flex>
 				<Flex mt={"25px"} justifyContent={"space-between"}>
 					<Button
@@ -260,7 +294,7 @@ const Payment = () => {
 							placeholder={labels.name}
 						/>
 					</Stack>
-					<Stack>
+					<Stack gap={""}>
 						<FormLabel
 							fontSize={"14px"}
 							htmlFor="email"

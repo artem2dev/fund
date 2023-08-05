@@ -8,12 +8,16 @@ import OrmConfig from './config/orm.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { MediaModule } from './modules/media/media.module';
 import { NewModule } from './modules/news/new.module';
+import { ParticipantModule } from './modules/participant/participant.module';
+import { ThankModule } from './modules/thank/thank.module';
 
 @Module({
   imports: [
     AuthModule,
     MediaModule,
     NewModule,
+    ParticipantModule,
+    ThankModule,
     TypeOrmModule.forRoot(OrmConfig),
   ],
   providers: [AppService, AccessTokenStrategy, JwtService],

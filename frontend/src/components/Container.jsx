@@ -2,9 +2,10 @@ import { Box } from "@chakra-ui/react";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import Footer from "./Fund/Footer";
+import PreFooter from "./Fund/Footer/pre-footer";
 import Header from "./Fund/Header";
 
-const Container = ({ children }) => {
+const Container = () => {
 	return (
 		<>
 			<Header />
@@ -18,6 +19,7 @@ const Container = ({ children }) => {
 			>
 				<Outlet />
 			</Box>
+			<PreFooter />
 			<Footer />
 		</>
 	);

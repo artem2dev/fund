@@ -1,12 +1,22 @@
 import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { getParticipants } from "../../../api/participants";
 import mainBg from "../../../assets/mainBg.jpg";
 import mainPashaev from "../../../assets/mainPashaev.jpg";
 import mainQuotes from "../../../assets/mainQuotes.png";
 import NewCard from "../News/new-card";
+import PaymentWithHistory from "../Payment";
+import ParticipantCard from "../PopechitelskiySovet/participant-card";
 import ProjectCard from "../Projects/project-card";
-import Payment from "../Payment/payment";
+import Thank from "../Thanks/thank";
 
 export default function MainPage({ news }) {
+	const [participants, setParticipants] = useState([]);
+
+	useEffect(() => {
+		getParticipants().then((data) => setParticipants(data.data));
+	}, []);
+
 	return (
 		<Box>
 			<Flex
@@ -296,9 +306,101 @@ export default function MainPage({ news }) {
 				pb={"75px"}
 				bgColor={"#f2f5f8"}
 			>
-				<Flex w={"1133px"} flexDir={"column"}>
-					<Heading></Heading>
-					<Payment />
+				<Flex w={"1133px"}>
+					<PaymentWithHistory isHeader={true} />
+				</Flex>
+			</Flex>
+			<Flex justify={"center"} width={"100%"} pt={"74px"} pb={"75px"}>
+				<Flex w={"1133px"}>
+					<Flex flexDir={"column"} w={"100%"}>
+						<Heading
+							fontFamily={"Oswald"}
+							color={"#1f243a"}
+							fontSize={"30px"}
+							fontWeight={700}
+							textTransform={"uppercase"}
+							mb={"40px"}
+						>
+							Попечительский совет
+						</Heading>
+						<Flex w={"100%"} justify={"center"} flexWrap={"wrap"}>
+							{participants.map((participant, i) => (
+								<ParticipantCard
+									key={i}
+									i={i}
+									image={participant.image}
+									name={participant.name}
+									position={participant.position}
+								/>
+							))}
+						</Flex>
+					</Flex>
+				</Flex>
+			</Flex>
+			<Flex
+				justify={"center"}
+				width={"100%"}
+				pt={"74px"}
+				pb={"75px"}
+				bgImage={"linear-gradient(to top, #f2f5f8 0%, #ffffff 100%)"}
+			>
+				<Flex w={"1133px"}>
+					<Flex flexDir={"column"} w={"100%"}>
+						{/* <Flex mb={"35px"}>
+							<Text
+								fontWeight={500}
+								fontSize={"30px"}
+								fontFamily={"Oswald"}
+								textTransform={"uppercase"}
+								mr={"5px"}
+								color={"#1f243a"}
+							>
+								Вы уже
+							</Text>
+							<Box
+								marginLeft={"8px"}
+								display={"flex"}
+								justifyContent={"center"}
+								alignItems={"center"}
+								css={`
+									width: 145px;
+									height: 45px;
+									transform: skew(160deg);
+									background: #bf3132;
+									border-radius: 5px;
+								`}
+							>
+								<Text
+									fontWeight={500}
+									color={"white"}
+									fontSize={"30px"}
+									fontFamily={"Oswald"}
+									textTransform={"uppercase"}
+									css={"transform: skew(20deg);"}
+								>
+									помогли
+								</Text>
+							</Box>
+						</Flex> */}
+						<Heading
+							fontFamily={"Oswald"}
+							color={"#1f243a"}
+							fontSize={"30px"}
+							fontWeight={700}
+							textTransform={"uppercase"}
+							mb={"40px"}
+						>
+							Благодарности
+						</Heading>
+						<Thank
+							images={[
+								"nagrada1.jpg",
+								"nagrada2.jpg",
+								"nagrada3.jpg",
+								"nagrada3.jpg",
+							]}
+						/>
+					</Flex>
 				</Flex>
 			</Flex>
 		</Box>
