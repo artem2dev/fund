@@ -4,7 +4,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { getNews } from "../api/news";
 import { theme } from "../themes/chakraWhiteTheme";
 import Login from "./admin/login";
-import Panel from "./admin/Panel";
+import Panel from "./admin/panel";
 import Container from "./Container";
 import MainPage from "./fund/mainPage";
 // import About from "./Fund/About";
