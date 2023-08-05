@@ -12,7 +12,6 @@ import { CreateThankDto } from './create.thank.dto';
 import { ThankService } from './thank.service';
 
 @Controller('thanks')
-@UseGuards(AccessTokenGuard)
 export class ThankController {
   constructor(private thankService: ThankService) {}
 
@@ -22,11 +21,13 @@ export class ThankController {
   }
 
   @Post()
+  @UseGuards(AccessTokenGuard)
   async createThank(@Body() createThankDto: CreateThankDto) {
     return await this.thankService.createThank(createThankDto);
   }
 
   @Delete(':thankId')
+  @UseGuards(AccessTokenGuard)
   async deleteThank(@Param('thankId') thankId: string) {
     return await this.thankService.deleteThank(thankId);
   }

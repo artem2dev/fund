@@ -12,7 +12,6 @@ import { CreateNewDto } from './create.new.dto';
 import { NewService } from './new.service';
 
 @Controller('news')
-@UseGuards(AccessTokenGuard)
 export class NewController {
   constructor(private newService: NewService) {}
 
@@ -27,11 +26,13 @@ export class NewController {
   }
 
   @Post()
+  @UseGuards(AccessTokenGuard)
   async createNew(@Body() createNewDto: CreateNewDto) {
     return await this.newService.createNew(createNewDto);
   }
 
   @Delete(':newId')
+  @UseGuards(AccessTokenGuard)
   async deleteNew(@Param('newId') newId: string) {
     return await this.newService.deleteNew(newId);
   }
