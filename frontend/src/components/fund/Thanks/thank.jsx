@@ -1,9 +1,9 @@
 import { Box, Flex, Image } from "@chakra-ui/react";
 import React, { useState } from "react";
 import ImageViewer from "react-simple-image-viewer";
-import { getMediaUrl } from "../../../helpers/getMediaUrl";
 import blueBg from "../../../assets/blueBgForThank.png";
 import increase from "../../../assets/increase.svg";
+import { getMediaUrl } from "../../../helpers/getMediaUrl";
 
 const ThankItem = ({ i, onOpenImageViewer, image }) => {
 	const [hover, setHover] = useState(false);
@@ -14,7 +14,8 @@ const ThankItem = ({ i, onOpenImageViewer, image }) => {
 			h={"360px"}
 			pos={"relative"}
 			onClick={() => onOpenImageViewer(i)}
-			ml={i && "31px"}
+			ml={i && i % 4 !== 0 && "31px"}
+			mt={i > 3 && "20px"}
 			onMouseEnter={() => setHover(true)}
 			onMouseLeave={() => setHover(false)}
 			cursor={"pointer"}
@@ -28,7 +29,13 @@ const ThankItem = ({ i, onOpenImageViewer, image }) => {
 				w={"260px"}
 				height={"360px"}
 			>
-				<Image pos={"absolute"} src={blueBg} opacity={hover ? 0.5 : 0} />
+				<Image
+					pos={"absolute"}
+					w={"260px"}
+					h={"360px"}
+					src={blueBg}
+					opacity={hover ? 0.5 : 0}
+				/>
 				<Image
 					w={"42px"}
 					h={"42px"}
@@ -53,7 +60,6 @@ const Thank = ({ images }) => {
 	};
 
 	const onOpenImageViewer = (index) => {
-		console.log(index);
 		setCurrentThank(index);
 		setIsShowBigThank(true);
 	};
@@ -62,7 +68,7 @@ const Thank = ({ images }) => {
 		<Box w={"100%"}>
 			<Flex w={"100%"}>
 				<Flex flexWrap={"wrap"}>
-					{images.map((image, i) => (
+					{images.map(({ image }, i) => (
 						<ThankItem
 							key={i}
 							i={i}
@@ -74,7 +80,7 @@ const Thank = ({ images }) => {
 			</Flex>
 			{isShowBigThank && (
 				<ImageViewer
-					src={images.map((image) => getMediaUrl(image))}
+					src={images.map(({ image }) => getMediaUrl(image))}
 					currentIndex={currentThank}
 					closeOnClickOutside={true}
 					onClose={onCloseImageViewer}

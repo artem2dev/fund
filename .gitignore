@@ -26,3 +26,5 @@ yarn-error.log*
 frontend/node_modules
 postgres-data/
 backend/media
+
+frontend/build/

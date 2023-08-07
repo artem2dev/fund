@@ -15,13 +15,26 @@ import {
 } from "@chakra-ui/react";
 
 import { useState } from "react";
+import logo from "../../../assets/logo.png";
 import { ReactComponent as tg } from "../../../assets/telegram.svg";
 import { ReactComponent as vk } from "../../../assets/vk.svg";
-import logo from "../../../assets/logo.png";
+import { NeedHelpModal } from "../modals/needHelpModal";
+import { PaymentModal } from "../modals/paymentModal";
 
 const url = window.location.href;
 
 export default function WithSubnavigation({ children }) {
+	const {
+		isOpen: isPaymentModalOpen,
+		onOpen: onPaymentModalOpen,
+		onClose: onPaymentModalClose,
+	} = useDisclosure();
+	const {
+		isOpen: isNeedHelpModalOpen,
+		onOpen: onNeedHelpModalOpen,
+		onClose: onNeedHelpModalClose,
+	} = useDisclosure();
+
 	const { isOpen, onToggle } = useDisclosure();
 	const [headerBg, setHeaderBg] = useState("");
 
@@ -57,7 +70,7 @@ export default function WithSubnavigation({ children }) {
 					/>
 				</Flex>
 				<Flex flex={1} w={"100%"} h={"100%"} justify={"space-between"}>
-					<Flex w={"867px"}>
+					<Flex w={"1000px"}>
 						<Flex
 							w={"100px"}
 							h={"100px"}
@@ -81,7 +94,7 @@ export default function WithSubnavigation({ children }) {
 							display={{ base: "none", md: "flex" }}
 							alignItems={"center"}
 							flex={"1"}
-							maxW={"767px"}
+							maxW={"967px"}
 							bgColor={"white"}
 						>
 							<DesktopNav />
@@ -157,6 +170,7 @@ export default function WithSubnavigation({ children }) {
 							width={"170px"}
 							height={"45px"}
 							marginRight={"16px"}
+							onClick={onPaymentModalOpen}
 						>
 							Хочу помочь
 						</Button>
@@ -174,6 +188,7 @@ export default function WithSubnavigation({ children }) {
 							width={"170px"}
 							height={"45px"}
 							marginRight={"23px"}
+							onClick={onNeedHelpModalOpen}
 						>
 							Нужна помощь
 						</Button>
@@ -184,13 +199,23 @@ export default function WithSubnavigation({ children }) {
 				<MobileNav />
 			</Collapse>
 			<Box>{children}</Box>
+			<PaymentModal isOpen={isPaymentModalOpen} onClose={onPaymentModalClose} />
+			<NeedHelpModal
+				isOpen={isNeedHelpModalOpen}
+				onClose={onNeedHelpModalClose}
+			/>
 		</Box>
 	);
 }
 
 const DesktopNav = () => {
 	return (
-		<Stack direction={"row"} w={"100%"} justifyContent={"space-between"}>
+		<Stack
+			direction={"row"}
+			w={"100%"}
+			justifyContent={"space-between"}
+			alignItems={"center"}
+		>
 			{NAV_ITEMS.map((navItem) => (
 				<Link
 					key={navItem.label}
@@ -204,6 +229,8 @@ const DesktopNav = () => {
 					href={navItem.href}
 					fontWeight={500}
 					color={url.includes(navItem.href) ? "#bf3132" : "black"}
+					lineHeight={"18px"}
+					textAlign={"center"}
 				>
 					{navItem.label}
 				</Link>
@@ -300,8 +327,23 @@ const NAV_ITEMS = [
 		marginLeft: "5px",
 	},
 	{
-		label: "Наши меценаты и благодарности фонду",
+		label: "Благодарности",
 		href: "/blagodarnosti",
+		marginLeft: "5px",
+	},
+	{
+		label: "Проекты",
+		href: "/proekty",
+		marginLeft: "5px",
+	},
+	{
+		label: "Отчеты",
+		href: "/otchety",
+		marginLeft: "5px",
+	},
+	{
+		label: "Попечительский совет",
+		href: "/sovet",
 		marginLeft: "5px",
 		marginRight: "29px",
 	},

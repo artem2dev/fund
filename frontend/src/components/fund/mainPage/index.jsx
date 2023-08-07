@@ -1,21 +1,31 @@
-import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { getParticipants } from "../../../api/participants";
+import {
+	Box,
+	Button,
+	Flex,
+	Heading,
+	Image,
+	Text,
+	useDisclosure,
+} from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import mainBg from "../../../assets/mainBg.jpg";
 import mainPashaev from "../../../assets/mainPashaev.jpg";
 import mainQuotes from "../../../assets/mainQuotes.png";
+import PreFooter from "../footer/pre-footer";
+import { PaymentModal } from "../modals/paymentModal";
 import NewCard from "../news/new-card";
 import PaymentWithHistory from "../payment";
 import ParticipantCard from "../popechitelskiySovet/participant-card";
 import ProjectCard from "../projects/project-card";
 import Thank from "../thanks/thank";
 
-export default function MainPage({ news }) {
-	const [participants, setParticipants] = useState([]);
-
-	useEffect(() => {
-		getParticipants().then((data) => setParticipants(data.data));
-	}, []);
+export default function MainPage({ news, thanks, projects, participants }) {
+	const navigate = useNavigate();
+	const {
+		isOpen: isPaymentModalOpen,
+		onOpen: onPaymentModalOpen,
+		onClose: onPaymentModalClose,
+	} = useDisclosure();
 
 	return (
 		<Box>
@@ -62,6 +72,7 @@ export default function MainPage({ news }) {
 							bg: "linear-gradient(to right, #6d1424 0%, #6d1424 99%, #6d1424 100%)",
 						}}
 						color={"white"}
+						onClick={onPaymentModalOpen}
 					>
 						Хочу помогать
 					</Button>
@@ -205,100 +216,86 @@ export default function MainPage({ news }) {
 							фонда
 						</Text>
 					</Flex>
-					<Flex justify={"space-between"} flexWrap={"wrap"}>
-						<ProjectCard
-							title={"День знаний"}
-							description={"Акция помощи детям-сиротам"}
-							image={"project1.jpg"}
-							targetAmount={1600000}
-							amount={1047000}
-						/>
-						<ProjectCard
-							title={"Работаем, брат 2"}
-							description={
-								"Благотворительный концерт для Zащитников в зоне СВО"
-							}
-							image={"project2.jpg"}
-							targetAmount={1000000}
-							amount={176660}
-						/>
-						<ProjectCard
-							title={"Работаем, брат"}
-							description={"Благотворительный вечер"}
-							image={"project3.jpg"}
-							targetAmount={732440}
-							amount={732440}
-						/>
+					<Flex justify={"start"} flexWrap={"wrap"}>
+						{projects
+							.slice(0, 3)
+							.map(
+								({ title, content, image, currentAmount, targetAmount }, i) => (
+									<Box ml={i !== 0 && "26px"} key={i}>
+										<ProjectCard
+											title={title}
+											content={content}
+											image={image}
+											targetAmount={targetAmount}
+											currentAmount={currentAmount}
+											onPaymentModalOpen={onPaymentModalOpen}
+										/>
+									</Box>
+								)
+							)}
 					</Flex>
 				</Flex>
 			</Flex>
-			<Flex
-				justify={"center"}
-				width={"100%"}
-				pt={"66px"}
-				pb={"75px"}
-				bgColor={"#fff"}
-			>
-				<Flex w={"1133px"} flexDir={"column"}>
-					<Flex flexDirection={"column"}>
-						<Heading
-							fontFamily={"Oswald"}
-							color={"#1f243a"}
-							fontSize={"30px"}
-							fontWeight={700}
-							textTransform={"uppercase"}
-							mb={"39px"}
-						>
-							Новости
-						</Heading>
-						<Flex justify={"space-between"} flexWrap={"wrap"}>
-							<NewCard
-								title={"РАБОТАЕМ, БРАТ!"}
-								description={
-									"В четверг, 6 июля, в одном из московских ресторанов состоится благотворительный вечер в поддержку бойцов СВО мероприятия - сбор средств на закупку необходимого для наших ребят, воюющих на передовой."
-								}
-								image={"novost1_4.jpg"}
-								createdAt={"12.07.2023"}
-							/>
-							<NewCard
-								title={"Феликс Романович Комаров. О помощи фронту"}
-								description={
-									"Я Россиянин. Россия - моя Родина. Здесь я родился и живу. Я объездил пол мира, но Россия - это мой дом"
-								}
-								image={"novost4.jpg"}
-								createdAt={"12.07.2023"}
-							/>
-							<NewCard
-								title={"Эльман Пашаев с нашими Z-штурмовиками"}
-								description={
-									"Друзья, а кто еще из известных (и не очень) адвокатов приезжает с гумпомощью к бойцам в зону СВО	"
-								}
-								image={"novost5.jpg"}
-								createdAt={"12.07.2023"}
-							/>
-						</Flex>
-						<Flex justify={"center"} mt={"45px"}>
-							<Button
-								backgroundColor="#33438e"
-								borderRadius={"3px"}
-								color={"white"}
-								fontWeight={400}
-								_hover={{
-									bgColor: "#263475",
-								}}
-								_active={{
-									bgColor: "#1d2a67",
-								}}
-								width={"170px"}
-								height={"45px"}
-								marginRight={"23px"}
+			{news.length > 0 && (
+				<Flex
+					justify={"center"}
+					width={"100%"}
+					pt={"66px"}
+					pb={"75px"}
+					bgColor={"#fff"}
+				>
+					<Flex w={"1133px"} flexDir={"column"}>
+						<Flex flexDirection={"column"}>
+							<Heading
+								fontFamily={"Oswald"}
+								color={"#1f243a"}
+								fontSize={"30px"}
+								fontWeight={700}
+								textTransform={"uppercase"}
+								mb={"39px"}
 							>
-								Еще новости
-							</Button>
+								Новости
+							</Heading>
+							<Flex justify={"start"} flexWrap={"wrap"}>
+								{news
+									.slice(0, 3)
+									.map(({ title, content, mainPicture, createdAt }, i) => (
+										<Box ml={i !== 0 && "26px"} key={i}>
+											<NewCard
+												i={i}
+												key={i}
+												createdAt={createdAt}
+												image={mainPicture}
+												description={content}
+												title={title}
+											/>
+										</Box>
+									))}
+							</Flex>
+							<Flex justify={"center"} mt={"45px"}>
+								<Button
+									backgroundColor="#33438e"
+									borderRadius={"3px"}
+									color={"white"}
+									fontWeight={400}
+									_hover={{
+										bgColor: "#263475",
+									}}
+									_active={{
+										bgColor: "#1d2a67",
+									}}
+									width={"170px"}
+									height={"45px"}
+									marginRight={"23px"}
+									onClick={() => navigate("/novosty")}
+								>
+									Еще новости
+								</Button>
+							</Flex>
 						</Flex>
 					</Flex>
 				</Flex>
-			</Flex>
+			)}
 			<Flex
 				justify={"center"}
 				width={"100%"}
@@ -323,15 +320,20 @@ export default function MainPage({ news }) {
 						>
 							Попечительский совет
 						</Heading>
-						<Flex w={"100%"} justify={"center"} flexWrap={"wrap"}>
+						<Flex w={"100%"} justify={"start"} flexWrap={"wrap"}>
 							{participants.map((participant, i) => (
-								<ParticipantCard
+								<Box
+									ml={i && i % 4 !== 0 ? "28px" : ""}
+									mt={i > 3 ? "28px" : ""}
 									key={i}
-									i={i}
-									image={participant.image}
-									name={participant.name}
-									position={participant.position}
-								/>
+								>
+									<ParticipantCard
+										image={participant?.image}
+										name={participant?.name}
+										position={participant?.position}
+										description={participant?.description}
+									/>
+								</Box>
 							))}
 						</Flex>
 					</Flex>
@@ -392,17 +394,13 @@ export default function MainPage({ news }) {
 						>
 							Благодарности
 						</Heading>
-						<Thank
-							images={[
-								"nagrada1.jpg",
-								"nagrada2.jpg",
-								"nagrada3.jpg",
-								"nagrada3.jpg",
-							]}
-						/>
+						<Thank images={thanks.slice(0, 4)} />
 					</Flex>
 				</Flex>
 			</Flex>
+			<PreFooter />
+
+			<PaymentModal isOpen={isPaymentModalOpen} onClose={onPaymentModalClose} />
 		</Box>
 	);
 }

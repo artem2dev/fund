@@ -19,14 +19,13 @@ import "./style.css";
 const labels = {
 	title: "Название:",
 	content: "Описание:",
-	mainPicture:
-		"Главная картинка (будет на обложке этой новости и первой в списке картинок внутри новости):",
+	mainPicture: "Обложка новости:",
 };
 
 const errorLabels = {
 	title: "Название не может быть пустым",
 	content: "Описание не может быть пустым",
-	mainPicture: "Главная картинка не может отсутствовать",
+	mainPicture: "Обложка не может отсутствовать",
 };
 
 export const CreateNew = () => {
@@ -43,7 +42,7 @@ export const CreateNew = () => {
 	const [content, setContent] = useState("");
 	const [mainPicture, setMainPicture] = useState(null);
 	const [multipleFiles, setMultipleFiles] = useState("");
-	const [selectedFiles, setSelectedFiles] = useState([]);
+	// const [selectedFiles, setSelectedFiles] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const clearFunc = () => {
@@ -57,20 +56,20 @@ export const CreateNew = () => {
 		setContent("");
 		setMainPicture(null);
 		setMultipleFiles("");
-		setSelectedFiles([]);
+		// setSelectedFiles([]);
 		setIsLoading(false);
 	};
 
-	const multipleFileChange = (e) => {
-		const images = [];
+	// const multipleFileChange = (e) => {
+	// 	const images = [];
 
-		for (let i = 0; i < e.target.files.length; i++) {
-			images.push(URL.createObjectURL(e.target.files[i]));
-		}
+	// 	for (let i = 0; i < e.target.files.length; i++) {
+	// 		images.push(URL.createObjectURL(e.target.files[i]));
+	// 	}
 
-		setSelectedFiles(images);
-		setMultipleFiles(e.target.files);
-	};
+	// 	setSelectedFiles(images);
+	// 	setMultipleFiles(e.target.files);
+	// };
 
 	const uploadMultipleFiles = async (mainPicture) => {
 		const formData = new FormData();
@@ -84,10 +83,10 @@ export const CreateNew = () => {
 		return await uploadImage(formData);
 	};
 
-	const deleteFiles = () => {
-		setMultipleFiles("");
-		setSelectedFiles([]);
-	};
+	// const deleteFiles = () => {
+	// 	setMultipleFiles("");
+	// 	setSelectedFiles([]);
+	// };
 
 	const handleFileChange = (e) => {
 		const file = e?.target?.files?.[0];
@@ -261,7 +260,7 @@ export const CreateNew = () => {
 							/>
 							<span>Нажмите, чтобы выбрать файл</span>
 						</label>
-						<Box className="row mt-3">
+						{/* <Box className="row mt-3">
 							<Box className="col-6">
 								<Box className="row">
 									<FormLabel as="legend" mt="20px">
@@ -320,7 +319,7 @@ export const CreateNew = () => {
 										})}
 								</Flex>
 							</Box>
-						</Box>
+						</Box> */}
 						<Box
 							paddingX={0}
 							w={"100%"}

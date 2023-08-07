@@ -54,13 +54,13 @@ const parseEmail = (email) => {
 	}
 };
 
-const PaymentHistoryItem = ({ item }) => {
+const PaymentHistoryItem = ({ item, cardBg }) => {
 	return (
 		<Flex
 			h={"60px"}
 			w={"430px"}
 			borderRadius={"3px"}
-			bgColor={"white"}
+			bgColor={cardBg ? cardBg : "white"}
 			mb={"15px"}
 			py={"12px"}
 			px={"20px"}
@@ -97,7 +97,7 @@ const PaymentHistoryItem = ({ item }) => {
 	);
 };
 
-const PaymentHistory = ({ payments }) => {
+const PaymentHistory = ({ payments, cardBg, ml }) => {
 	const [currentItems, setCurrentItems] = useState([0, 6]);
 
 	const onShowMore = () => {
@@ -120,7 +120,12 @@ const PaymentHistory = ({ payments }) => {
 	};
 
 	return (
-		<Flex flexDir={"column"} h={"584px"} justify={"space-between"}>
+		<Flex
+			flexDir={"column"}
+			h={"584px"}
+			justify={"space-between"}
+			ml={ml ? "55px" : ""}
+		>
 			<Heading
 				fontSize={"20px"}
 				fontWeight={700}
@@ -132,7 +137,7 @@ const PaymentHistory = ({ payments }) => {
 			</Heading>
 			<Flex flexDir={"column"} justify={"flex-start"} h="77%">
 				{payments.slice(currentItems[0], currentItems[1]).map((item, i) => (
-					<PaymentHistoryItem key={i} item={item} />
+					<PaymentHistoryItem key={i} item={item} cardBg={cardBg} />
 				))}
 			</Flex>
 			<Button

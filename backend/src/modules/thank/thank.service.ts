@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Thank } from 'src/entities/thank.entity';
 import { Repository } from 'typeorm';
+import { deleteFiles } from '../media/media.controller';
 import { CreateThankDto } from './create.thank.dto';
 
 @Injectable()
@@ -25,7 +26,13 @@ export class ThankService {
     );
   }
 
-  async deleteThank(id: string) {
-    return await this.thankRepository.delete(id);
+  async deleteThank(thankId: string) {
+    const thankItem = await this.thankRepository.findOne({
+      where: { id: thankId },
+    });
+
+    deleteFiles([thankItem.image]);
+
+    return await this.thankRepository.delete(thankId);
   }
 }

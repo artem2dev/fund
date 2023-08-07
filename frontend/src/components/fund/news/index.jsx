@@ -1,26 +1,58 @@
-import { Box, Heading } from "@chakra-ui/react";
-import React from "react";
-import BigCard from "./big-card";
+import { Box, Flex, Heading } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import NewCard from "./new-card";
+import NewCardBig from "./new-card-big";
 
-const Novosty = ({ news }) => {
+const News = ({ news }) => {
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
 	return (
-		<Box mb={20} display={"flex"} flexDir={"column"}>
-			<Box ml={3} my={5} display={"flex"} alignItems={"center"}>
-				<Box borderRadius={5} w={"40px"} h={"45px"} bgColor={"#4C70B4"} />
-				<Heading ml={3} color={"#4C70B4"}>
+		<Flex flexDir={"column"} align={"center"} width={"100%"} minH={"100vh"}>
+			<Flex
+				bgColor={"#f2f2f2"}
+				h={"330px"}
+				w={"100%"}
+				justify={"center"}
+				align={"end"}
+				pb={"75px"}
+				mb={"75px"}
+			>
+				<Heading fontSize={"50px"} color={"#10131f"} fontFamily={"Oswald"}>
 					Новости
 				</Heading>
-			</Box>
-
-			<Box display={"flex"} flexWrap={"wrap"} justifyContent={"center"}>
-				{news.map(({ id, title, content, mainPicture }) => (
-					<Box key={id}>
-						<BigCard id={id} header={title} text={content} image={mainPicture} />
-					</Box>
-				))}
-			</Box>
-		</Box>
+			</Flex>
+			<Flex w={"1133px"} pb={"75px"}>
+				<Flex justify={"start"} flexWrap={"wrap"}>
+					{news.map(({ id, title, content, mainPicture, createdAt }, i) =>
+						i === 0 ? (
+							<NewCardBig
+								key={i}
+								createdAt={createdAt}
+								image={mainPicture}
+								description={content}
+								title={title}
+							/>
+						) : (
+							<Box
+								key={i}
+								mt={i > 1 ? "20px" : ""}
+								ml={i === 1 || (i + 1) % 3 !== 0 ? "20px" : ""}
+							>
+								<NewCard
+									createdAt={createdAt}
+									image={mainPicture}
+									description={content}
+									title={title}
+								/>
+							</Box>
+						)
+					)}
+				</Flex>
+			</Flex>
+		</Flex>
 	);
 };
 
-export default Novosty;
+export default News;

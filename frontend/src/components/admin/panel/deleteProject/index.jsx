@@ -1,0 +1,209 @@
+import { DeleteIcon } from "@chakra-ui/icons";
+import {
+	Box,
+	Button,
+	Card,
+	CardBody,
+	Flex,
+	Heading,
+	Image,
+	Text,
+} from "@chakra-ui/react";
+import React from "react";
+import { getMediaUrl } from "../../../../helpers/getMediaUrl";
+
+const ProjectToDelete = ({
+	id,
+	title,
+	content,
+	image,
+	currentAmount,
+	targetAmount,
+	deleteProject,
+}) => {
+	return (
+		<Card
+			w="360px"
+			h="513px"
+			bgColor={"#fff"}
+			borderRadius={0}
+			borderBottomRadius={"3px"}
+			onClick={() => deleteProject(id)}
+		>
+			<Box
+				position={"absolute"}
+				w={"100%"}
+				h={"100%"}
+				_hover={{
+					display: "block",
+					transition: "all 300ms ease",
+					bgColor: "red",
+					opacity: 0.75,
+				}}
+				borderRadius={"5px"}
+				color={"black"}
+				zIndex={1}
+			>
+				<Box
+					w={"100%"}
+					h={"100%"}
+					opacity={0}
+					_hover={{
+						transition: "all 300ms ease",
+						opacity: 1,
+					}}
+					display={"flex"}
+					justifyContent={"center"}
+					alignItems={"center"}
+					cursor={"pointer"}
+					color={"black"}
+				>
+					<DeleteIcon fontSize={150} color={"white"} zIndex={10000} />
+				</Box>
+			</Box>
+			<CardBody w={"360px"} h={"274px"} p={0}>
+				<Box display={"flex"} justifyContent={"center"}>
+					<Image
+						w={"100%"}
+						h={"274px"}
+						objectFit={"cover"}
+						src={getMediaUrl(image)}
+					/>
+				</Box>
+			</CardBody>
+			<CardBody
+				display={"flex"}
+				flexDir={"column"}
+				borderRadius={"3px"}
+				p={"33px"}
+				w={"360px"}
+				paddingTop={"30px"}
+				paddingBottom={"32px"}
+			>
+				<Flex flexDir={"column"}>
+					<Heading
+						fontFamily={"Wix Madefor Display"}
+						w={"100%"}
+						color="#1f243a"
+						fontSize={"18px"}
+						fontWeight={"700"}
+						css={`
+							text-overflow: ellipsis;
+							word-wrap: keep-all;
+							overflow: hidden;
+							max-height: 1.5em;
+							line-height: 1.5em;
+							display: -webkit-box;
+							-webkit-line-clamp: 1;
+							-webkit-box-orient: vertical;
+						`}
+					>
+						{title}
+					</Heading>
+					<Text
+						mt={"10px"}
+						height={"38.38px"}
+						color="#1f243a"
+						textAlign={"left"}
+						css={`
+							text-overflow: ellipsis;
+							word-wrap: break-word;
+							overflow: hidden;
+							max-height: 2.4em;
+							line-height: 1.2em;
+							display: -webkit-box;
+							-webkit-line-clamp: 2;
+							-webkit-box-orient: vertical;
+						`}
+					>
+						{content}
+					</Text>
+				</Flex>
+
+				<Flex flexDir={"column"} mt={"16px"}>
+					<Flex justify={"space-between"}>
+						<Text fontSize={"14px"} color={"#1f243a"}>
+							{targetAmount - currentAmount > 0
+								? "Осталось собрать"
+								: "Собрали"}
+						</Text>
+						<Text fontSize={"14px"} fontWeight={"700"} color={"#bf3132"}>
+							{(targetAmount - currentAmount > 0
+								? targetAmount - currentAmount
+								: currentAmount
+							)
+								.toString()
+								.split("")
+								.reverse()
+								.join("")
+								.replace(/[^\dA-Z]/g, "")
+								.replace(/(.{3})/g, "$1 ")
+								.trim()
+								.split("")
+								.reverse()
+								.join("")}
+						</Text>
+					</Flex>
+					<Box
+						mt={"5px"}
+						borderRadius={"3px"}
+						h={"5px"}
+						w={"100%"}
+						bgColor={"#dcdcdc"}
+					>
+						<Box
+							borderRadius={"3px"}
+							h={"5px"}
+							w={`${
+								(currentAmount / targetAmount) * 100 > 100
+									? 100
+									: (currentAmount / targetAmount) * 100
+							}%`}
+							bgColor={"#bf3132"}
+						/>
+					</Box>
+				</Flex>
+
+				{targetAmount - currentAmount > 0 ? (
+					<Button
+						backgroundColor="#bf3132"
+						borderRadius={"3px"}
+						color={"white"}
+						fontWeight={400}
+						_hover={{
+							bgColor: "#771e2e",
+						}}
+						_active={{
+							bgColor: "#6d1424",
+						}}
+						width={"100%"}
+						height={"45px"}
+						mt={"15px"}
+						cursor={"default"}
+						zIndex={0}
+					>
+						Хочу помочь
+					</Button>
+				) : (
+					<Button
+						backgroundColor="#dddddd"
+						borderRadius={"3px"}
+						color={"#666666"}
+						fontWeight={400}
+						_hover={""}
+						_active={""}
+						width={"100%"}
+						height={"45px"}
+						cursor={"default"}
+						mt={"15px"}
+						zIndex={0}
+					>
+						Сбор закрыт
+					</Button>
+				)}
+			</CardBody>
+		</Card>
+	);
+};
+
+export default ProjectToDelete;

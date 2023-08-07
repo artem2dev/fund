@@ -7,12 +7,26 @@ import {
 	Link,
 	Text,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import blueBg from "../../../assets/blue.png";
 import { getMediaUrl } from "../../../helpers/getMediaUrl";
 import "./index.css";
 
+export const parseDate = (date) => {
+	const dateItem = new Date(date);
+	const yyyy = dateItem.getFullYear();
+	let mm = dateItem.getMonth() + 1;
+	let dd = dateItem.getDate();
+
+	if (dd < 10) dd = "0" + dd;
+	if (mm < 10) mm = "0" + mm;
+
+	return dd + "." + mm + "." + yyyy;
+};
+
 const NewCard = ({ title, description, image, createdAt }) => {
+	const [hover, setHover] = useState(false);
+
 	return (
 		<Card
 			w="360px"
@@ -56,7 +70,7 @@ const NewCard = ({ title, description, image, createdAt }) => {
 				color={"white"}
 				cursor={"default"}
 			>
-				{createdAt}
+				{parseDate(createdAt)}
 			</Flex>
 			<Image
 				position={"absolute"}
@@ -64,19 +78,12 @@ const NewCard = ({ title, description, image, createdAt }) => {
 				bottom={0}
 				zIndex={1}
 				w={"360px"}
-				height={"380px"}
+				height={"420px"}
 				src={blueBg}
 			/>
-			<CardBody
-				p={0}
-				zIndex={2}
-				display={"flex"}
-				flexDir={"column"}
-				h={"142px"}
-				w={"100%"}
-			>
+			<CardBody p={0} zIndex={2} display={"flex"} flexDir={"column"} w={"100%"}>
 				<Flex flexDir={"column"} h={"100%"} justifyContent={"space-between"}>
-					<Flex flexDir={"column"}>
+					<Flex flexDir={"column"} h={"100%"}>
 						<Heading
 							fontFamily={"Oswald"}
 							w={"100%"}
@@ -85,28 +92,54 @@ const NewCard = ({ title, description, image, createdAt }) => {
 							fontWeight={"500"}
 							textTransform={"uppercase"}
 							cursor={"default"}
-							css={`
+							css={
+								hover
+									? `
+							text-overflow: ellipsis;
+							word-wrap: keep-all;
+							overflow: hidden;
+							max-height: 7.5em;
+							line-height: 1.5em;
+							display: -webkit-box;
+							-webkit-line-clamp: 5;
+							-webkit-box-orient: vertical;
+						`
+									: `
 								text-overflow: ellipsis;
 								word-wrap: keep-all;
 								overflow: hidden;
-								max-height: 3em;
+								max-height: 4.5em;
 								line-height: 1.5em;
 								display: -webkit-box;
-								-webkit-line-clamp: 2;
+								-webkit-line-clamp: 3;
 								-webkit-box-orient: vertical;
-							`}
+							`
+							}
+							transition={"all 1s ease-in-out"}
 						>
 							{title}
 						</Heading>
 					</Flex>
-					<Flex flexDir={"column"}>
+					<Flex flexDir={"column"} h={"100%"}>
 						<Text
 							mt={"10px"}
 							fontSize={"14px"}
 							color="#fff"
 							textAlign={"left"}
 							cursor={"default"}
-							css={`
+							css={
+								hover
+									? `
+							text-overflow: ellipsis;
+							word-wrap: break-word;
+							overflow: hidden;
+							max-height: 12em;
+							line-height: 1.2em;
+							display: -webkit-box;
+							-webkit-line-clamp: 10;
+							-webkit-box-orient: vertical;
+						`
+									: `
 								text-overflow: ellipsis;
 								word-wrap: break-word;
 								overflow: hidden;
@@ -115,7 +148,9 @@ const NewCard = ({ title, description, image, createdAt }) => {
 								display: -webkit-box;
 								-webkit-line-clamp: 3;
 								-webkit-box-orient: vertical;
-							`}
+							`
+							}
+							transition={"all .7s ease-in-out"}
 						>
 							{description}
 						</Text>
@@ -126,6 +161,9 @@ const NewCard = ({ title, description, image, createdAt }) => {
 							_hover={{
 								textDecoration: "none",
 							}}
+							cursor={"default"}
+							onMouseEnter={() => setHover(true)}
+							onMouseLeave={() => setHover(false)}
 						>
 							Читать далее...
 						</Link>

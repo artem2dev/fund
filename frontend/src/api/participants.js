@@ -8,5 +8,5 @@ export const getParticipants = async () => useAxios.get(`participants`);
 export const createParticipant = async (participantId) =>
 	useAxios.post(`participants`, participantId);
 
-export const deleteNew = async (participantId) =>
+export const deleteParticipant = async (participantId) =>
 	useAxios.delete(`participants/${participantId}`);

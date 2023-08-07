@@ -20,6 +20,10 @@ const LinkItems = [
 	{ name: "Удалить новость", icon: AiOutlineMinusCircle, link: 1 },
 	{ name: "Добавить награду", icon: AiOutlinePlusCircle, link: 2 },
 	{ name: "Удалить награду", icon: AiOutlineMinusCircle, link: 3 },
+	{ name: "Добавить участника совета", icon: AiOutlinePlusCircle, link: 4 },
+	{ name: "Удалить участника совета", icon: AiOutlineMinusCircle, link: 5 },
+	{ name: "Добавить проект", icon: AiOutlinePlusCircle, link: 6 },
+	{ name: "Удалить проект", icon: AiOutlineMinusCircle, link: 7 },
 ];
 
 export default function SimpleSidebar({
@@ -70,6 +74,7 @@ const SidebarContent = ({ onClose, setCurrentPage, currentPage, ...rest }) => {
 			w={{ base: "full", md: 60 }}
 			pos="fixed"
 			h="full"
+			overflow={"auto"}
 			{...rest}
 		>
 			<Flex h="20" alignItems="center" mx="8" justifyContent="space-between">

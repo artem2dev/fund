@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Participant } from 'src/entities/participant.entity';
 import { Repository } from 'typeorm';
+import { deleteFiles } from '../media/media.controller';
 import { CreateParticipantDto } from './create.participant.dto';
 import { UpdateParticipantDto } from './update.participant.dto';
 
@@ -30,7 +31,13 @@ export class ParticipantService {
     return await this.participantRepository.save(updateParticipantDto);
   }
 
-  async deleteParticipant(id: string) {
-    return await this.participantRepository.delete(id);
+  async deleteParticipant(participantId: string) {
+    const participantItem = await this.participantRepository.findOne({
+      where: { id: participantId },
+    });
+
+    deleteFiles([participantItem.image]);
+
+    return await this.participantRepository.delete(participantId);
   }
 }

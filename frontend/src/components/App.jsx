@@ -3,16 +3,24 @@ import { useEffect, useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { getNews } from "../api/news";
 import { theme } from "../themes/chakraWhiteTheme";
+import Container from "./Container";
 import Login from "./admin/login";
 import Panel from "./admin/panel";
-import Container from "./Container";
 import MainPage from "./fund/mainPage";
 // import About from "./Fund/About";
 // import Help from "./Fund/Help";
 // import News from "./Fund/News";
 // import NewPage from "./Fund/News/novost-page";
 // import Thanks from "./Fund/Thanks";
+import { getParticipants } from "../api/participants";
+import { getProjects } from "../api/projects";
+import { getThanks } from "../api/thanks";
 import PrivateWrapper from "./PrivateRoute";
+import Help from "./fund/help";
+import News from "./fund/news";
+import Participants from "./fund/popechitelskiySovet";
+import Projects from "./fund/projects";
+import Thanks from "./fund/thanks";
 
 // const mockedNews = [
 // 	{
@@ -51,13 +59,34 @@ import PrivateWrapper from "./PrivateRoute";
 
 function App() {
 	const [news, setNews] = useState([]);
+	const [thanks, setThanks] = useState([]);
+	const [projects, setProjects] = useState([]);
+	const [participants, setParticipants] = useState([]);
 
 	useEffect(() => {
-		const onSuccess = (result) => {
+		const onNewsSuccess = (result) => {
 			setNews(result.data);
 		};
 
-		getNews().then(onSuccess).catch();
+		getNews().then(onNewsSuccess).catch();
+
+		const onThanksSuccess = (result) => {
+			setThanks(result.data);
+		};
+
+		getThanks().then(onThanksSuccess).catch();
+
+		const onProjectsSuccess = (result) => {
+			setProjects(result.data);
+		};
+
+		getProjects().then(onProjectsSuccess).catch();
+
+		const onParticipantsSuccess = (result) => {
+			setParticipants(result.data);
+		};
+
+		getParticipants().then(onParticipantsSuccess).catch();
 	}, []);
 
 	return (
@@ -72,12 +101,31 @@ function App() {
 				<Router basename={"/"}>
 					<Routes>
 						<Route element={<Container />}>
-							{/* <Route path="novosty" element={<News news={news} />} /> */}
-							{/* <Route path="novosty/*" element={<NewPage />} /> */}
-							{/* <Route path="o-fonde" element={<About />} /> */}
-							{/* <Route path="kak-pomoch" element={<Help />} /> */}
-							{/* <Route path="blagodarnosti" element={<Thanks />} /> */}
-							<Route path="/" element={<MainPage news={news} />} />
+							<Route path="novosty" element={<News news={news} />} />
+							<Route
+								path="sovet"
+								element={<Participants participants={participants} />}
+							/>
+							<Route path="kak-pomoch" element={<Help />} />
+							<Route
+								path="proekty"
+								element={<Projects projects={projects} />}
+							/>
+							<Route
+								path="blagodarnosti"
+								element={<Thanks thanks={thanks} />}
+							/>
+							<Route
+								path="/"
+								element={
+									<MainPage
+										news={news}
+										thanks={thanks}
+										projects={projects}
+										participants={participants}
+									/>
+								}
+							/>
 						</Route>
 						<Route element={<PrivateWrapper />}>
 							<Route path="admin-panel" element={<Panel news={news} />} />

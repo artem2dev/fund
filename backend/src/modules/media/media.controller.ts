@@ -6,20 +6,33 @@ import {
   Post,
   StreamableFile,
   UploadedFiles,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import * as fs from 'fs';
 import { diskStorage } from 'multer';
 import { extname, join } from 'path';
+import { AccessTokenGuard } from 'src/common/guards/accessToken.guard';
 import { config } from 'src/config/app.config';
 
 const { MEDIA_FOLDER_PATH } = config;
 
+export const deleteFiles = (files: string[]) => {
+  files.forEach((filename) => {
+    fs.unlink(join(__dirname, MEDIA_FOLDER_PATH, filename), (err) => {
+      if (err) {
+        console.error(err);
+        return err;
+      }
+    });
+  });
+};
+
 @Controller('media')
-// @UseGuards(AccessTokenGuard)
 export class MediaController {
   @Post('upload')
+  @UseGuards(AccessTokenGuard)
   @UseInterceptors(
     FilesInterceptor('files', 20, {
       storage: diskStorage({

@@ -9,6 +9,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { MediaModule } from './modules/media/media.module';
 import { NewModule } from './modules/news/new.module';
 import { ParticipantModule } from './modules/participant/participant.module';
+import { ProjectModule } from './modules/projects/new.module';
 import { ThankModule } from './modules/thank/thank.module';
 
 @Module({
@@ -18,6 +19,7 @@ import { ThankModule } from './modules/thank/thank.module';
     NewModule,
     ParticipantModule,
     ThankModule,
+    ProjectModule,
     TypeOrmModule.forRoot(OrmConfig),
   ],
   providers: [AppService, AccessTokenStrategy, JwtService],

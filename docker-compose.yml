@@ -43,7 +43,7 @@ services:
       - bridge
     depends_on:
       - server
-    command: sh -c "npm run build && npm start"
+    command: sh -c "npm run build && npm install -g serve && serve -s build"
   nginx:
     image: nginx:bookworm
     volumes:

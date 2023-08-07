@@ -1,9 +1,11 @@
 import { Card, CardBody, Flex, Heading, Image, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import blueBg from "../../../assets/blue.png";
 import { getMediaUrl } from "../../../helpers/getMediaUrl";
 
-const ParticipantCard = ({ name, image, position, i }) => {
+const ParticipantCard = ({ name, image, position, description }) => {
+	const [hover, setHover] = useState(false);
+
 	return (
 		<Card
 			w="262px"
@@ -11,8 +13,6 @@ const ParticipantCard = ({ name, image, position, i }) => {
 			borderRadius={"3px"}
 			borderBottomRadius={"3px"}
 			boxShadow={""}
-			ml={i ? "28px" : ""}
-			mt={i > 3 ? "28px" : ""}
 			padding={"25px"}
 			flexDir={"row"}
 			display={"flex"}
@@ -32,6 +32,8 @@ const ParticipantCard = ({ name, image, position, i }) => {
 				bgPos: "center",
 				borderRadius: "3px",
 			}}
+			onMouseEnter={() => setHover(true)}
+			onMouseLeave={() => setHover(false)}
 		>
 			<Image
 				position={"absolute"}
@@ -93,6 +95,41 @@ const ParticipantCard = ({ name, image, position, i }) => {
 							`}
 						>
 							{position}
+						</Text>
+					</Flex>
+					<Flex flexDir={"column"}>
+						<Text
+							mt={"10px"}
+							fontSize={"14px"}
+							color="#fff"
+							textAlign={"left"}
+							cursor={"default"}
+							css={
+								hover
+									? `
+							text-overflow: ellipsis;
+							word-wrap: break-word;
+							overflow: hidden;
+							max-height: 12em;
+							line-height: 1.2em;
+							display: -webkit-box;
+							-webkit-line-clamp: 10;
+							-webkit-box-orient: vertical;
+						`
+									: `
+						text-overflow: ellipsis;
+						word-wrap: break-word;
+						overflow: hidden;
+						max-height: 0em;
+						line-height: 0em;
+						display: -webkit-box;
+						-webkit-line-clamp: 0;
+						-webkit-box-orient: vertical;
+					`
+							}
+							transition={"all .5s ease-in-out"}
+						>
+							{description}
 						</Text>
 					</Flex>
 				</Flex>

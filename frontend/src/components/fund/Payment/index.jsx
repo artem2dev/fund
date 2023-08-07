@@ -84,7 +84,7 @@ const mockedPayments = [
 	},
 ];
 
-const PaymentWithHistory = ({ isHeader }) => {
+const PaymentWithHistory = ({ isHeader, cardBg, background, ml = false }) => {
 	return (
 		<Flex flexDir={"column"} w={"100%"}>
 			{isHeader && (
@@ -120,8 +120,8 @@ const PaymentWithHistory = ({ isHeader }) => {
 				align={"center"}
 				flexWrap={"wrap"}
 			>
-				<Payment />
-				<PaymentHistory payments={mockedPayments} />
+				<Payment padding={"40px"} background={background} />
+				<PaymentHistory payments={mockedPayments} cardBg={cardBg} ml={ml} />
 			</Flex>
 		</Flex>
 	);

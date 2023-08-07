@@ -11,7 +11,14 @@ import {
 import React from "react";
 import { getMediaUrl } from "../../../helpers/getMediaUrl";
 
-const ProjectCard = ({ title, description, image, amount, targetAmount }) => {
+const ProjectCard = ({
+	title,
+	content,
+	image,
+	currentAmount,
+	targetAmount,
+	onPaymentModalOpen,
+}) => {
 	return (
 		<Card
 			w="360px"
@@ -75,17 +82,22 @@ const ProjectCard = ({ title, description, image, amount, targetAmount }) => {
 							-webkit-box-orient: vertical;
 						`}
 					>
-						{description}
+						{content}
 					</Text>
 				</Flex>
 
 				<Flex flexDir={"column"} mt={"16px"}>
 					<Flex justify={"space-between"}>
 						<Text fontSize={"14px"} color={"#1f243a"}>
-							{targetAmount - amount > 0 ? "Осталось собрать" : "Собрали"}
+							{targetAmount - currentAmount > 0
+								? "Осталось собрать"
+								: "Собрали"}
 						</Text>
 						<Text fontSize={"14px"} fontWeight={"700"} color={"#bf3132"}>
-							{(targetAmount - amount > 0 ? targetAmount - amount : amount)
+							{(targetAmount - currentAmount > 0
+								? targetAmount - currentAmount
+								: currentAmount
+							)
 								.toString()
 								.split("")
 								.reverse()
@@ -109,16 +121,16 @@ const ProjectCard = ({ title, description, image, amount, targetAmount }) => {
 							borderRadius={"3px"}
 							h={"5px"}
 							w={`${
-								(amount / targetAmount) * 100 > 100
+								(currentAmount / targetAmount) * 100 > 100
 									? 100
-									: (amount / targetAmount) * 100
+									: (currentAmount / targetAmount) * 100
 							}%`}
 							bgColor={"#bf3132"}
 						/>
 					</Box>
 				</Flex>
 
-				{targetAmount - amount > 0 ? (
+				{targetAmount - currentAmount > 0 ? (
 					<Button
 						backgroundColor="#bf3132"
 						borderRadius={"3px"}
@@ -133,6 +145,7 @@ const ProjectCard = ({ title, description, image, amount, targetAmount }) => {
 						width={"100%"}
 						height={"45px"}
 						mt={"15px"}
+						onClick={onPaymentModalOpen}
 					>
 						Хочу помочь
 					</Button>
@@ -146,7 +159,7 @@ const ProjectCard = ({ title, description, image, amount, targetAmount }) => {
 						_active={""}
 						width={"100%"}
 						height={"45px"}
-						cursor={""}
+						cursor={"default"}
 						mt={"15px"}
 					>
 						Сбор закрыт

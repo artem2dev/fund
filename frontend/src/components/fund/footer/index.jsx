@@ -6,12 +6,26 @@ import {
 	Image,
 	Link,
 	Text,
+	useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
 import vk from "../../../assets/vk-footer.svg";
 import tg from "../../../assets/telegram-footer.svg";
+import { PaymentModal } from "../modals/paymentModal";
+import { NeedHelpModal } from "../modals/needHelpModal";
 
 const Footer = () => {
+	const {
+		isOpen: isPaymentModalOpen,
+		onOpen: onPaymentModalOpen,
+		onClose: onPaymentModalClose,
+	} = useDisclosure();
+	const {
+		isOpen: isNeedHelpModalOpen,
+		onOpen: onNeedHelpModalOpen,
+		onClose: onNeedHelpModalClose,
+	} = useDisclosure();
+
 	return (
 		<Flex
 			color={"white"}
@@ -21,6 +35,8 @@ const Footer = () => {
 			display={"flex"}
 			justifyContent={"center"}
 			pt={"75px"}
+			position={"relative"}
+			bottom={"0"}
 		>
 			{document.documentElement.clientWidth > 767 ? (
 				<Flex
@@ -109,6 +125,7 @@ const Footer = () => {
 									width={"170px"}
 									height={"45px"}
 									marginRight={"16px"}
+									onClick={onPaymentModalOpen}
 								>
 									Хочу помочь
 								</Button>
@@ -125,6 +142,7 @@ const Footer = () => {
 									}}
 									width={"170px"}
 									height={"45px"}
+									onClick={onNeedHelpModalOpen}
 								>
 									Нужна помощь
 								</Button>
@@ -224,6 +242,11 @@ const Footer = () => {
 					</Box>
 				</Box>
 			)}
+			<PaymentModal isOpen={isPaymentModalOpen} onClose={onPaymentModalClose} />
+			<NeedHelpModal
+				isOpen={isNeedHelpModalOpen}
+				onClose={onNeedHelpModalClose}
+			/>
 		</Flex>
 	);
 };

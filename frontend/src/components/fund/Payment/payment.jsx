@@ -10,9 +10,10 @@ import {
 	Stack,
 	Text,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import paymentsLogo from "../../../assets/paymentsLogo.png";
 import qrLogo from "../../../assets/qrLogo.png";
+import { Link } from "react-router-dom";
 
 const defaultLabels = {
 	email: "Ваш e-mail",
@@ -31,7 +32,7 @@ const initialIsFieldError = {
 	otherAmount: false,
 };
 
-const Payment = () => {
+const Payment = ({ padding, width, height, background, isTitle = true }) => {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [otherAmount, setOtherAmount] = useState("");
@@ -39,6 +40,17 @@ const Payment = () => {
 	const [activeButton, setActiveButton] = useState("");
 	// const [isLoading, setIsLoading] = useState(false);
 	const [isFieldError, setIsFieldError] = useState(initialIsFieldError);
+
+	useEffect(() => {
+		return () => {
+			setName("");
+			setEmail("");
+			setOtherAmount("");
+			setLabels(defaultLabels);
+			setActiveButton("");
+			setIsFieldError(initialIsFieldError);
+		};
+	}, []);
 
 	const onEmailChange = (e) => {
 		setIsFieldError({
@@ -106,22 +118,24 @@ const Payment = () => {
 
 	return (
 		<Box
-			w={"648px"}
-			h={"630px"}
-			bgColor={"#fff"}
-			p={"40px"}
+			w={width || "648px"}
+			h={height || "630px"}
+			bgColor={background ? background : "#fff"}
+			p={padding}
 			borderRadius={"3px"}
 		>
 			<Flex flexDir={"column"}>
-				<Heading
-					fontSize={"20px"}
-					color={"#1f243a"}
-					fontWeight={"700"}
-					mb={"50px"}
-					fontFamily={"Wix Madefor Display"}
-				>
-					Сумма пожертвования
-				</Heading>
+				{isTitle && (
+					<Heading
+						fontSize={"20px"}
+						color={"#1f243a"}
+						fontWeight={"700"}
+						mb={"50px"}
+						fontFamily={"Wix Madefor Display"}
+					>
+						Сумма пожертвования
+					</Heading>
+				)}
 				<Flex justifyContent={"space-between"}>
 					<Button
 						w={"130px"}
@@ -323,25 +337,27 @@ const Payment = () => {
 						/>
 					</Stack>
 				</Flex>
-				<Button
-					borderRadius={"3px"}
-					mt={"10px"}
-					w={"100%"}
-					h={"60px"}
-					bg={
-						"linear-gradient(to right, #771e2e 0%, #bf3132 99%, #bf3132 100%)"
-					}
-					transition={"all 0.5s"}
-					_hover={{
-						bg: "linear-gradient(to right, #771e2e 0%, #771e2e 99%, #771e2e 100%)",
-					}}
-					_active={{
-						bg: "linear-gradient(to right, #6d1424 0%, #6d1424 99%, #6d1424 100%)",
-					}}
-					color={"white"}
-				>
-					Помочь
-				</Button>
+				<Link to={"https://pashaev-fund.server.paykeeper.ru/testgw/create/"} >
+					<Button
+						borderRadius={"3px"}
+						mt={"10px"}
+						w={"100%"}
+						h={"60px"}
+						bg={
+							"linear-gradient(to right, #771e2e 0%, #bf3132 99%, #bf3132 100%)"
+						}
+						transition={"all 0.5s"}
+						_hover={{
+							bg: "linear-gradient(to right, #771e2e 0%, #771e2e 99%, #771e2e 100%)",
+						}}
+						_active={{
+							bg: "linear-gradient(to right, #6d1424 0%, #6d1424 99%, #6d1424 100%)",
+						}}
+						color={"white"}
+					>
+						Помочь
+					</Button>
+				</Link>
 				<Text
 					color={"#666666"}
 					fontSize={"14px"}
