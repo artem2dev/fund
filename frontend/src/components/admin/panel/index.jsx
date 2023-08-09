@@ -2,19 +2,22 @@ import { Box, Flex, Heading } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { deleteNew, getNews } from "../../../api/news";
 import { deleteParticipant, getParticipants } from "../../../api/participants";
+import { deletePdf, getPdfs } from "../../../api/pdfs";
 import { deleteProject, getProjects } from "../../../api/projects";
 import { deleteThank, getThanks } from "../../../api/thanks";
 import { CreateNew } from "./createNew";
 import { CreateParticipant } from "./createParticipant";
+import { CreatePdf } from "./createPdf";
 import { CreateProject } from "./createProject";
 import { CreateThank } from "./createThank";
 import NewCardToDelete from "./deleteNew";
 import ParticipantToDelete from "./deleteParticipant";
+import PdfToDelete from "./deletePdf";
 import ProjectToDelete from "./deleteProject";
 import ThankToDelete from "./deleteThank";
 import SimpleSidebar from "./sidebar";
 
-const pages = [0, 1, 2, 3, 4, 5, 6, 7];
+const pages = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Panel = () => {
 	const [currentPage, setCurrentPage] = useState(pages[0]);
@@ -22,6 +25,7 @@ const Panel = () => {
 	const [thanks, setThanks] = useState([]);
 	const [participants, setParticipants] = useState([]);
 	const [projects, setProjects] = useState([]);
+	const [pdfs, setPdfs] = useState([]);
 
 	useEffect(() => {
 		if (currentPage === 1) {
@@ -54,6 +58,14 @@ const Panel = () => {
 			};
 
 			getProjects().then(onSuccess).catch();
+		}
+
+		if (currentPage === 9) {
+			const onSuccess = (result) => {
+				setPdfs(result.data);
+			};
+
+			getPdfs().then(onSuccess).catch();
 		}
 	}, [currentPage]);
 
@@ -103,6 +115,18 @@ const Panel = () => {
 		};
 
 		deleteProject(id).then(onSuccess).catch();
+	};
+
+	const deletePdfFunc = (id) => {
+		const onSuccess = () => {
+			const onSuccess2 = (result) => {
+				setPdfs(result.data);
+			};
+
+			getPdfs().then(onSuccess2).catch();
+		};
+
+		deletePdf(id).then(onSuccess).catch();
 	};
 
 	return (
@@ -241,6 +265,27 @@ const Panel = () => {
 									)
 								) : (
 									<Heading fontSize={"20px"}>Список проектов пуст.</Heading>
+								)}
+							</Box>
+						)}
+						{currentPage === 8 && <CreatePdf />}
+						{currentPage === 9 && (
+							<Box
+								display={"flex"}
+								flexWrap={"wrap"}
+								justifyContent={"flex-start"}
+							>
+								{pdfs.length > 0 ? (
+									pdfs.map((pdf, i) => (
+										<PdfToDelete
+											key={i}
+											id={pdf.id}
+											pdf={pdf}
+											deletePdf={deletePdfFunc}
+										/>
+									))
+								) : (
+									<Heading fontSize={"20px"}>Список PDF пуст.</Heading>
 								)}
 							</Box>
 						)}

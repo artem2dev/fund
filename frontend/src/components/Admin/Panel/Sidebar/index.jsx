@@ -24,6 +24,8 @@ const LinkItems = [
 	{ name: "Удалить участника совета", icon: AiOutlineMinusCircle, link: 5 },
 	{ name: "Добавить проект", icon: AiOutlinePlusCircle, link: 6 },
 	{ name: "Удалить проект", icon: AiOutlineMinusCircle, link: 7 },
+	{ name: "Добавить PDF", icon: AiOutlinePlusCircle, link: 8 },
+	{ name: "Удалить PDF", icon: AiOutlineMinusCircle, link: 9 },
 ];
 
 export default function SimpleSidebar({

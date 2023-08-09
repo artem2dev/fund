@@ -19,7 +19,13 @@ import ParticipantCard from "../popechitelskiySovet/participant-card";
 import ProjectCard from "../projects/project-card";
 import Thank from "../thanks/thank";
 
-export default function MainPage({ news, thanks, projects, participants }) {
+export default function MainPage({
+	pdfs,
+	news,
+	thanks,
+	projects,
+	participants,
+}) {
 	const navigate = useNavigate();
 	const {
 		isOpen: isPaymentModalOpen,
@@ -172,70 +178,75 @@ export default function MainPage({ news, thanks, projects, participants }) {
 					<Image src={mainPashaev} ml={"29px"} />
 				</Flex>
 			</Flex>
-			<Flex
-				justify={"center"}
-				width={"100%"}
-				pt={"66px"}
-				pb={"75px"}
-				bgColor={"#1f243a"}
-			>
-				<Flex w={"1133px"} flexDir={"column"}>
-					<Flex mb={"35px"}>
-						<Box
-							marginLeft={"8px"}
-							display={"flex"}
-							justifyContent={"center"}
-							alignItems={"center"}
-							css={`
-								width: 145px;
-								height: 45px;
-								transform: skew(160deg);
-								background: #bf3132;
-								border-radius: 5px;
-							`}
-						>
+			{projects.length > 0 && (
+				<Flex
+					justify={"center"}
+					width={"100%"}
+					pt={"66px"}
+					pb={"75px"}
+					bgColor={"#1f243a"}
+				>
+					<Flex w={"1133px"} flexDir={"column"}>
+						<Flex mb={"35px"}>
+							<Box
+								marginLeft={"8px"}
+								display={"flex"}
+								justifyContent={"center"}
+								alignItems={"center"}
+								css={`
+									width: 145px;
+									height: 45px;
+									transform: skew(160deg);
+									background: #bf3132;
+									border-radius: 5px;
+								`}
+							>
+								<Text
+									fontWeight={500}
+									color={"white"}
+									fontSize={"30px"}
+									fontFamily={"Oswald"}
+									textTransform={"uppercase"}
+									css={"transform: skew(20deg);"}
+								>
+									Проекты
+								</Text>
+							</Box>
 							<Text
 								fontWeight={500}
-								color={"white"}
 								fontSize={"30px"}
 								fontFamily={"Oswald"}
 								textTransform={"uppercase"}
-								css={"transform: skew(20deg);"}
+								ml={"5px"}
+								color={"#fff"}
 							>
-								Проекты
+								фонда
 							</Text>
-						</Box>
-						<Text
-							fontWeight={500}
-							fontSize={"30px"}
-							fontFamily={"Oswald"}
-							textTransform={"uppercase"}
-							ml={"5px"}
-							color={"#fff"}
-						>
-							фонда
-						</Text>
-					</Flex>
-					<Flex justify={"start"} flexWrap={"wrap"}>
-						{projects
-							.slice(0, 3)
-							.map(
-								({ title, content, image, currentAmount, targetAmount }, i) => (
-									<Box ml={i !== 0 && "26px"} key={i}>
-										<ProjectCard
-											title={title}
-											content={content}
-											image={image}
-											targetAmount={targetAmount}
-											currentAmount={currentAmount}
-											onPaymentModalOpen={onPaymentModalOpen}
-										/>
-									</Box>
-								)
-							)}
+						</Flex>
+						<Flex justify={"start"} flexWrap={"wrap"}>
+							{projects
+								.slice(0, 3)
+								.map(
+									(
+										{ title, content, image, currentAmount, targetAmount },
+										i
+									) => (
+										<Box ml={i !== 0 && "26px"} key={i}>
+											<ProjectCard
+												title={title}
+												content={content}
+												image={image}
+												targetAmount={targetAmount}
+												currentAmount={currentAmount}
+												onPaymentModalOpen={onPaymentModalOpen}
+											/>
+										</Box>
+									)
+								)}
+						</Flex>
 					</Flex>
 				</Flex>
-			</Flex>
+			)}
 			{news.length > 0 && (
 				<Flex
 					justify={"center"}
@@ -307,98 +318,102 @@ export default function MainPage({ news, thanks, projects, participants }) {
 					<PaymentWithHistory isHeader={true} />
 				</Flex>
 			</Flex>
-			<Flex justify={"center"} width={"100%"} pt={"74px"} pb={"75px"}>
-				<Flex w={"1133px"}>
-					<Flex flexDir={"column"} w={"100%"}>
-						<Heading
-							fontFamily={"Oswald"}
-							color={"#1f243a"}
-							fontSize={"30px"}
-							fontWeight={700}
-							textTransform={"uppercase"}
-							mb={"40px"}
-						>
-							Попечительский совет
-						</Heading>
-						<Flex w={"100%"} justify={"start"} flexWrap={"wrap"}>
-							{participants.map((participant, i) => (
-								<Box
-									ml={i && i % 4 !== 0 ? "28px" : ""}
-									mt={i > 3 ? "28px" : ""}
-									key={i}
-								>
-									<ParticipantCard
-										image={participant?.image}
-										name={participant?.name}
-										position={participant?.position}
-										description={participant?.description}
-									/>
-								</Box>
-							))}
+			{participants.length > 0 && (
+				<Flex justify={"center"} width={"100%"} pt={"74px"} pb={"75px"}>
+					<Flex w={"1133px"}>
+						<Flex flexDir={"column"} w={"100%"}>
+							<Heading
+								fontFamily={"Oswald"}
+								color={"#1f243a"}
+								fontSize={"30px"}
+								fontWeight={700}
+								textTransform={"uppercase"}
+								mb={"40px"}
+							>
+								Попечительский совет
+							</Heading>
+							<Flex w={"100%"} justify={"start"} flexWrap={"wrap"}>
+								{participants.map((participant, i) => (
+									<Box
+										ml={i && i % 4 !== 0 ? "28px" : ""}
+										mt={i > 3 ? "28px" : ""}
+										key={i}
+									>
+										<ParticipantCard
+											image={participant?.image}
+											name={participant?.name}
+											position={participant?.position}
+											description={participant?.description}
+										/>
+									</Box>
+								))}
+							</Flex>
 						</Flex>
 					</Flex>
 				</Flex>
-			</Flex>
-			<Flex
-				justify={"center"}
-				width={"100%"}
-				pt={"74px"}
-				pb={"75px"}
-				bgImage={"linear-gradient(to top, #f2f5f8 0%, #ffffff 100%)"}
-			>
-				<Flex w={"1133px"}>
-					<Flex flexDir={"column"} w={"100%"}>
-						{/* <Flex mb={"35px"}>
-							<Text
-								fontWeight={500}
-								fontSize={"30px"}
+			)}
+			{thanks.length > 0 && (
+				<Flex
+					justify={"center"}
+					width={"100%"}
+					pt={"74px"}
+					pb={"75px"}
+					bgImage={"linear-gradient(to top, #f2f5f8 0%, #ffffff 100%)"}
+				>
+					<Flex w={"1133px"}>
+						<Flex flexDir={"column"} w={"100%"}>
+							{/* <Flex mb={"35px"}>
+				<Text
+					fontWeight={500}
+					fontSize={"30px"}
+					fontFamily={"Oswald"}
+					textTransform={"uppercase"}
+					mr={"5px"}
+					color={"#1f243a"}
+				>
+					Вы уже
+				</Text>
+				<Box
+					marginLeft={"8px"}
+					display={"flex"}
+					justifyContent={"center"}
+					alignItems={"center"}
+					css={`
+						width: 145px;
+						height: 45px;
+						transform: skew(160deg);
+						background: #bf3132;
+						border-radius: 5px;
+					`}
+				>
+					<Text
+						fontWeight={500}
+						color={"white"}
+						fontSize={"30px"}
+						fontFamily={"Oswald"}
+						textTransform={"uppercase"}
+						css={"transform: skew(20deg);"}
+					>
+						помогли
+					</Text>
+				</Box>
+			</Flex> */}
+							<Heading
 								fontFamily={"Oswald"}
-								textTransform={"uppercase"}
-								mr={"5px"}
 								color={"#1f243a"}
+								fontSize={"30px"}
+								fontWeight={700}
+								textTransform={"uppercase"}
+								mb={"40px"}
 							>
-								Вы уже
-							</Text>
-							<Box
-								marginLeft={"8px"}
-								display={"flex"}
-								justifyContent={"center"}
-								alignItems={"center"}
-								css={`
-									width: 145px;
-									height: 45px;
-									transform: skew(160deg);
-									background: #bf3132;
-									border-radius: 5px;
-								`}
-							>
-								<Text
-									fontWeight={500}
-									color={"white"}
-									fontSize={"30px"}
-									fontFamily={"Oswald"}
-									textTransform={"uppercase"}
-									css={"transform: skew(20deg);"}
-								>
-									помогли
-								</Text>
-							</Box>
-						</Flex> */}
-						<Heading
-							fontFamily={"Oswald"}
-							color={"#1f243a"}
-							fontSize={"30px"}
-							fontWeight={700}
-							textTransform={"uppercase"}
-							mb={"40px"}
-						>
-							Благодарности
-						</Heading>
-						<Thank images={thanks.slice(0, 4)} />
+								Благодарности
+							</Heading>
+							<Thank images={thanks.slice(0, 4)} />
+						</Flex>
 					</Flex>
 				</Flex>
-			</Flex>
-			<PreFooter />
+			)}
+			<PreFooter pdfs={pdfs.slice(0, 2)} />
 
 			<PaymentModal isOpen={isPaymentModalOpen} onClose={onPaymentModalClose} />
 		</Box>

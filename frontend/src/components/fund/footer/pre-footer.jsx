@@ -6,20 +6,7 @@ import { ReactComponent as tg } from "../../../assets/telegram.svg";
 import { ReactComponent as vk } from "../../../assets/vk.svg";
 import PdfItem from "./pdf-item";
 
-const mockedPdfs = [
-	{
-		title: " Свидетельство Свидетельство ЮГРЮЛ",
-		size: "3342",
-		pdf: "",
-	},
-	{
-		title: "Устав Организации",
-		size: "3342",
-		pdf: "",
-	},
-];
-
-const PreFooter = () => {
+const PreFooter = ({ pdfs }) => {
 	const [vkHover, setVkHover] = useState(false);
 	const [tgHover, setTgHover] = useState(false);
 
@@ -177,7 +164,7 @@ const PreFooter = () => {
 						Официальные документы
 					</Heading>
 					<Flex>
-						{mockedPdfs.map((pdf, i) => (
+						{pdfs.map((pdf, i) => (
 							<PdfItem key={i} i={i} pdf={pdf} />
 						))}
 					</Flex>

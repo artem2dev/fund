@@ -13,9 +13,11 @@ import MainPage from "./fund/mainPage";
 // import NewPage from "./Fund/News/novost-page";
 // import Thanks from "./Fund/Thanks";
 import { getParticipants } from "../api/participants";
+import { getPdfs } from "../api/pdfs";
 import { getProjects } from "../api/projects";
 import { getThanks } from "../api/thanks";
 import PrivateWrapper from "./PrivateRoute";
+import About from "./fund/about";
 import Help from "./fund/help";
 import News from "./fund/news";
 import Participants from "./fund/popechitelskiySovet";
@@ -62,6 +64,7 @@ function App() {
 	const [thanks, setThanks] = useState([]);
 	const [projects, setProjects] = useState([]);
 	const [participants, setParticipants] = useState([]);
+	const [pdfs, setPdfs] = useState([]);
 
 	useEffect(() => {
 		const onNewsSuccess = (result) => {
@@ -87,6 +90,12 @@ function App() {
 		};
 
 		getParticipants().then(onParticipantsSuccess).catch();
+
+		const onPdfsSuccess = (result) => {
+			setPdfs(result.data);
+		};
+
+		getPdfs().then(onPdfsSuccess).catch();
 	}, []);
 
 	return (
@@ -116,10 +125,15 @@ function App() {
 								element={<Thanks thanks={thanks} />}
 							/>
 							<Route
+								path="otchety"
+								element={<About participants={participants} pdfs={pdfs} />}
+							/>
+							<Route
 								path="/"
 								element={
 									<MainPage
 										news={news}
+										pdfs={pdfs}
 										thanks={thanks}
 										projects={projects}
 										participants={participants}

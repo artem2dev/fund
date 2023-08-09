@@ -16,23 +16,38 @@ const PdfItem = ({ pdf: pdfItem, i }) => {
 		>
 			<Box>
 				<Icon w={"38px"} h={"38px"} mb={"20px"} as={pdf} />
-				<Text fontSize={"16px"} color={"#1f243a"}>
+				<Text
+					fontSize={"16px"}
+					color={"#1f243a"}
+					css={`
+						text-overflow: ellipsis;
+						word-wrap: keep-all;
+						overflow: hidden;
+						max-height: 4.8em;
+						line-height: 1.2em;
+						display: -webkit-box;
+						-webkit-line-clamp: 4;
+						-webkit-box-orient: vertical;
+					`}
+				>
 					{pdfItem.title}
 				</Text>
 			</Box>
 			<Box>
 				<Text fontSize={"14px"} color={"#666666"} mb={"4px"}>
-					pdf, {pdfItem.size} Кб
+					pdf, {pdfItem.size}
 				</Text>
-				<Text
-					fontSize={"14px"}
-					textDecoration={"underline"}
-					_hover={{ textDecoration: "none" }}
-					color={"#bf3132"}
-					cursor={"pointer"}
-				>
-					Скачать
-				</Text>
+				<a href={`${process.env.REACT_APP_SERVER}/media/${pdfItem.pdf}`}>
+					<Text
+						fontSize={"14px"}
+						textDecoration={"underline"}
+						_hover={{ textDecoration: "none" }}
+						color={"#bf3132"}
+						cursor={"pointer"}
+					>
+						Скачать
+					</Text>
+				</a>
 			</Box>
 		</Flex>
 	);

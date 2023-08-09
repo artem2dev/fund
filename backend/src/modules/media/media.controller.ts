@@ -62,6 +62,7 @@ export class MediaController {
   }
 
   @Delete(':filename')
+  @UseGuards(AccessTokenGuard)
   async deletePicture(@Param('filename') filename: string) {
     fs.unlink(join(__dirname, MEDIA_FOLDER_PATH, filename), (err) => {
       if (err) {

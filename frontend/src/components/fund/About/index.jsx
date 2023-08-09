@@ -1,38 +1,39 @@
-import { Box, Heading, Text } from "@chakra-ui/react";
-import React from "react";
+import { Flex, Heading } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import aboutUsBg from "../../../assets/aboutUsBg.jpg";
 
-const OFonde = () => {
+const About = ({ pdfs, participants }) => {
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
 	return (
-		<Box height={"100%"} pb={"30px"}>
-			<Heading py={5} color={"#4C70B4"} textAlign={"center"}>
-				Благотворительный фонд Эльмана Пашаева
-			</Heading>
-			<Box
-				height={"70vh"}
-				display={"flex"}
-				flexDir={"column"}
-				justifyContent={"space-between"}
+		<Flex flexDir={"column"} align={"center"}>
+			<Flex
+				align={"center"}
+				w={"100%"}
+				h={"600px"}
+				bgPos={"center"}
+				bgRepeat={"no-repeat"}
+				bgImage={aboutUsBg}
 			>
-				<Text fontSize={20} textAlign={"justify"}>
-					Целью нашего фонда является поддержка детей из детских домов, талантливой молодежи, а в данный момент бойцов на передовой и их семей. Сейчас мы оказываем всестороннюю поддержку солдатам и их семьям: доставляем в зону боевых действий продукты питания, лекарственные средства, транспортные средства, а также оказываем правовую и юридическую поддержку лицам - участникам боевых действий.
-				</Text>
-				<Box>
-					<Text fontSize={18} textAlign={"center"}>
-						БЛАГОТВОРИТЕЛЬНЫЙ ФОНД ЭЛЬМАНА ПАШАЕВА
-						<br />
-						ИНН 1225000021950
-						<br />
-						УЧЕТНЫЙ № 5014010933 от 01 марта 2022 года
-						<br />
-						ИНН 5047261470
-						<br />
-						ЮР.АДРЕС: 141702, Московская область, г.о. Долгопрудный, ш.
-						Лихачевское, д.20 к.1 кв. 80
-					</Text>
-				</Box>
-			</Box>
-		</Box>
+				<Flex w={"100%"} justify={"center"}>
+					<Heading
+						fontSize={"50px"}
+						color={"white"}
+						fontFamily={"Oswald"}
+						textAlign={"center"}
+						w={"650px"}
+					>
+						Благотворительный фонд Эльмана Пашаева
+					</Heading>
+				</Flex>
+			</Flex>
+			<Flex w={"1133px"} pb={"75px"}>
+				{/* <Flex>dd</Flex> */}
+			</Flex>
+		</Flex>
 	);
 };
 
-export default OFonde;
+export default About;
