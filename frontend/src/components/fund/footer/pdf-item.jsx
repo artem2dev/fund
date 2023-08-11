@@ -2,11 +2,11 @@ import { Box, Flex, Icon, Text } from "@chakra-ui/react";
 import React from "react";
 import { ReactComponent as pdf } from "../../../assets/pdf.svg";
 
-const PdfItem = ({ pdf: pdfItem, i }) => {
+const PdfItem = ({ pdf: pdfItem, i, width }) => {
 	return (
 		<Flex
 			flexDir={"column"}
-			w={"205px"}
+			w={width || "205px"}
 			h={"260px"}
 			borderRadius={"3px"}
 			bgColor={"#f8f8f8"}

@@ -125,7 +125,7 @@ function App() {
 								element={<Thanks thanks={thanks} />}
 							/>
 							<Route
-								path="otchety"
+								path="o-fonde"
 								element={<About participants={participants} pdfs={pdfs} />}
 							/>
 							<Route
