@@ -28,7 +28,7 @@ services:
       - postgres
     command: npm run start:prod
     volumes:
-      - ~/app/media/.:/app/media/.
+      - ./media/.:/app/media/.
     networks:
       - bridge
     extra_hosts:

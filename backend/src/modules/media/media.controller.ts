@@ -36,7 +36,7 @@ export class MediaController {
   @UseInterceptors(
     FilesInterceptor('files', 20, {
       storage: diskStorage({
-        destination: '../media',
+        destination: join(__dirname, MEDIA_FOLDER_PATH),
         filename: (req, file, cb) => {
           const randomName = Array(32)
             .fill(null)
