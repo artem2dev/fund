@@ -12,6 +12,7 @@ import { ParticipantModule } from './modules/participant/participant.module';
 import { PdfModule } from './modules/pdf/pdf.module';
 import { ProjectModule } from './modules/projects/new.module';
 import { ThankModule } from './modules/thank/thank.module';
+import { ReportModule } from './modules/report/report.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ThankModule } from './modules/thank/thank.module';
     ThankModule,
     ProjectModule,
     PdfModule,
+    ReportModule,
     TypeOrmModule.forRoot(OrmConfig),
   ],
   providers: [AppService, AccessTokenStrategy, JwtService],

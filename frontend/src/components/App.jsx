@@ -15,6 +15,7 @@ import MainPage from "./fund/mainPage";
 import { getParticipants } from "../api/participants";
 import { getPdfs } from "../api/pdfs";
 import { getProjects } from "../api/projects";
+import { getReports } from "../api/reports";
 import { getThanks } from "../api/thanks";
 import PrivateWrapper from "./PrivateRoute";
 import About from "./fund/about";
@@ -22,6 +23,7 @@ import Help from "./fund/help";
 import News from "./fund/news";
 import Participants from "./fund/popechitelskiySovet";
 import Projects from "./fund/projects";
+import Reports from "./fund/reports";
 import Thanks from "./fund/thanks";
 
 // const mockedNews = [
@@ -65,6 +67,7 @@ function App() {
 	const [projects, setProjects] = useState([]);
 	const [participants, setParticipants] = useState([]);
 	const [pdfs, setPdfs] = useState([]);
+	const [reports, setReports] = useState([]);
 
 	useEffect(() => {
 		const onNewsSuccess = (result) => {
@@ -96,6 +99,12 @@ function App() {
 		};
 
 		getPdfs().then(onPdfsSuccess).catch();
+
+		const onReportsSuccess = (result) => {
+			setReports(result.data);
+		};
+
+		getReports().then(onReportsSuccess).catch();
 	}, []);
 
 	return (
@@ -128,6 +137,7 @@ function App() {
 								path="o-fonde"
 								element={<About participants={participants} pdfs={pdfs} />}
 							/>
+							<Route path="otchety" element={<Reports reports={reports} />} />
 							<Route
 								path="/"
 								element={

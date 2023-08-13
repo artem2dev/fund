@@ -9,6 +9,7 @@ import { CreateNew } from "./createNew";
 import { CreateParticipant } from "./createParticipant";
 import { CreatePdf } from "./createPdf";
 import { CreateProject } from "./createProject";
+import { CreateReport } from "./createReport";
 import { CreateThank } from "./createThank";
 import NewCardToDelete from "./deleteNew";
 import ParticipantToDelete from "./deleteParticipant";
@@ -17,7 +18,7 @@ import ProjectToDelete from "./deleteProject";
 import ThankToDelete from "./deleteThank";
 import SimpleSidebar from "./sidebar";
 
-const pages = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+const pages = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const Panel = () => {
 	const [currentPage, setCurrentPage] = useState(pages[0]);
@@ -289,6 +290,7 @@ const Panel = () => {
 								)}
 							</Box>
 						)}
+						{currentPage === 10 && <CreateReport />}
 					</Flex>
 				</Box>
 			</SimpleSidebar>
