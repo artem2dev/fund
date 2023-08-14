@@ -86,44 +86,87 @@ const mockedPayments = [
 
 const PaymentWithHistory = ({ isHeader, cardBg, background, ml = false }) => {
 	return (
-		<Flex flexDir={"column"} w={"100%"}>
-			{isHeader && (
-				<Box
-					marginLeft={"8px"}
-					display={"flex"}
-					justifyContent={"center"}
-					alignItems={"center"}
-					css={`
-						width: 205px;
-						height: 45px;
-						transform: skew(160deg);
-						background: #bf3132;
-						border-radius: 5px;
-					`}
-					mb={"42px"}
-				>
-					<Text
-						fontWeight={500}
-						color={"white"}
-						fontSize={"30px"}
-						fontFamily={"Oswald"}
-						textTransform={"uppercase"}
-						css={"transform: skew(20deg);"}
+		<>
+			{document.documentElement.clientWidth > 767 ? (
+				<Flex flexDir={"column"} w={"100%"}>
+					{isHeader && (
+						<Box
+							marginLeft={"8px"}
+							display={"flex"}
+							justifyContent={"center"}
+							alignItems={"center"}
+							css={`
+								width: 205px;
+								height: 45px;
+								transform: skew(160deg);
+								background: #bf3132;
+								border-radius: 5px;
+							`}
+							mb={"42px"}
+						>
+							<Text
+								fontWeight={500}
+								color={"white"}
+								fontSize={"30px"}
+								fontFamily={"Oswald"}
+								textTransform={"uppercase"}
+								css={"transform: skew(20deg);"}
+							>
+								Как помочь
+							</Text>
+						</Box>
+					)}
+					<Flex
+						w={"100%"}
+						justify={"space-between"}
+						align={"center"}
+						flexWrap={"wrap"}
 					>
-						Как помочь
-					</Text>
-				</Box>
+						<Payment padding={"40px"} background={background} />
+						<PaymentHistory payments={mockedPayments} cardBg={cardBg} ml={ml} />
+					</Flex>
+				</Flex>
+			) : (
+				<Flex flexDir={"column"} w={"100%"}>
+					{isHeader && (
+						<Box
+							marginLeft={"15px"}
+							display={"flex"}
+							justifyContent={"center"}
+							alignItems={"center"}
+							css={`
+								width: 140px;
+								height: 30px;
+								transform: skew(160deg);
+								background: #bf3132;
+								border-radius: 5px;
+							`}
+							mb={"22px"}
+						>
+							<Text
+								fontWeight={500}
+								color={"white"}
+								fontSize={"20px"}
+								fontFamily={"Oswald"}
+								textTransform={"uppercase"}
+								css={"transform: skew(20deg);"}
+							>
+								Как помочь
+							</Text>
+						</Box>
+					)}
+					<Flex
+						w={"100%"}
+						justify={"space-between"}
+						align={"center"}
+						flexWrap={"wrap"}
+					>
+						<Payment padding={"40px"} background={background} />
+						<PaymentHistory payments={mockedPayments} cardBg={cardBg} ml={ml} />
+					</Flex>
+				</Flex>
 			)}
-			<Flex
-				w={"100%"}
-				justify={"space-between"}
-				align={"center"}
-				flexWrap={"wrap"}
-			>
-				<Payment padding={"40px"} background={background} />
-				<PaymentHistory payments={mockedPayments} cardBg={cardBg} ml={ml} />
-			</Flex>
-		</Flex>
+		</>
 	);
 };
 

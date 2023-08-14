@@ -4,18 +4,18 @@ import {
   Get,
   Param,
   Post,
-  StreamableFile,
+  Res,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
 import * as fs from 'fs';
 import { diskStorage } from 'multer';
 import { extname, join } from 'path';
 import { AccessTokenGuard } from 'src/common/guards/accessToken.guard';
 import { config } from 'src/config/app.config';
-
 const { MEDIA_FOLDER_PATH } = config;
 
 export const deleteFiles = (files: string[]) => {
@@ -53,12 +53,12 @@ export class MediaController {
   }
 
   @Get(':filename')
-  async getPicture(@Param('filename') filename: string) {
+  async getPicture(@Param('filename') filename: string, @Res() res: Response) {
     const file = fs.createReadStream(
       join(__dirname, MEDIA_FOLDER_PATH, filename),
     );
 
-    return new StreamableFile(file);
+    file.pipe(res);
   }
 
   @Delete(':filename')
