@@ -50,7 +50,6 @@ const ThankToDelete = ({ id, image, deleteThank }) => {
 				position={"absolute"}
 				left={0}
 				bottom={0}
-				// zIndex={1}
 				w={"260px"}
 				height={"360px"}
 			></Box>

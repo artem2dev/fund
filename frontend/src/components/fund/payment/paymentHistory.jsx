@@ -21,7 +21,7 @@ const parseDate = (date) => {
 	const currentDate = new Date();
 
 	const time = `${dateItem.getHours()}:${dateItem.getMinutes()}`;
-	const day = dateItem.getDay();
+	const day = dateItem.getDate();
 	const month = months[dateItem.getMonth()];
 
 	if (

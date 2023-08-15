@@ -11,9 +11,9 @@ import {
 	Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import paymentsLogo from "../../../assets/paymentsLogo.png";
 import qrLogo from "../../../assets/qrLogo.png";
-import { Link } from "react-router-dom";
 
 const defaultLabels = {
 	email: "Ваш e-mail",
@@ -113,7 +113,6 @@ const Payment = ({ padding, width, height, background, isTitle = true }) => {
 	// 	e.preventDefault();
 	// 	fieldsVerification(email, name);
 
-	// 	console.log();
 	// };
 
 	return (
@@ -340,7 +339,7 @@ const Payment = ({ padding, width, height, background, isTitle = true }) => {
 							</Stack>
 						</Flex>
 						<Link
-							to={"https://pashaev-fund.server.paykeeper.ru/testgw/create/"}
+						// to={"https://pashaev-fund.server.paykeeper.ru/testgw/create/"}
 						>
 							<Button
 								borderRadius={"3px"}
@@ -371,7 +370,9 @@ const Payment = ({ padding, width, height, background, isTitle = true }) => {
 							Нажимая на кнопку, Вы даете согласие на обработку персональных
 							данных и соглашаетесь с{" "}
 							<span style={{ textDecoration: "underline", cursor: "pointer" }}>
-								политикой конфиденциальности
+								<a href="policy" style={{ textDecoration: "underline" }}>
+									политикой конфиденциальности
+								</a>
 							</span>
 						</Text>
 					</Flex>
@@ -640,10 +641,10 @@ const Payment = ({ padding, width, height, background, isTitle = true }) => {
 							w={"290px"}
 						>
 							Нажимая на кнопку, Вы даете согласие на обработку персональных
-							данных и соглашаетесь с{" "}
-							<span style={{ textDecoration: "underline", cursor: "pointer" }}>
+							данных и соглашаетесь с
+							<a href="policy" style={{ textDecoration: "underline" }}>
 								политикой конфиденциальности
-							</span>
+							</a>
 						</Text>
 					</Flex>
 				</Flex>

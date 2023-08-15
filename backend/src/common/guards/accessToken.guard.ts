@@ -39,7 +39,7 @@ export class AccessTokenGuard extends AuthGuard('jwt') {
 
       return true;
     } catch (err) {
-      console.log(err);
+      console.error(err);
 
       throw new UnauthorizedException();
     }

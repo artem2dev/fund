@@ -4,6 +4,7 @@ import { deleteNew, getNews } from "../../../api/news";
 import { deleteParticipant, getParticipants } from "../../../api/participants";
 import { deletePdf, getPdfs } from "../../../api/pdfs";
 import { deleteProject, getProjects } from "../../../api/projects";
+import { deleteReport, getReports } from "../../../api/reports";
 import { deleteThank, getThanks } from "../../../api/thanks";
 import { CreateNew } from "./createNew";
 import { CreateParticipant } from "./createParticipant";
@@ -15,10 +16,11 @@ import NewCardToDelete from "./deleteNew";
 import ParticipantToDelete from "./deleteParticipant";
 import PdfToDelete from "./deletePdf";
 import ProjectToDelete from "./deleteProject";
+import ReportToDelete from "./deleteReport";
 import ThankToDelete from "./deleteThank";
 import SimpleSidebar from "./sidebar";
 
-const pages = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const pages = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
 const Panel = () => {
 	const [currentPage, setCurrentPage] = useState(pages[0]);
@@ -27,6 +29,7 @@ const Panel = () => {
 	const [participants, setParticipants] = useState([]);
 	const [projects, setProjects] = useState([]);
 	const [pdfs, setPdfs] = useState([]);
+	const [reports, setReports] = useState([]);
 
 	useEffect(() => {
 		if (currentPage === 1) {
@@ -67,6 +70,14 @@ const Panel = () => {
 			};
 
 			getPdfs().then(onSuccess).catch();
+		}
+
+		if (currentPage === 11) {
+			const onReportsSuccess = (result) => {
+				setReports(result.data);
+			};
+
+			getReports().then(onReportsSuccess).catch();
 		}
 	}, [currentPage]);
 
@@ -128,6 +139,18 @@ const Panel = () => {
 		};
 
 		deletePdf(id).then(onSuccess).catch();
+	};
+
+	const deleteReportFunc = (id) => {
+		const onSuccess = () => {
+			const onSuccess2 = (result) => {
+				setReports(result.data);
+			};
+
+			getReports().then(onSuccess2).catch();
+		};
+
+		deleteReport(id).then(onSuccess).catch();
 	};
 
 	return (
@@ -291,6 +314,30 @@ const Panel = () => {
 							</Box>
 						)}
 						{currentPage === 10 && <CreateReport />}
+						{currentPage === 11 && (
+							<Box
+								display={"flex"}
+								flexWrap={"wrap"}
+								justifyContent={"flex-start"}
+							>
+								{reports.length > 0 ? (
+									reports.map((report, i) => (
+										<ReportToDelete
+											key={i}
+											id={report.id}
+											title={report.title}
+											content={report.content}
+											createdAt={report.createdAt}
+											deleteReport={deleteReportFunc}
+											medias={report.medias}
+											deletePdf={deletePdfFunc}
+										/>
+									))
+								) : (
+									<Heading fontSize={"20px"}>Список отчетов пуст.</Heading>
+								)}
+							</Box>
+						)}
 					</Flex>
 				</Box>
 			</SimpleSidebar>

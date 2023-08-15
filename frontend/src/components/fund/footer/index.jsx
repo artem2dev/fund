@@ -153,7 +153,10 @@ const Footer = () => {
 						<Flex w={"1135px"} align={"center"}>
 							<Text color={"#303754"} fontSize={"14px"}>
 								© {new Date().getFullYear()} «Благотворительный фонд «Пашаев
-								Фонд». Политика конфиденциальности
+								Фонд».{" "}
+								<a href="policy" style={{ textDecoration: "underline" }}>
+									Политика конфиденциальности
+								</a>
 							</Text>
 						</Flex>
 					</Flex>
@@ -284,7 +287,7 @@ const Footer = () => {
 							<Text color={"#303754"} fontSize={"14px"} textAlign={"center"}>
 								© {new Date().getFullYear()} «Благотворительный фонд <br />
 								«Пашаев Фонд». <br />
-								<a href="/policy" style={{ textDecoration: "underline" }}>
+								<a href="policy" style={{ textDecoration: "underline" }}>
 									Политика конфиденциальности
 								</a>
 							</Text>

@@ -9,8 +9,8 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import mainBg from "../../../assets/mainBg.jpg";
-import mainPashaev from "../../../assets/mainPashaev.jpg";
 import mainBgMobile from "../../../assets/mainBgMobile.jpg";
+import mainPashaev from "../../../assets/mainPashaev.jpg";
 import mainQuotes from "../../../assets/mainQuotes.png";
 import PreFooter from "../footer/pre-footer";
 import { PaymentModal } from "../modals/paymentModal";
@@ -375,42 +375,6 @@ export default function MainPage({
 						>
 							<Flex w={"1133px"}>
 								<Flex flexDir={"column"} w={"100%"}>
-									{/* <Flex mb={"35px"}>
-		<Text
-			fontWeight={500}
-			fontSize={"30px"}
-			fontFamily={"Oswald"}
-			textTransform={"uppercase"}
-			mr={"5px"}
-			color={"#1f243a"}
-		>
-			Вы уже
-		</Text>
-		<Box
-			marginLeft={"8px"}
-			display={"flex"}
-			justifyContent={"center"}
-			alignItems={"center"}
-			css={`
-				width: 145px;
-				height: 45px;
-				transform: skew(160deg);
-				background: #bf3132;
-				border-radius: 5px;
-			`}
-		>
-			<Text
-				fontWeight={500}
-				color={"white"}
-				fontSize={"30px"}
-				fontFamily={"Oswald"}
-				textTransform={"uppercase"}
-				css={"transform: skew(20deg);"}
-			>
-				помогли
-			</Text>
-		</Box>
-	</Flex> */}
 									<Heading
 										fontFamily={"Oswald"}
 										color={"#1f243a"}

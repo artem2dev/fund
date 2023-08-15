@@ -8,14 +8,7 @@ const Container = () => {
 	return (
 		<>
 			<Header />
-			<Box
-				className="container"
-				// w="100%"
-				// minH="87.486vh"
-				// maxW={"1200px"}
-				// mt={"127px"}
-				// px={5}
-			>
+			<Box className="container">
 				<Outlet />
 			</Box>
 			<Footer />
