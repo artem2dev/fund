@@ -1,15 +1,25 @@
-import { Card, CardBody, Flex, Heading, Image, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import {
+	Card,
+	CardBody,
+	Flex,
+	Heading,
+	Image,
+	Link,
+	Text,
+	useDisclosure,
+} from "@chakra-ui/react";
+import React from "react";
 import blueBg from "../../../assets/blue.png";
 import { getMediaUrl } from "../../../helpers/getMediaUrl";
+import { ParticipantModal } from "../modals/participantModal";
 
 const ParticipantCard = ({ name, image, position, description }) => {
-	const [hover, setHover] = useState(false);
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	return (
 		<Card
 			w="262px"
-			h="340px"
+			h="482px"
 			borderRadius={"3px"}
 			borderBottomRadius={"3px"}
 			boxShadow={""}
@@ -18,6 +28,7 @@ const ParticipantCard = ({ name, image, position, description }) => {
 			display={"flex"}
 			alignItems={"flex-end"}
 			pos={"relative"}
+			bgColor={"#1f243a"}
 			_before={{
 				zIndex: 0,
 				position: "absolute",
@@ -32,13 +43,11 @@ const ParticipantCard = ({ name, image, position, description }) => {
 				bgPos: "center",
 				borderRadius: "3px",
 			}}
-			onMouseEnter={() => setHover(true)}
-			onMouseLeave={() => setHover(false)}
 		>
 			<Image
 				position={"absolute"}
 				left={0}
-				bottom={0}
+				top={0}
 				zIndex={1}
 				w={"262px"}
 				height={"340px"}
@@ -66,10 +75,10 @@ const ParticipantCard = ({ name, image, position, description }) => {
 								text-overflow: ellipsis;
 								word-wrap: keep-all;
 								overflow: hidden;
-								max-height: 3em;
+								max-height: 6em;
 								line-height: 1.5em;
 								display: -webkit-box;
-								-webkit-line-clamp: 2;
+								-webkit-line-clamp: 4;
 								-webkit-box-orient: vertical;
 							`}
 						>
@@ -87,10 +96,10 @@ const ParticipantCard = ({ name, image, position, description }) => {
 								text-overflow: ellipsis;
 								word-wrap: break-word;
 								overflow: hidden;
-								max-height: 3.6em;
+								max-height: 6em;
 								line-height: 1.2em;
 								display: -webkit-box;
-								-webkit-line-clamp: 3;
+								-webkit-line-clamp: 5;
 								-webkit-box-orient: vertical;
 							`}
 						>
@@ -98,42 +107,29 @@ const ParticipantCard = ({ name, image, position, description }) => {
 						</Text>
 					</Flex>
 					<Flex flexDir={"column"}>
-						<Text
-							mt={"10px"}
-							fontSize={"14px"}
-							color="#fff"
-							textAlign={"left"}
-							cursor={"default"}
-							css={
-								hover
-									? `
-							text-overflow: ellipsis;
-							word-wrap: break-word;
-							overflow: hidden;
-							max-height: 12em;
-							line-height: 1.2em;
-							display: -webkit-box;
-							-webkit-line-clamp: 10;
-							-webkit-box-orient: vertical;
-						`
-									: `
-						text-overflow: ellipsis;
-						word-wrap: break-word;
-						overflow: hidden;
-						max-height: 0em;
-						line-height: 0em;
-						display: -webkit-box;
-						-webkit-line-clamp: 0;
-						-webkit-box-orient: vertical;
-					`
-							}
-							transition={"all .5s ease-in-out"}
+						<Link
+							textDecoration={"underline"}
+							color={"#bf3132"}
+							mt={"12px"}
+							_hover={{
+								textDecoration: "none",
+							}}
+							cursor={"pointer"}
+							onClick={onOpen}
 						>
-							{description}
-						</Text>
+							Читать биографию
+						</Link>
 					</Flex>
 				</Flex>
 			</CardBody>
+			<ParticipantModal
+				title={name}
+				content={description}
+				position={position}
+				image={image}
+				isOpen={isOpen}
+				onClose={onClose}
+			/>
 		</Card>
 	);
 };

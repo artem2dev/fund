@@ -5,7 +5,6 @@ import bookNBrain from "../../../assets/bookNBrain.png";
 import handsNHearts from "../../../assets/handsNHearts.png";
 import workNThank from "../../../assets/workNThank.png";
 import PdfItem from "../footer/pdf-item";
-import PaymentWithHistory from "../payment";
 import ParticipantCard from "../popechitelskiySovet/participant-card";
 
 const About = ({ pdfs, participants }) => {
@@ -304,7 +303,7 @@ const About = ({ pdfs, participants }) => {
 								</Flex>
 							</Flex>
 						</Flex>
-						<Flex
+						{/* <Flex
 							justify={"center"}
 							width={"100%"}
 							pt={"66px"}
@@ -314,7 +313,7 @@ const About = ({ pdfs, participants }) => {
 							<Flex w={"1133px"}>
 								<PaymentWithHistory isHeader={true} />
 							</Flex>
-						</Flex>
+						</Flex> */}
 					</Flex>
 				</Box>
 			) : (
@@ -608,7 +607,7 @@ const About = ({ pdfs, participants }) => {
 								</Flex>
 							</Flex>
 						</Flex>
-						<Flex
+						{/* <Flex
 							justify={"center"}
 							width={"100%"}
 							pt={"35px"}
@@ -618,7 +617,7 @@ const About = ({ pdfs, participants }) => {
 							<Flex>
 								<PaymentWithHistory isHeader={true} />
 							</Flex>
-						</Flex>
+						</Flex> */}
 					</Flex>
 				</Box>
 			)}

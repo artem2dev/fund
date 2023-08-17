@@ -1,7 +1,6 @@
 import { DeleteIcon } from "@chakra-ui/icons";
 import {
 	Box,
-	Button,
 	Card,
 	CardBody,
 	Flex,
@@ -74,6 +73,8 @@ const ProjectToDelete = ({
 			<CardBody
 				display={"flex"}
 				flexDir={"column"}
+				h={"100%"}
+				justifyContent={"space-between"}
 				borderRadius={"3px"}
 				p={"33px"}
 				w={"360px"}
@@ -109,10 +110,10 @@ const ProjectToDelete = ({
 							text-overflow: ellipsis;
 							word-wrap: break-word;
 							overflow: hidden;
-							max-height: 2.4em;
+							max-height: 4.8em;
 							line-height: 1.2em;
 							display: -webkit-box;
-							-webkit-line-clamp: 2;
+							-webkit-line-clamp: 4;
 							-webkit-box-orient: vertical;
 						`}
 					>
@@ -164,7 +165,7 @@ const ProjectToDelete = ({
 					</Box>
 				</Flex>
 
-				{targetAmount - currentAmount > 0 ? (
+				{/* {targetAmount - currentAmount > 0 ? (
 					<Button
 						backgroundColor="#bf3132"
 						borderRadius={"3px"}
@@ -200,7 +201,7 @@ const ProjectToDelete = ({
 					>
 						Сбор закрыт
 					</Button>
-				)}
+				)} */}
 			</CardBody>
 		</Card>
 	);

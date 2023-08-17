@@ -208,6 +208,7 @@ export const CreateParticipant = () => {
 								setIsContentEmpty(false);
 								setContent(e.target.value);
 							}}
+							whiteSpace={"pre-wrap"}
 						/>
 						<FormLabel
 							as="legend"

@@ -15,7 +15,6 @@ import mainQuotes from "../../../assets/mainQuotes.png";
 import PreFooter from "../footer/pre-footer";
 import { PaymentModal } from "../modals/paymentModal";
 import NewCard from "../news/new-card";
-import PaymentWithHistory from "../payment";
 import ParticipantCard from "../popechitelskiySovet/participant-card";
 import ProjectCard from "../projects/project-card";
 import Thank from "../thanks/thank";
@@ -65,7 +64,7 @@ export default function MainPage({
 								<br />
 								фонд «Пашаев Фонд»
 							</Heading>
-							<Button
+							{/* <Button
 								borderRadius={"3px"}
 								mt={"53px"}
 								w={"245px"}
@@ -84,7 +83,7 @@ export default function MainPage({
 								onClick={onPaymentModalOpen}
 							>
 								Хочу помогать
-							</Button>
+							</Button> */}
 						</Flex>
 					</Flex>
 					<Flex justify={"center"} width={"100%"} pt={"66px"} pb={"75px"}>
@@ -151,6 +150,9 @@ export default function MainPage({
 										<span style={{ color: "#1f243a" }}>
 											лекарственные средства
 										</span>
+									</li>
+									<li style={{ color: "#33438e" }}>
+										<span style={{ color: "#1f243a" }}>амуницию</span>
 									</li>
 									<li style={{ color: "#33438e" }}>
 										<span style={{ color: "#1f243a" }}>
@@ -320,7 +322,7 @@ export default function MainPage({
 							</Flex>
 						</Flex>
 					)}
-					<Flex
+					{/* <Flex
 						justify={"center"}
 						width={"100%"}
 						pt={"66px"}
@@ -330,7 +332,7 @@ export default function MainPage({
 						<Flex w={"1133px"}>
 							<PaymentWithHistory isHeader={true} />
 						</Flex>
-					</Flex>
+					</Flex> */}
 					{participants.length > 0 && (
 						<Flex justify={"center"} width={"100%"} pt={"74px"} pb={"75px"}>
 							<Flex w={"1133px"}>
@@ -434,7 +436,7 @@ export default function MainPage({
 								<br />
 								фонд «Пашаев Фонд»
 							</Heading>
-							<Button
+							{/* <Button
 								borderRadius={"3px"}
 								mt={"10px"}
 								w={"150px"}
@@ -453,7 +455,7 @@ export default function MainPage({
 								onClick={onPaymentModalOpen}
 							>
 								Хочу помогать
-							</Button>
+							</Button> */}
 						</Flex>
 					</Flex>
 					<Flex
@@ -526,6 +528,9 @@ export default function MainPage({
 										<span style={{ color: "#1f243a" }}>
 											лекарственные средства
 										</span>
+									</li>
+									<li style={{ color: "#33438e" }}>
+										<span style={{ color: "#1f243a" }}>амуницию</span>
 									</li>
 									<li style={{ color: "#33438e" }}>
 										<span style={{ color: "#1f243a" }}>
@@ -708,7 +713,7 @@ export default function MainPage({
 							</Flex>
 						</Flex>
 					)}
-					<Flex
+					{/* <Flex
 						justify={"center"}
 						width={"100%"}
 						pt={"36px"}
@@ -718,7 +723,7 @@ export default function MainPage({
 						<Flex>
 							<PaymentWithHistory isHeader={true} />
 						</Flex>
-					</Flex>
+					</Flex> */}
 					{participants.length > 0 && (
 						<Flex width={"100%"} pt={"34px"} pb={"35px"} px={"15px"}>
 							<Flex flexDir={"column"} w={"100%"}>

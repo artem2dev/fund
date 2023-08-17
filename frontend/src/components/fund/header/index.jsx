@@ -147,7 +147,7 @@ export default function WithSubnavigation({ children }) {
 									+7 (915) 233-33-38
 								</a>
 							</Text>
-							<Button
+							{/* <Button
 								backgroundColor="#bf3132"
 								borderRadius={"3px"}
 								color={"white"}
@@ -164,7 +164,7 @@ export default function WithSubnavigation({ children }) {
 								onClick={onPaymentModalOpen}
 							>
 								Хочу помочь
-							</Button>
+							</Button> */}
 							<Button
 								backgroundColor="#33438e"
 								borderRadius={"3px"}
@@ -206,7 +206,7 @@ export default function WithSubnavigation({ children }) {
 							variant={"ghost"}
 							ml={"15px"}
 						/>
-						<Button
+						{/* <Button
 							backgroundColor="#bf3132"
 							borderRadius={"0 0 0 8px"}
 							color={"white"}
@@ -222,7 +222,7 @@ export default function WithSubnavigation({ children }) {
 							onClick={onPaymentModalOpen}
 						>
 							Помочь
-						</Button>
+						</Button> */}
 					</Flex>
 					<Collapse in={isOpen} animateOpacity>
 						<MobileNav
@@ -293,7 +293,7 @@ const DesktopNav = () => {
 							pt={"29px"}
 							borderRadius={"0"}
 							w={"288px"}
-							h={"241px"}
+							h={"200px"}
 						>
 							<Flex flexDir={"column"} align={"flex-start"}>
 								{navItem.children.map((child) => (
@@ -392,7 +392,7 @@ const MobileNav = ({ onPaymentModalOpen, onNeedHelpModalOpen }) => {
 					>
 						Нужна помощь
 					</Button>
-					<Button
+					{/* <Button
 						backgroundColor="#bf3132"
 						borderRadius={"3px"}
 						color={"white"}
@@ -409,7 +409,7 @@ const MobileNav = ({ onPaymentModalOpen, onNeedHelpModalOpen }) => {
 						ml={"6px"}
 					>
 						Хочу помочь
-					</Button>
+					</Button> */}
 				</Flex>
 				<Text
 					color={"#1f243a"}
@@ -542,10 +542,10 @@ const NAV_ITEMS = [
 				label: "Попечительский совет",
 				href: "/sovet",
 			},
-			{
-				label: "Как помочь",
-				href: "/kak-pomoch",
-			},
+			// {
+			// 	label: "Как помочь",
+			// 	href: "/kak-pomoch",
+			// },
 		],
 	},
 	{

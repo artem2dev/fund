@@ -13,7 +13,6 @@ import PrivateWrapper from "./PrivateRoute";
 import Login from "./admin/login";
 import Panel from "./admin/panel";
 import About from "./fund/about";
-import Help from "./fund/help";
 import MainPage from "./fund/mainPage";
 import News from "./fund/news";
 import Policy from "./fund/policy";
@@ -85,7 +84,7 @@ function App() {
 								path="sovet"
 								element={<Participants participants={participants} />}
 							/>
-							<Route path="kak-pomoch" element={<Help />} />
+							{/* <Route path="kak-pomoch" element={<Help />} /> */}
 							<Route
 								path="proekty"
 								element={<Projects projects={projects} />}

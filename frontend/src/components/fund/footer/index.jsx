@@ -9,17 +9,16 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
-import vk from "../../../assets/vk-footer.svg";
 import tg from "../../../assets/telegram-footer.svg";
-import { PaymentModal } from "../modals/paymentModal";
+import vk from "../../../assets/vk-footer.svg";
 import { NeedHelpModal } from "../modals/needHelpModal";
 
 const Footer = () => {
-	const {
-		isOpen: isPaymentModalOpen,
-		onOpen: onPaymentModalOpen,
-		onClose: onPaymentModalClose,
-	} = useDisclosure();
+	// const {
+	// 	isOpen: isPaymentModalOpen,
+	// 	onOpen: onPaymentModalOpen,
+	// 	onClose: onPaymentModalClose,
+	// } = useDisclosure();
 	const {
 		isOpen: isNeedHelpModalOpen,
 		onOpen: onNeedHelpModalOpen,
@@ -111,7 +110,7 @@ const Footer = () => {
 								<a href="tel: +7 (915) 233-33-38">+7 (915) 233-33-38</a>
 							</Heading>
 							<Flex>
-								<Button
+								{/* <Button
 									backgroundColor="#bf3132"
 									borderRadius={"3px"}
 									color={"white"}
@@ -128,7 +127,7 @@ const Footer = () => {
 									onClick={onPaymentModalOpen}
 								>
 									Хочу помочь
-								</Button>
+								</Button> */}
 								<Button
 									backgroundColor="#33438e"
 									borderRadius={"3px"}
@@ -210,7 +209,7 @@ const Footer = () => {
 								>
 									Нужна помощь
 								</Button>
-								<Button
+								{/* <Button
 									backgroundColor="#bf3132"
 									borderRadius={"3px"}
 									color={"white"}
@@ -227,7 +226,7 @@ const Footer = () => {
 									ml={"12px"}
 								>
 									Хочу помочь
-								</Button>
+								</Button> */}
 							</Flex>
 							<Text fontSize={"14px"} textAlign={"center"}>
 								141702, Московская область, <br /> г.о. Долгопрудный, ш.
@@ -295,7 +294,7 @@ const Footer = () => {
 					</Flex>
 				</Flex>
 			)}
-			<PaymentModal isOpen={isPaymentModalOpen} onClose={onPaymentModalClose} />
+			{/* <PaymentModal isOpen={isPaymentModalOpen} onClose={onPaymentModalClose} /> */}
 			<NeedHelpModal
 				isOpen={isNeedHelpModalOpen}
 				onClose={onNeedHelpModalClose}

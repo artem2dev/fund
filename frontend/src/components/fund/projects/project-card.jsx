@@ -1,6 +1,5 @@
 import {
 	Box,
-	Button,
 	Card,
 	CardBody,
 	Flex,
@@ -40,6 +39,8 @@ const ProjectCard = ({
 			<CardBody
 				display={"flex"}
 				flexDir={"column"}
+				h={"100%"}
+				justifyContent={"space-between"}
 				borderRadius={"3px"}
 				p={"33px"}
 				w={"360px"}
@@ -75,10 +76,10 @@ const ProjectCard = ({
 							text-overflow: ellipsis;
 							word-wrap: break-word;
 							overflow: hidden;
-							max-height: 2.4em;
+							max-height: 4.8em;
 							line-height: 1.2em;
 							display: -webkit-box;
-							-webkit-line-clamp: 2;
+							-webkit-line-clamp: 4;
 							-webkit-box-orient: vertical;
 						`}
 					>
@@ -130,7 +131,7 @@ const ProjectCard = ({
 					</Box>
 				</Flex>
 
-				{targetAmount - currentAmount > 0 ? (
+				{/* {targetAmount - currentAmount > 0 ? (
 					<Button
 						backgroundColor="#bf3132"
 						borderRadius={"3px"}
@@ -164,7 +165,7 @@ const ProjectCard = ({
 					>
 						Сбор закрыт
 					</Button>
-				)}
+				)} */}
 			</CardBody>
 		</Card>
 	);
