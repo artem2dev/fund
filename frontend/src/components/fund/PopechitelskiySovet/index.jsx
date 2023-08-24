@@ -263,7 +263,7 @@ const Participants = ({ participants }) => {
 												fill={"#bf3132"}
 											/>
 											<a
-												href="mailto:name@mail.ru"
+												href="mailto:pashayev_fund@mail.ru"
 												style={{
 													color: "#1f243a",
 													fontSize: "18px",
@@ -271,7 +271,7 @@ const Participants = ({ participants }) => {
 													marginLeft: "10px",
 												}}
 											>
-												pachaev-fund@mail.ru
+												pashayev_fund@mail.ru
 											</a>
 										</Flex>
 									</Flex>
@@ -432,7 +432,7 @@ const Participants = ({ participants }) => {
 												fill={"#bf3132"}
 											/>
 											<a
-												href="mailto:name@mail.ru"
+												href="mailto:pashayev_fund@mail.ru"
 												style={{
 													color: "#1f243a",
 													fontSize: "18px",
@@ -440,7 +440,7 @@ const Participants = ({ participants }) => {
 													marginLeft: "10px",
 												}}
 											>
-												pachaev-fund@mail.ru
+												pashayev_fund@mail.ru
 											</a>
 										</Flex>
 									</Flex>

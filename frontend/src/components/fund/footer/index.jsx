@@ -65,7 +65,7 @@ const Footer = () => {
 									border={"1px solid #8897a8"}
 									onClick={() => {}}
 								>
-									pachaev-fund@mail.ru
+									pashayev_fund@mail.ru
 								</Button>
 								<Link
 									w={"48px"}
@@ -248,7 +248,7 @@ const Footer = () => {
 									border={"1px solid #8897a8"}
 									onClick={() => {}}
 								>
-									pachaev-fund@mail.ru
+									pashayev_fund@mail.ru
 								</Button>
 								<Link
 									w={"48px"}

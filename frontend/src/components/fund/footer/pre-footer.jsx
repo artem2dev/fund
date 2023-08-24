@@ -72,7 +72,7 @@ const PreFooter = ({ pdfs }) => {
 								>
 									<Icon w={"25px"} h={"25px"} as={message} fill={"#1f243a"} />
 									<a
-										href="mailto:name@mail.ru"
+										href="mailto:pashayev_fund@mail.ru"
 										style={{
 											color: "#bf3132",
 											fontSize: "18px",
@@ -80,7 +80,7 @@ const PreFooter = ({ pdfs }) => {
 											marginLeft: "20px",
 										}}
 									>
-										pachaev-fund@mail.ru
+										pashayev_fund@mail.ru
 									</a>
 								</Flex>
 							</Flex>
@@ -233,7 +233,7 @@ const PreFooter = ({ pdfs }) => {
 								>
 									<Icon w={"25px"} h={"25px"} as={message} fill={"#1f243a"} />
 									<a
-										href="mailto:name@mail.ru"
+										href="mailto:pashayev_fund@mail.ru"
 										style={{
 											color: "#bf3132",
 											fontSize: "18px",
@@ -241,7 +241,7 @@ const PreFooter = ({ pdfs }) => {
 											marginLeft: "20px",
 										}}
 									>
-										pachaev-fund@mail.ru
+										pashayev_fund@mail.ru
 									</a>
 								</Flex>
 							</Flex>
