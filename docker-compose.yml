@@ -33,17 +33,17 @@ services:
       - bridge
     extra_hosts:
       - "host.docker.internal:host-gateway"
-  client:
-    build: ./frontend
-    env_file: ./frontend/.env
-    container_name: client_frontend
-    ports:
-      - "3000:3000"
-    networks:
-      - bridge
-    depends_on:
-      - server
-    command: sh -c "npm run build && npm install -g serve && serve -s build"
+  # client:
+  #   build: ./frontend
+  #   env_file: ./frontend/.env
+  #   container_name: client_frontend
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - bridge
+  #   depends_on:
+  #     - server
+  #   command: sh -c "npm run build && npm install -g serve && serve -s build"
   nginx:
     image: nginx:bookworm
     volumes:
