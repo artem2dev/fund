@@ -8,6 +8,8 @@ import {
 	Icon,
 	Image,
 	Text,
+	Button,
+	useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { ReactComponent as play } from "../../../../assets/play.svg";
@@ -50,547 +52,168 @@ export const parseDate = (date) => {
 	return dd + "." + mm + "." + yyyy;
 };
 
-const ReportToDelete = ({
-	id,
-	title,
-	content,
-	medias,
-	createdAt,
-	deleteReport,
-}) => {
+export const DeleteReport = ({ id, title, content, medias, deleteReport }) => {
+	const toast = useToast();
+
+	const handleDelete = async () => {
+		try {
+			await deleteReport(id);
+			toast({
+				title: "Отчет удален",
+				status: "success",
+				duration: 3000,
+				isClosable: true,
+			});
+		} catch (err) {
+			console.error(err);
+			toast({
+				title: "Ошибка при удалении отчета",
+				description: "Пожалуйста, попробуйте еще раз",
+				status: "error",
+				duration: 3000,
+				isClosable: true,
+			});
+		}
+	};
+
 	return (
-		<>
-			{document.documentElement.clientWidth > 767 ? (
-				<Card
-					w="900px"
-					minH="360px"
-					maxH={"460px"}
-					bgColor={"#fff"}
-					border={""}
-					borderRadius={""}
-					p={0}
-					boxShadow={""}
-					mb={"50px"}
-					onClick={() => deleteReport(id)}
+		<Card
+			w="360px"
+			h="420px"
+			bgColor={"#1f243a"}
+			borderRadius={"3px"}
+			borderBottomRadius={"3px"}
+			boxShadow={""}
+			padding={"25px"}
+			flexDir={"row"}
+			display={"flex"}
+			alignItems={"flex-end"}
+			pos={"relative"}
+			onClick={handleDelete}
+			cursor="pointer"
+			_hover={{
+				bgColor: "#bf3132",
+				transition: "all 0.3s ease",
+			}}
+		>
+			<Box
+				position={"absolute"}
+				w={"100%"}
+				h={"100%"}
+				top={0}
+				left={0}
+				zIndex={10}
+				_hover={{
+					display: "block",
+					transition: "all 300ms ease",
+					bgColor: "red",
+					opacity: 0.75,
+				}}
+				borderRadius={"5px"}
+				color={"black"}
+			>
+				<Box
+					w={"100%"}
+					h={"100%"}
+					opacity={0}
+					_hover={{
+						transition: "all 300ms ease",
+						opacity: 1,
+					}}
+					display={"flex"}
+					justifyContent={"center"}
+					alignItems={"center"}
+					cursor={"pointer"}
+					color={"black"}
 				>
-					<Box
-						position={"absolute"}
-						w={"100%"}
-						h={"100%"}
-						zIndex={1}
-						_hover={{
-							display: "block",
-							transition: "all 300ms ease",
-							bgColor: "red",
-							opacity: 0.75,
-						}}
-						borderRadius={"5px"}
-						color={"black"}
-					>
-						<Box
+					<DeleteIcon fontSize={150} color={"white"} zIndex={10000} />
+				</Box>
+			</Box>
+			<CardBody p={0} zIndex={2} display={"flex"} flexDir={"column"} w={"100%"}>
+				<Flex flexDir={"column"} h={"100%"} justifyContent={"space-between"}>
+					<Flex flexDir={"column"}>
+						<Heading
+							fontFamily={"Oswald"}
 							w={"100%"}
-							h={"100%"}
-							opacity={0}
-							_hover={{
-								transition: "all 300ms ease",
-								opacity: 1,
-							}}
-							display={"flex"}
-							justifyContent={"center"}
-							alignItems={"center"}
+							color="#fff"
+							fontSize={"20px"}
+							fontWeight={"500"}
+							textTransform={"uppercase"}
 							cursor={"pointer"}
-							color={"black"}
+							css={`
+								text-overflow: ellipsis;
+								word-wrap: keep-all;
+								overflow: hidden;
+								max-height: 4.5em;
+								line-height: 1.5em;
+								display: -webkit-box;
+								-webkit-line-clamp: 3;
+								-webkit-box-orient: vertical;
+							`}
 						>
-							<DeleteIcon fontSize={150} color={"white"} zIndex={10000} />
-						</Box>
-					</Box>
-					<CardBody display={"flex"} minH={"360px"} maxH={"460px"} p={0}>
-						<Flex flexDir={"column"} mr={"40px"} align={"center"}>
-							<Flex>
-								{(imageTypes.includes(
-									medias[0]?.split(".")[medias[0]?.split(".")?.length - 1]
-								) && (
-									<Image
-										w={"430px"}
-										h={"260px"}
-										objectFit={"cover"}
-										borderRadius={"3px"}
-										src={getMediaUrl(medias[0])}
-									/>
-								)) ||
-									(videoTypes.includes(
-										medias[0]?.split(".")[medias[0]?.split(".")?.length - 1]
-									) && (
-										<Box>
-											<video
-												height="260px"
-												width="430px"
-												style={{ minHeight: "260px", minWidth: "430px" }}
-												controls
+							{title}
+						</Heading>
+					</Flex>
+					<Flex flexDir={"column"}>
+						<Text
+							mt={"10px"}
+							fontSize={"14px"}
+							color="#fff"
+							textAlign={"left"}
+							cursor={"pointer"}
+							css={`
+								text-overflow: ellipsis;
+								word-wrap: break-word;
+								overflow: hidden;
+								max-height: 3.6em;
+								line-height: 1.2em;
+								display: -webkit-box;
+								-webkit-line-clamp: 3;
+								-webkit-box-orient: vertical;
+							`}
+						>
+							{content}
+						</Text>
+						{medias && medias.length > 0 && (
+							<Flex mt={"10px"} flexWrap={"wrap"}>
+								{medias.map((media, index) => {
+									const fileType = media.split(".").pop().toLowerCase();
+									if (imageTypes.includes(fileType)) {
+										return (
+											<Image
+												key={index}
+												src={getMediaUrl(media)}
+												alt={`Media ${index + 1}`}
+												boxSize="50px"
+												objectFit="cover"
+												m={1}
+											/>
+										);
+									} else if (videoTypes.includes(fileType)) {
+										return (
+											<Box
+												key={index}
+												position="relative"
+												boxSize="50px"
+												m={1}
+												bgColor="black"
+												display="flex"
+												alignItems="center"
+												justifyContent="center"
 											>
-												<source src={getMediaUrl(medias[0])} />
-											</video>
-										</Box>
-									))}
+												<Icon as={play} boxSize="30px" color="white" />
+											</Box>
+										);
+									}
+									return null;
+								})}
 							</Flex>
-							<Flex mt={"10px"}>
-								{medias.slice(0, 5).map(
-									(media, i) =>
-										(imageTypes.includes(
-											media?.split(".")[media?.split(".")?.length - 1]
-										) && (
-											<Flex
-												key={i}
-												justifyContent={"center"}
-												alignItems={"center"}
-												pos={"relative"}
-												borderRadius={"3px"}
-												border={"1px solid white"}
-												_hover={{
-													borderRadius: "3px",
-													border: "1px solid #bf3132",
-												}}
-												mr={i < 4 && "10px"}
-											>
-												<Box
-													position={"absolute"}
-													w={"100%"}
-													h={"100%"}
-													_hover={{
-														display: "block",
-														opacity: 0.4,
-														border: "1px solid #bf3132",
-														backgroundColor: "#bf3132",
-													}}
-													borderRadius={"3px"}
-													color={"black"}
-													zIndex={11}
-													top={0}
-													left={0}
-												>
-													<Box
-														w={"100%"}
-														h={"100%"}
-														opacity={0}
-														_hover={{
-															opacity: 1,
-														}}
-														display={"flex"}
-														justifyContent={"center"}
-														alignItems={"center"}
-														cursor={"pointer"}
-														color={"black"}
-													/>
-												</Box>
-												<Image
-													key={i}
-													w={"90px"}
-													h={"90px"}
-													objectFit={"cover"}
-													src={getMediaUrl(media)}
-													borderRadius={"3px"}
-												/>
-											</Flex>
-										)) ||
-										(videoTypes.includes(
-											media?.split(".")[media?.split(".")?.length - 1]
-										) && (
-											<Flex
-												key={i}
-												justifyContent={"center"}
-												alignItems={"center"}
-												pos={"relative"}
-												borderRadius={"3px"}
-												border={"1px solid white"}
-												_hover={{
-													borderRadius: "3px",
-													border: "1px solid #bf3132",
-												}}
-												mr={i < 4 && "10px"}
-											>
-												<Box
-													position={"absolute"}
-													w={"100%"}
-													h={"100%"}
-													_hover={{
-														display: "block",
-														opacity: 0.4,
-														border: "1px solid #bf3132",
-														backgroundColor: "#bf3132",
-													}}
-													borderRadius={"3px"}
-													color={"black"}
-													zIndex={11}
-													top={0}
-													left={0}
-												>
-													<Box
-														w={"100%"}
-														h={"100%"}
-														opacity={0}
-														_hover={{
-															opacity: 1,
-														}}
-														display={"flex"}
-														justifyContent={"center"}
-														alignItems={"center"}
-														cursor={"pointer"}
-														color={"black"}
-													>
-														<Box
-															position={"absolute"}
-															w={"52px"}
-															h={"52px"}
-															borderRadius={"50%"}
-															bgColor={"#1f243a"}
-															opacity={0.5}
-														></Box>
-														<Icon
-															position={"absolute"}
-															fontSize={25}
-															opacity={1}
-															color={"white"}
-															zIndex={10}
-															as={play}
-														/>
-													</Box>
-												</Box>
-												<Box
-													position={"absolute"}
-													w={"52px"}
-													h={"52px"}
-													borderRadius={"50%"}
-													bgColor={"#1f243a"}
-													opacity={0.5}
-												></Box>
-												<Icon
-													position={"absolute"}
-													fontSize={25}
-													opacity={1}
-													color={"white"}
-													zIndex={10}
-													as={play}
-												/>
-												<video
-													height="90px"
-													width="90px"
-													style={{ minHeight: "90px", minWidth: "90px" }}
-												>
-													<source src={getMediaUrl(media)} />
-												</video>
-											</Flex>
-										))
-								)}
-							</Flex>
-						</Flex>
-						<Flex flexDir={"column"}>
-							<Flex
-								bgColor={"#33438e"}
-								borderRadius={"3px"}
-								w={"72px"}
-								h={"19px"}
-								justify={"center"}
-								align={"center"}
-								fontSize={"12px"}
-								color={"white"}
-								cursor={"default"}
-								mb={"30px"}
-							>
-								{parseDate(createdAt)}
-							</Flex>
-
-							<Heading
-								fontFamily={"Wix Madefor Display"}
-								w={"100%"}
-								color="#1f243a"
-								fontSize={"20px"}
-								fontWeight={"700"}
-								maxW={"500px"}
-								css={`
-									text-overflow: ellipsis;
-									word-wrap: keep-all;
-									overflow: hidden;
-									max-height: 4.5em;
-									line-height: 1.5em;
-									display: -webkit-box;
-									-webkit-line-clamp: 3;
-									-webkit-box-orient: vertical;
-								`}
-							>
-								{title}
-							</Heading>
-							<Text
-								mt={"10px"}
-								color="#1f243a"
-								fontSize={"14px"}
-								fontWeight={400}
-								textAlign={"left"}
-								maxW={"500px"}
-								css={`
-									text-overflow: ellipsis;
-									word-wrap: break-word;
-									overflow: hidden;
-									max-height: 14.4em;
-									line-height: 1.2em;
-									display: -webkit-box;
-									-webkit-line-clamp: 12;
-									-webkit-box-orient: vertical;
-								`}
-							>
-								{content}
-							</Text>
-						</Flex>
-					</CardBody>
-				</Card>
-			) : (
-				<Card
-					bgColor={"#fff"}
-					border={""}
-					borderRadius={""}
-					p={0}
-					boxShadow={""}
-					mb={"50px"}
-					px={"15px"}
-				>
-					<CardBody display={"flex"} flexDir={"column"} p={0}>
-						<Flex flexDir={"column"} mb={"20px"}>
-							<Flex
-								bgColor={"#33438e"}
-								borderRadius={"3px"}
-								w={"72px"}
-								h={"19px"}
-								justify={"center"}
-								align={"center"}
-								fontSize={"12px"}
-								color={"white"}
-								cursor={"default"}
-								mb={"30px"}
-							>
-								{parseDate(createdAt)}
-							</Flex>
-
-							<Heading
-								fontFamily={"Wix Madefor Display"}
-								w={"100%"}
-								color="#1f243a"
-								fontSize={"20px"}
-								fontWeight={"700"}
-								css={`
-									text-overflow: ellipsis;
-									word-wrap: keep-all;
-									overflow: hidden;
-									max-height: 4.5em;
-									line-height: 1.5em;
-									display: -webkit-box;
-									-webkit-line-clamp: 3;
-									-webkit-box-orient: vertical;
-								`}
-							>
-								{title}
-							</Heading>
-							<Text
-								mt={"10px"}
-								color="#1f243a"
-								fontSize={"14px"}
-								fontWeight={400}
-								textAlign={"left"}
-								css={`
-									text-overflow: ellipsis;
-									word-wrap: break-word;
-									overflow: hidden;
-									max-height: 14.4em;
-									line-height: 1.2em;
-									display: -webkit-box;
-									-webkit-line-clamp: 12;
-									-webkit-box-orient: vertical;
-								`}
-							>
-								{content}
-							</Text>
-						</Flex>
-						<Flex flexDir={"column"} mr={"40px"} align={"center"}>
-							<Flex>
-								{(imageTypes.includes(
-									medias[0]?.split(".")[medias[0]?.split(".")?.length - 1]
-								) && (
-									<Image
-										w={"290px"}
-										h={"176px"}
-										objectFit={"cover"}
-										borderRadius={"3px"}
-										src={getMediaUrl(medias[0])}
-									/>
-								)) ||
-									(videoTypes.includes(
-										medias[0]?.split(".")[medias[0]?.split(".")?.length - 1]
-									) && (
-										<Box>
-											<video
-												height="176px"
-												width="290px"
-												style={{ minHeight: "176px", minWidth: "290px" }}
-												controls
-											>
-												<source src={getMediaUrl(medias[0])} />
-											</video>
-										</Box>
-									))}
-							</Flex>
-							<Flex mt={"10px"} wrap={"wrap"}>
-								{medias.slice(0, 5).map(
-									(media, i) =>
-										(imageTypes.includes(
-											media?.split(".")[media?.split(".")?.length - 1]
-										) && (
-											<Flex
-												key={i}
-												justifyContent={"center"}
-												alignItems={"center"}
-												pos={"relative"}
-												borderRadius={"3px"}
-												border={"1px solid white"}
-												_hover={{
-													borderRadius: "3px",
-													border: "1px solid #bf3132",
-												}}
-												mr={i < 4 && "10px"}
-											>
-												<Box
-													position={"absolute"}
-													w={"100%"}
-													h={"100%"}
-													_hover={{
-														display: "block",
-														opacity: 0.4,
-														border: "1px solid #bf3132",
-														backgroundColor: "#bf3132",
-													}}
-													borderRadius={"3px"}
-													color={"black"}
-													zIndex={11}
-													top={0}
-													left={0}
-												>
-													<Box
-														w={"100%"}
-														h={"100%"}
-														opacity={0}
-														_hover={{
-															opacity: 1,
-														}}
-														display={"flex"}
-														justifyContent={"center"}
-														alignItems={"center"}
-														cursor={"pointer"}
-														color={"black"}
-													/>
-												</Box>
-												<Image
-													key={i}
-													w={"90px"}
-													h={"90px"}
-													objectFit={"cover"}
-													src={getMediaUrl(media)}
-													borderRadius={"3px"}
-												/>
-											</Flex>
-										)) ||
-										(videoTypes.includes(
-											media?.split(".")[media?.split(".")?.length - 1]
-										) && (
-											<Flex
-												key={i}
-												justifyContent={"center"}
-												alignItems={"center"}
-												pos={"relative"}
-												borderRadius={"3px"}
-												border={"1px solid white"}
-												_hover={{
-													borderRadius: "3px",
-													border: "1px solid #bf3132",
-												}}
-												mr={i < 4 && "10px"}
-											>
-												<Box
-													position={"absolute"}
-													w={"100%"}
-													h={"100%"}
-													_hover={{
-														display: "block",
-														opacity: 0.4,
-														border: "1px solid #bf3132",
-														backgroundColor: "#bf3132",
-													}}
-													borderRadius={"3px"}
-													color={"black"}
-													zIndex={11}
-													top={0}
-													left={0}
-												>
-													<Box
-														w={"100%"}
-														h={"100%"}
-														opacity={0}
-														_hover={{
-															opacity: 1,
-														}}
-														display={"flex"}
-														justifyContent={"center"}
-														alignItems={"center"}
-														cursor={"pointer"}
-														color={"black"}
-													>
-														<Box
-															position={"absolute"}
-															w={"52px"}
-															h={"52px"}
-															borderRadius={"50%"}
-															bgColor={"#1f243a"}
-															opacity={0.5}
-														></Box>
-														<Icon
-															position={"absolute"}
-															fontSize={25}
-															opacity={1}
-															color={"white"}
-															zIndex={10}
-															as={play}
-														/>
-													</Box>
-												</Box>
-												<Box
-													position={"absolute"}
-													w={"52px"}
-													h={"52px"}
-													borderRadius={"50%"}
-													bgColor={"#1f243a"}
-													opacity={0.5}
-												></Box>
-												<Icon
-													position={"absolute"}
-													fontSize={25}
-													opacity={1}
-													color={"white"}
-													zIndex={10}
-													as={play}
-												/>
-												<video
-													height="90px"
-													width="90px"
-													style={{ minHeight: "90px", minWidth: "90px" }}
-												>
-													<source src={getMediaUrl(media)} />
-												</video>
-											</Flex>
-										))
-								)}
-							</Flex>
-						</Flex>
-					</CardBody>
-				</Card>
-			)}
-		</>
+						)}
+					</Flex>
+				</Flex>
+			</CardBody>
+		</Card>
 	);
 };
 
-export default ReportToDelete;
+export default DeleteReport;

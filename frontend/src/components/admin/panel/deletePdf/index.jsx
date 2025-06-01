@@ -1,22 +1,61 @@
 import { DeleteIcon } from "@chakra-ui/icons";
-import { Box, Flex, Icon, Text } from "@chakra-ui/react";
-import { default as React } from "react";
-import { ReactComponent as pdf } from "../../../../assets/pdf.svg";
+import {
+	Box,
+	Card,
+	CardBody,
+	Flex,
+	Icon,
+	useToast,
+} from "@chakra-ui/react";
+import React from "react";
+import { FaFilePdf } from "react-icons/fa";
+import { getMediaUrl } from "../../../../helpers/getMediaUrl";
 
-const PdfToDelete = ({ id, pdf: pdfItem, deletePdf }) => {
+export const DeletePdf = ({ id, pdf, deletePdf }) => {
+	const toast = useToast();
+
+	const handleDelete = async () => {
+		try {
+			await deletePdf(id);
+			toast({
+				title: "PDF удален",
+				status: "success",
+				duration: 3000,
+				isClosable: true,
+			});
+		} catch (err) {
+			console.error(err);
+			toast({
+				title: "Ошибка при удалении PDF",
+				description: "Пожалуйста, попробуйте еще раз",
+				status: "error",
+				duration: 3000,
+				isClosable: true,
+			});
+		}
+	};
+
 	return (
-		<Flex
-			position={"relative"}
-			flexDir={"column"}
-			w={"205px"}
-			h={"260px"}
+		<Card
+			w="200px"
+			h="200px"
+			bgColor={"#1f243a"}
 			borderRadius={"3px"}
-			bgColor={"#f8f8f8"}
-			p={"30px"}
-			ml={"20px"}
-			mt={"10px"}
-			justify={"space-between"}
-			onClick={() => deletePdf(id)}
+			borderBottomRadius={"3px"}
+			boxShadow={""}
+			padding={"25px"}
+			flexDir={"row"}
+			display={"flex"}
+			alignItems={"center"}
+			justifyContent={"center"}
+			pos={"relative"}
+			onClick={handleDelete}
+			cursor="pointer"
+			_hover={{
+				bgColor: "#bf3132",
+				transition: "all 0.3s ease",
+			}}
+			m={2}
 		>
 			<Box
 				position={"absolute"}
@@ -24,7 +63,7 @@ const PdfToDelete = ({ id, pdf: pdfItem, deletePdf }) => {
 				h={"100%"}
 				top={0}
 				left={0}
-				zIndex={1}
+				zIndex={10}
 				_hover={{
 					display: "block",
 					transition: "all 300ms ease",
@@ -51,41 +90,13 @@ const PdfToDelete = ({ id, pdf: pdfItem, deletePdf }) => {
 					<DeleteIcon fontSize={150} color={"white"} zIndex={10000} />
 				</Box>
 			</Box>
-			<Box>
-				<Icon w={"38px"} h={"38px"} mb={"20px"} as={pdf} />
-				<Text
-					fontSize={"16px"}
-					color={"#1f243a"}
-					css={`
-						text-overflow: ellipsis;
-						word-wrap: keep-all;
-						overflow: hidden;
-						max-height: 4.8em;
-						line-height: 1.2em;
-						display: -webkit-box;
-						-webkit-line-clamp: 4;
-						-webkit-box-orient: vertical;
-					`}
-				>
-					{pdfItem.title}
-				</Text>
-			</Box>
-			<Box>
-				<Text fontSize={"14px"} color={"#666666"} mb={"4px"}>
-					pdf, {pdfItem.size}
-				</Text>
-				<Text
-					fontSize={"14px"}
-					textDecoration={"underline"}
-					_hover={{ textDecoration: "none" }}
-					color={"#bf3132"}
-					cursor={"pointer"}
-				>
-					Скачать
-				</Text>
-			</Box>
-		</Flex>
+			<CardBody p={0} zIndex={2} display={"flex"} flexDir={"column"} w={"100%"}>
+				<Flex justifyContent="center" alignItems="center">
+					<a href={getMediaUrl(pdf)} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+						<Icon as={FaFilePdf} boxSize="100px" color="white" />
+					</a>
+				</Flex>
+			</CardBody>
+		</Card>
 	);
 };
-
-export default PdfToDelete;

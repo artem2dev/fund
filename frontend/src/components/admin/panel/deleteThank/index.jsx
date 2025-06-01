@@ -1,18 +1,45 @@
 import { DeleteIcon } from "@chakra-ui/icons";
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Image, useToast } from "@chakra-ui/react";
 import React from "react";
 import { getMediaUrl } from "../../../../helpers/getMediaUrl";
 
-const ThankToDelete = ({ id, image, deleteThank }) => {
+export const DeleteThank = ({ id, image, deleteThank }) => {
+	const toast = useToast();
+
+	const handleDelete = async () => {
+		try {
+			await deleteThank(id);
+			toast({
+				title: "Благодарность удалена",
+				status: "success",
+				duration: 3000,
+				isClosable: true,
+			});
+		} catch (err) {
+			console.error(err);
+			toast({
+				title: "Ошибка при удалении благодарности",
+				description: "Пожалуйста, попробуйте еще раз",
+				status: "error",
+				duration: 3000,
+				isClosable: true,
+			});
+		}
+	};
+
 	return (
 		<Box
 			w={"260px"}
 			h={"360px"}
 			pos={"relative"}
-			onClick={() => deleteThank(id)}
+			onClick={handleDelete}
 			ml={"4px"}
 			mt={"10px"}
 			cursor={"pointer"}
+			_hover={{
+				transform: "scale(1.02)",
+				transition: "all 0.2s ease-in-out"
+			}}
 		>
 			<Box
 				position={"absolute"}
@@ -56,5 +83,3 @@ const ThankToDelete = ({ id, image, deleteThank }) => {
 		</Box>
 	);
 };
-
-export default ThankToDelete;

@@ -34,8 +34,9 @@ export class AuthController {
         httpOnly: true,
         maxAge: REFRESH_TOKEN_EXPIRES_DAYS_IN_MILLISECONDS,
         expires: getRefreshExpiresIn(),
-        sameSite: 'none',
+        sameSite: 'lax',
         domain: DOMAIN,
+        path: '/',
       })
       .send(accessToken)
       .end();
@@ -62,8 +63,9 @@ export class AuthController {
         httpOnly: true,
         maxAge: REFRESH_TOKEN_EXPIRES_DAYS_IN_MILLISECONDS,
         expires: getRefreshExpiresIn(),
-        sameSite: 'none',
+        sameSite: 'lax',
         domain: DOMAIN,
+        path: '/',
       })
       .send(accessToken)
       .end();
@@ -71,6 +73,15 @@ export class AuthController {
 
   @Get('sign-out')
   async signOut(@Response() res: Res) {
-    res.clearCookie('refreshToken').send().end();
+    res
+      .clearCookie('refreshToken', {
+        secure: true,
+        httpOnly: true,
+        sameSite: 'lax',
+        domain: DOMAIN,
+        path: '/',
+      })
+      .send()
+      .end();
   }
 }

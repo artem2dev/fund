@@ -41,42 +41,39 @@ export const CreatePdf = () => {
 		setPdf(null);
 		setIsLoading(false);
 		setTitle("");
+		setTitleLabel(labels.title);
+		setIsTitleEmpty(null);
 	};
 
-	const uploadFile = async (mainPicture) => {
+	const uploadFile = async (file) => {
 		const formData = new FormData();
-
-		formData.append("files", mainPicture);
-
+		formData.append("files", file);
 		return await uploadImage(formData);
 	};
 
 	const handleFileChange = (e) => {
 		const file = e?.target?.files?.[0];
-
 		setPdfLabel(labels.mainPicture);
 		setIsPdfEmpty(false);
 		setPdf(file);
 	};
 
 	const checkIfErrors = () => {
-		let isErr = false;
+		let hasErrors = false;
 
 		if (!pdf) {
 			setPdfLabel(errorLabels.mainPicture);
 			setIsPdfEmpty(true);
-
-			isErr = true;
+			hasErrors = true;
 		}
 
 		if (!title) {
 			setTitleLabel(errorLabels.title);
 			setIsTitleEmpty(true);
-
-			isErr = true;
+			hasErrors = true;
 		}
 
-		return isErr;
+		return hasErrors;
 	};
 
 	const onSubmit = async (e) => {
@@ -85,32 +82,39 @@ export const CreatePdf = () => {
 
 		setIsLoading(true);
 
-		const { data: uploadedFilesIds } = await uploadFile(pdf);
-		const fileInKb = pdf.size / 1024;
-		const fileInMb = fileInKb / 1024;
-
 		try {
+			const { data: uploadedFilesIds } = await uploadFile(pdf);
+			
+			// Calculate file size in MB and format it
+			const fileSizeInMB = (pdf.size / (1024 * 1024)).toFixed(2);
+			const formattedSize = `${fileSizeInMB} MB`;
+
 			await createPdf({
 				title,
-				size:
-					String(Math.ceil(fileInKb > 5000 ? fileInMb : fileInKb)) +
-					`${fileInKb > 5000 ? " Кб" : " Мб"}`,
 				pdf: uploadedFilesIds[0],
+				size: formattedSize
 			});
+
+			toast({
+				title: "Данные успешно загружены на сервер.",
+				description: "Можете проверить наличие PDF на сайте.",
+				status: "success",
+				duration: 5000,
+				isClosable: true,
+			});
+			clearFunc();
 		} catch (err) {
-			console.error(err);
+			console.error("PDF creation error:", err);
+			toast({
+				title: "Произошла ошибка при создании PDF.",
+				description: err.response?.data?.message || "Пожалуйста, попробуйте еще раз.",
+				status: "error",
+				duration: 5000,
+				isClosable: true,
+			});
+		} finally {
+			setIsLoading(false);
 		}
-
-		toast({
-			title: "Данные успешно загружены на сервер.",
-			description: "Можете проверить наличиие новости на сайте.",
-			status: "success",
-			duration: 5000,
-			isClosable: true,
-		});
-		clearFunc();
-
-		return false;
 	};
 
 	return (
@@ -167,9 +171,10 @@ export const CreatePdf = () => {
 								type="file"
 								height={"50px"}
 								padding="10px"
-								name="image"
+								name="file"
 								onChange={handleFileChange}
 								ref={fileRef}
+								accept=".pdf"
 							/>
 							<span>Нажмите, чтобы выбрать файл</span>
 						</label>

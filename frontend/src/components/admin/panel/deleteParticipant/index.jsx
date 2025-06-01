@@ -7,18 +7,42 @@ import {
 	Heading,
 	Image,
 	Text,
+	useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import blueBg from "../../../../assets/blue.png";
 import { getMediaUrl } from "../../../../helpers/getMediaUrl";
 
-const ParticipantToDelete = ({
+export const DeleteParticipant = ({
 	id,
 	image,
 	position,
 	name,
 	deleteParticipant,
 }) => {
+	const toast = useToast();
+
+	const handleDelete = async () => {
+		try {
+			await deleteParticipant(id);
+			toast({
+				title: "Участник удален",
+				status: "success",
+				duration: 3000,
+				isClosable: true,
+			});
+		} catch (err) {
+			console.error(err);
+			toast({
+				title: "Ошибка при удалении участника",
+				description: "Пожалуйста, попробуйте еще раз",
+				status: "error",
+				duration: 3000,
+				isClosable: true,
+			});
+		}
+	};
+
 	return (
 		<Card
 			w="262px"
@@ -33,7 +57,12 @@ const ParticipantToDelete = ({
 			display={"flex"}
 			alignItems={"flex-end"}
 			pos={"relative"}
-			onClick={() => deleteParticipant(id)}
+			onClick={handleDelete}
+			cursor="pointer"
+			_hover={{
+				transform: "scale(1.02)",
+				transition: "all 0.2s ease-in-out"
+			}}
 			_before={{
 				zIndex: 0,
 				position: "absolute",
@@ -149,5 +178,3 @@ const ParticipantToDelete = ({
 		</Card>
 	);
 };
-
-export default ParticipantToDelete;

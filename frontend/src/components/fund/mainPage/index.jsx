@@ -14,10 +14,10 @@ import mainPashaev from "../../../assets/mainPashaev.jpg";
 import mainQuotes from "../../../assets/mainQuotes.png";
 import PreFooter from "../footer/pre-footer";
 import { PaymentModal } from "../modals/paymentModal";
-import NewCard from "../news/new-card";
-import ParticipantCard from "../popechitelskiySovet/participant-card";
-import ProjectCard from "../projects/project-card";
-import Thank from "../thanks/thank";
+import NewCard from "../News/new-card";
+import ParticipantCard from "../PopechitelskiySovet/participant-card";
+import ProjectCard from "../Projects/project-card";
+import Thank from "../Thanks/thank";
 
 export default function MainPage({
 	pdfs,

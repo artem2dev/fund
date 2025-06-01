@@ -7,11 +7,12 @@ import {
 	Heading,
 	Image,
 	Text,
+	useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { getMediaUrl } from "../../../../helpers/getMediaUrl";
 
-const ProjectToDelete = ({
+export const DeleteProject = ({
 	id,
 	title,
 	content,
@@ -20,6 +21,29 @@ const ProjectToDelete = ({
 	targetAmount,
 	deleteProject,
 }) => {
+	const toast = useToast();
+
+	const handleDelete = async () => {
+		try {
+			await deleteProject(id);
+			toast({
+				title: "Проект удален",
+				status: "success",
+				duration: 3000,
+				isClosable: true,
+			});
+		} catch (err) {
+			console.error(err);
+			toast({
+				title: "Ошибка при удалении проекта",
+				description: "Пожалуйста, попробуйте еще раз",
+				status: "error",
+				duration: 3000,
+				isClosable: true,
+			});
+		}
+	};
+
 	return (
 		<Card
 			w="360px"
@@ -27,7 +51,12 @@ const ProjectToDelete = ({
 			bgColor={"#fff"}
 			borderRadius={0}
 			borderBottomRadius={"3px"}
-			onClick={() => deleteProject(id)}
+			onClick={handleDelete}
+			cursor="pointer"
+			_hover={{
+				transform: "scale(1.02)",
+				transition: "all 0.2s ease-in-out"
+			}}
 		>
 			<Box
 				position={"absolute"}
@@ -206,5 +235,3 @@ const ProjectToDelete = ({
 		</Card>
 	);
 };
-
-export default ProjectToDelete;

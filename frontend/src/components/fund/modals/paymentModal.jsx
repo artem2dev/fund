@@ -7,7 +7,7 @@ import {
 	ModalOverlay,
 } from "@chakra-ui/react";
 import React from "react";
-import Payment from "../payment/payment";
+import Payment from "../Payment/payment";
 
 export const PaymentModal = ({ isOpen, onClose }) => {
 	return (

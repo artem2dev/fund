@@ -13,7 +13,7 @@ import {
 import { default as React, useRef, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { uploadImage } from "../../../../api/media";
-import { createParticipant } from "../../../../api/participants";
+import { createParticipant as createParticipantAPI } from "../../../../api/participants";
 import "./style.css";
 
 const labels = {
@@ -112,29 +112,36 @@ export const CreateParticipant = () => {
 
 		setIsLoading(true);
 
-		const { data: uploadedFilesIds } = await uploadMultipleFiles(mainPicture);
-
 		try {
-			await createParticipant({
+			const { data: uploadedFilesIds } = await uploadMultipleFiles(mainPicture);
+
+			await createParticipantAPI({
 				name: title,
 				description: content,
 				position,
 				image: uploadedFilesIds[0],
 			});
-		} catch (err) {
-			console.error(err);
-		}
 
 		toast({
 			title: "Данные успешно загружены на сервер.",
-			description: "Можете проверить наличиие новости на сайте.",
+				description: "Можете проверить наличие участника на сайте.",
 			status: "success",
 			duration: 5000,
 			isClosable: true,
 		});
 		clearFunc();
-
-		return false;
+		} catch (err) {
+			console.error(err);
+			toast({
+				title: "Произошла ошибка при создании участника.",
+				description: "Пожалуйста, попробуйте еще раз.",
+				status: "error",
+				duration: 5000,
+				isClosable: true,
+			});
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	return (

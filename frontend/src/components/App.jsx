@@ -10,16 +10,17 @@ import { getThanks } from "../api/thanks";
 import { theme } from "../themes/chakraWhiteTheme";
 import Container from "./Container";
 import PrivateWrapper from "./PrivateRoute";
-import Login from "./admin/login";
-import Panel from "./admin/panel";
-import About from "./fund/about";
+import Login from "./Admin/Login";
+import Panel from "./Admin/Panel";
+import About from "./fund/About";
 import MainPage from "./fund/mainPage";
-import News from "./fund/news";
+import News from "./fund/News";
 import Policy from "./fund/policy";
-import Participants from "./fund/popechitelskiySovet";
-import Projects from "./fund/projects";
+import PopechitelskiySovet from "./fund/PopechitelskiySovet";
+import Projects from "./fund/Projects";
 import Reports from "./fund/reports";
-import Thanks from "./fund/thanks";
+import Thanks from "./fund/Thanks";
+import Help from "./fund/Help";
 
 function App() {
 	const [news, setNews] = useState([]);
@@ -82,7 +83,7 @@ function App() {
 							<Route path="novosty" element={<News news={news} />} />
 							<Route
 								path="sovet"
-								element={<Participants participants={participants} />}
+								element={<PopechitelskiySovet participants={participants} />}
 							/>
 							{/* <Route path="kak-pomoch" element={<Help />} /> */}
 							<Route

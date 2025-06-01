@@ -20,7 +20,7 @@ const labels = {
 };
 
 const errorLabels = {
-	mainPicture: "Главная картинка не может отсутствовать",
+	mainPicture: "Картинка не может отсутствовать",
 };
 
 export const CreateThank = () => {
@@ -41,31 +41,24 @@ export const CreateThank = () => {
 
 	const uploadFile = async (mainPicture) => {
 		const formData = new FormData();
-
 		formData.append("files", mainPicture);
-
 		return await uploadImage(formData);
 	};
 
 	const handleFileChange = (e) => {
 		const file = e?.target?.files?.[0];
-
 		setMainPictureLabel(labels.mainPicture);
 		setIsMainPictureEmpty(false);
 		setMainPicture(file);
 	};
 
 	const checkIfErrors = () => {
-		let isErr = false;
-
 		if (!mainPicture) {
 			setMainPictureLabel(errorLabels.mainPicture);
 			setIsMainPictureEmpty(true);
-
-			isErr = true;
+			return true;
 		}
-
-		return isErr;
+		return false;
 	};
 
 	const onSubmit = async (e) => {
@@ -74,26 +67,33 @@ export const CreateThank = () => {
 
 		setIsLoading(true);
 
-		const { data: uploadedFilesIds } = await uploadFile(mainPicture);
-
 		try {
+			const { data: uploadedFilesIds } = await uploadFile(mainPicture);
+
 			await createThank({
 				image: uploadedFilesIds[0],
 			});
+
+			toast({
+				title: "Данные успешно загружены на сервер.",
+				description: "Можете проверить наличие благодарности на сайте.",
+				status: "success",
+				duration: 5000,
+				isClosable: true,
+			});
+			clearFunc();
 		} catch (err) {
 			console.error(err);
+			toast({
+				title: "Произошла ошибка при создании благодарности.",
+				description: "Пожалуйста, попробуйте еще раз.",
+				status: "error",
+				duration: 5000,
+				isClosable: true,
+			});
+		} finally {
+			setIsLoading(false);
 		}
-
-		toast({
-			title: "Данные успешно загружены на сервер.",
-			description: "Можете проверить наличиие новости на сайте.",
-			status: "success",
-			duration: 5000,
-			isClosable: true,
-		});
-		clearFunc();
-
-		return false;
 	};
 
 	return (

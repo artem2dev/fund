@@ -13,12 +13,17 @@ async function bootstrap() {
 
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  app.enableCors({
-    origin: true,
-    credentials: true,
-  });
-  app.setGlobalPrefix('api');
   app.use(cookieParser());
+
+  app.enableCors({
+    origin: config.APP_CLIENT_PUBLIC_URL,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    exposedHeaders: ['Authorization'],
+  });
+
+  app.setGlobalPrefix('api');
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
@@ -30,4 +35,5 @@ async function bootstrap() {
     logger.log(`App successfully started on port ${PORT}`),
   );
 }
+
 bootstrap();

@@ -1,7 +1,7 @@
 import { useAxios } from "./axiosConfig";
 
 export const getThankById = async (thankId) =>
-	useAxios.get(`Thanks/${thankId}`);
+	useAxios.get(`thanks/${thankId}`);
 
 export const getThanks = async () => useAxios.get(`thanks`);
 

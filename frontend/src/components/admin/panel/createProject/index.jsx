@@ -13,7 +13,7 @@ import {
 import { default as React, useRef, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { uploadImage } from "../../../../api/media";
-import { createProject } from "../../../../api/projects";
+import { createProject as createProjectAPI } from "../../../../api/projects";
 import "./style.css";
 
 const labels = {
@@ -96,30 +96,47 @@ export const CreateProject = () => {
 	};
 
 	const checkIfErrors = () => {
-		let isErr = false;
+		let hasErrors = false;
 
 		if (!title) {
 			setTitleLabel(errorLabels.title);
 			setIsTitleEmpty(true);
-
-			isErr = true;
+			hasErrors = true;
 		}
 
 		if (!content) {
 			setContentLabel(errorLabels.content);
 			setIsContentEmpty(true);
+			hasErrors = true;
+		}
 
-			isErr = true;
+		if (!targetAmount) {
+			setTargetAmountLabel(errorLabels.targetAmount);
+			setIsTargetAmountEmpty(true);
+			hasErrors = true;
+		} else if (!onlyNumbersReg.test(targetAmount)) {
+			setTargetAmountLabel(errorLabels.amountIsNotNumber);
+			setIsTargetAmountEmpty(true);
+			hasErrors = true;
+		}
+
+		if (!currentAmount) {
+			setCurrentAmountLabel(errorLabels.currentAmount);
+			setIsCurrentAmountEmpty(true);
+			hasErrors = true;
+		} else if (!onlyNumbersReg.test(currentAmount)) {
+			setCurrentAmountLabel(errorLabels.amountIsNotNumber);
+			setIsCurrentAmountEmpty(true);
+			hasErrors = true;
 		}
 
 		if (!mainPicture) {
 			setMainPictureLabel(errorLabels.mainPicture);
 			setIsMainPictureEmpty(true);
-
-			isErr = true;
+			hasErrors = true;
 		}
 
-		return isErr;
+		return hasErrors;
 	};
 
 	const onSubmit = async (e) => {
@@ -128,31 +145,40 @@ export const CreateProject = () => {
 
 		setIsLoading(true);
 
-		const { data: uploadedFilesIds } = await uploadMultipleFiles(mainPicture);
-
 		try {
-			await createProject({
+			// Upload main picture first
+			const { data: uploadedFilesIds } = await uploadMultipleFiles(mainPicture);
+
+			// Create project with the uploaded image
+			await createProjectAPI({
 				title,
 				content,
+				targetAmount: targetAmount.toString(),
+				currentAmount: currentAmount.toString(),
 				image: uploadedFilesIds[0],
-				targetAmount,
-				currentAmount,
-				medias: uploadedFilesIds.slice(1),
+				medias: [] // Initialize with empty array, can be updated later if needed
 			});
+
+			toast({
+				title: "Проект успешно создан.",
+				description: "Можете проверить наличие проекта на сайте.",
+				status: "success",
+				duration: 5000,
+				isClosable: true,
+			});
+			clearFunc();
 		} catch (err) {
-			console.error(err);
+			console.error("Project creation error:", err);
+			toast({
+				title: "Произошла ошибка при создании проекта.",
+				description: err.response?.data?.message || "Пожалуйста, попробуйте еще раз.",
+				status: "error",
+				duration: 5000,
+				isClosable: true,
+			});
+		} finally {
+			setIsLoading(false);
 		}
-
-		toast({
-			title: "Данные успешно загружены на сервер.",
-			description: "Можете проверить наличиие новости на сайте.",
-			status: "success",
-			duration: 5000,
-			isClosable: true,
-		});
-		clearFunc();
-
-		return false;
 	};
 
 	return (

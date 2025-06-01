@@ -48,7 +48,7 @@ export const CreateReport = () => {
 		setContentLabel(labels.content);
 		setTitle("");
 		setContent("");
-		setMultipleFiles("");
+		setMultipleFiles([]);
 		setSelectedFiles([]);
 		setIsLoading(false);
 		setIsMediaEmpty(null);
@@ -56,59 +56,53 @@ export const CreateReport = () => {
 	};
 
 	const multipleFileChange = (e) => {
-		const images = [];
-
-		for (let i = 0; i < e.target.files.length; i++) {
-			images.push({
-				content: URL.createObjectURL(e.target.files[i]),
-				isImage: e.target.files[i].type.split("/")[0] === "image",
-			});
-		}
+		const files = Array.from(e.target.files);
+		const images = files.map(file => ({
+			content: URL.createObjectURL(file),
+			isImage: file.type.split("/")[0] === "image",
+		}));
 
 		setSelectedFiles(images);
-		setMultipleFiles(e.target.files);
+		setMultipleFiles(files);
+		setIsMediaEmpty(false);
+		setMediaLabel(labels.media);
 	};
 
 	const uploadMultipleFiles = async () => {
 		const formData = new FormData();
-
-		for (let i = 0; i < multipleFiles.length; i++) {
-			formData.append("files", multipleFiles[i]);
-		}
-
+		multipleFiles.forEach(file => {
+			formData.append("files", file);
+		});
 		return await uploadImage(formData);
 	};
 
 	const deleteFiles = () => {
-		setMultipleFiles("");
+		setMultipleFiles([]);
 		setSelectedFiles([]);
 	};
 
 	const checkIfErrors = () => {
-		let isErr = false;
+		let hasErrors = false;
 
 		if (!title) {
 			setTitleLabel(errorLabels.title);
 			setIsTitleEmpty(true);
-
-			isErr = true;
+			hasErrors = true;
 		}
 
 		if (!content) {
 			setContentLabel(errorLabels.content);
 			setIsContentEmpty(true);
-
-			isErr = true;
+			hasErrors = true;
 		}
 
-		if (!multipleFiles) {
+		if (!multipleFiles.length) {
 			setMediaLabel(errorLabels.media);
 			setIsMediaEmpty(true);
-
-			isErr = true;
+			hasErrors = true;
 		}
 
-		return isErr;
+		return hasErrors;
 	};
 
 	const onSubmit = async (e) => {
@@ -117,28 +111,35 @@ export const CreateReport = () => {
 
 		setIsLoading(true);
 
-		const { data: uploadedFilesIds } = await uploadMultipleFiles();
-
 		try {
+			const { data: uploadedFilesIds } = await uploadMultipleFiles();
+
 			await createReport({
 				title,
 				content,
 				medias: uploadedFilesIds,
 			});
+
+			toast({
+				title: "Данные успешно загружены на сервер.",
+				description: "Можете проверить наличие отчета на сайте.",
+				status: "success",
+				duration: 5000,
+				isClosable: true,
+			});
+			clearFunc();
 		} catch (err) {
 			console.error(err);
+			toast({
+				title: "Произошла ошибка при создании отчета.",
+				description: "Пожалуйста, попробуйте еще раз.",
+				status: "error",
+				duration: 5000,
+				isClosable: true,
+			});
+		} finally {
+			setIsLoading(false);
 		}
-
-		toast({
-			title: "Данные успешно загружены на сервер.",
-			description: "Можете проверить наличиие новости на сайте.",
-			status: "success",
-			duration: 5000,
-			isClosable: true,
-		});
-		clearFunc();
-
-		return false;
 	};
 
 	return (
@@ -157,7 +158,7 @@ export const CreateReport = () => {
 				<Box>
 					<Flex justifyContent={"center"}>
 						<Heading marginBottom={"20px"} fontSize={"25px"}>
-							Добавить новость
+							Добавить отчет
 						</Heading>
 					</Flex>
 				</Box>
@@ -210,58 +211,57 @@ export const CreateReport = () => {
 											type="file"
 											height={"50px"}
 											padding="10px"
-											name="image"
-											onChange={(e) => multipleFileChange(e)}
+											name="files"
+											onChange={multipleFileChange}
 											multiple
+											accept="image/*,video/*"
 										/>
-										<span>Нажмите, чтобы выбрать файл</span>
+										<span>Нажмите, чтобы выбрать файлы</span>
 									</label>
 								</Box>
 
 								<Flex flexDir={"column"}>
-									{selectedFiles.length !== 0 && (
+									{selectedFiles.length > 0 && (
 										<Flex m={"10px"} mr={0} justifyContent={"flex-end"}>
 											<Button
 												p={"8px"}
 												h={"32px"}
 												bgColor={"red"}
+												color={"white"}
 												_hover={{
-													bgColor: "black",
-													color: "white",
+													bgColor: "red.600",
 												}}
 												onClick={deleteFiles}
 											>
-												Очистить файлы ниже
+												Очистить файлы
 											</Button>
 										</Flex>
 									)}
-									{selectedFiles !== 0 &&
-										selectedFiles.map(({ content: img, isImage }, i) => {
-											return (
-												<Flex justifyContent={"center"} key={i}>
-													<Flex
-														flexDir="column"
-														align="center"
-														mb="10px"
-														pos={"relative"}
-														width={"fit-content"}
-													>
-														{isImage ? (
-															<Image
-																height="200px"
-																borderRadius={5}
-																style={{ objectFit: "scale-down" }}
-																src={img}
-															/>
-														) : (
-															<video height="200" controls>
-																<source src={img} />
-															</video>
-														)}
-													</Flex>
+									{selectedFiles.length > 0 &&
+										selectedFiles.map(({ content: url, isImage }, i) => (
+											<Flex justifyContent={"center"} key={i}>
+												<Flex
+													flexDir="column"
+													align="center"
+													mb="10px"
+													pos={"relative"}
+													width={"fit-content"}
+												>
+													{isImage ? (
+														<Image
+															height="200px"
+															borderRadius={5}
+															style={{ objectFit: "scale-down" }}
+															src={url}
+														/>
+													) : (
+														<video height="200" controls>
+															<source src={url} />
+														</video>
+													)}
 												</Flex>
-											);
-										})}
+											</Flex>
+										))}
 								</Flex>
 							</Box>
 						</Box>
