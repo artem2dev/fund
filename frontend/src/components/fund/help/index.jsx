@@ -1,6 +1,6 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import React from "react";
-import PaymentWithHistory from "../payment";
+import PaymentWithHistory from "../Payment";
 
 const News = ({ news }) => {
 	return (

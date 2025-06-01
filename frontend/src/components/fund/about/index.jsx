@@ -5,7 +5,7 @@ import bookNBrain from "../../../assets/bookNBrain.png";
 import handsNHearts from "../../../assets/handsNHearts.png";
 import workNThank from "../../../assets/workNThank.png";
 import PdfItem from "../footer/pdf-item";
-import ParticipantCard from "../popechitelskiySovet/participant-card";
+import ParticipantCard from "../PopechitelskiySovet/participant-card";
 
 const About = ({ pdfs, participants }) => {
 	useEffect(() => {

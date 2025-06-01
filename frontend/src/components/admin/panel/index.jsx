@@ -6,19 +6,19 @@ import { deletePdf, getPdfs } from "../../../api/pdfs";
 import { deleteProject, getProjects } from "../../../api/projects";
 import { deleteReport, getReports } from "../../../api/reports";
 import { deleteThank, getThanks } from "../../../api/thanks";
-import { CreateNew } from "./createNew";
+import { CreateNew } from "./CreateNew";
 import { CreateParticipant } from "./createParticipant";
 import { CreatePdf } from "./createPdf";
 import { CreateProject } from "./createProject";
 import { CreateReport } from "./createReport";
 import { CreateThank } from "./createThank";
-import NewCardToDelete from "./deleteNew";
-import ParticipantToDelete from "./deleteParticipant";
-import PdfToDelete from "./deletePdf";
-import ProjectToDelete from "./deleteProject";
-import ReportToDelete from "./deleteReport";
-import ThankToDelete from "./deleteThank";
-import SimpleSidebar from "./sidebar";
+import { DeleteNew } from "./DeleteNew";
+import { DeleteParticipant } from "./deleteParticipant";
+import { DeletePdf } from "./deletePdf";
+import { DeleteProject } from "./deleteProject";
+import { DeleteReport } from "./deleteReport";
+import { DeleteThank } from "./deleteThank";
+import SimpleSidebar from "./Sidebar";
 
 const pages = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
@@ -194,7 +194,7 @@ const Panel = () => {
 								{news.length > 0 ? (
 									news.map(({ id, title, content, mainPicture, createdAt }) => (
 										<Box key={id} mr={"10px"} mt={"10px"}>
-											<NewCardToDelete
+											<DeleteNew
 												id={id}
 												title={title}
 												content={content}
@@ -219,7 +219,7 @@ const Panel = () => {
 								{thanks.length > 0 ? (
 									thanks.map(({ id, image }) => (
 										<Box key={id}>
-											<ThankToDelete
+											<DeleteThank
 												id={id}
 												image={image}
 												deleteThank={deleteThankFunc}
@@ -243,7 +243,7 @@ const Panel = () => {
 								{participants.length > 0 ? (
 									participants.map(({ id, image, name, position }) => (
 										<Box key={id}>
-											<ParticipantToDelete
+											<DeleteParticipant
 												id={id}
 												image={image}
 												name={name}
@@ -275,7 +275,7 @@ const Panel = () => {
 											currentAmount,
 										}) => (
 											<Box key={id} mr={"15px"} mt={"10px"}>
-												<ProjectToDelete
+												<DeleteProject
 													id={id}
 													title={title}
 													content={content}
@@ -301,7 +301,7 @@ const Panel = () => {
 							>
 								{pdfs.length > 0 ? (
 									pdfs.map((pdf, i) => (
-										<PdfToDelete
+										<DeletePdf
 											key={i}
 											id={pdf.id}
 											pdf={pdf}
@@ -322,7 +322,7 @@ const Panel = () => {
 							>
 								{reports.length > 0 ? (
 									reports.map((report, i) => (
-										<ReportToDelete
+										<DeleteReport
 											key={i}
 											id={report.id}
 											title={report.title}

@@ -24,8 +24,8 @@ const defaultLabels = {
 };
 
 const defaultErrorLabels = {
-	passwordMinLength: "Неверный пароль",
 	emailCannotBeEmpty: "Логин не может быть пустой",
+	passwordCannotBeEmpty: "Пароль не может быть пустым",
 };
 
 const initialIsFieldError = {
@@ -78,10 +78,10 @@ const Login = () => {
 			return false;
 		}
 
-		if (password.length < 8) {
+		if (!password.length) {
 			setLabels({
 				...labels,
-				password: defaultErrorLabels.passwordMinLength,
+				password: defaultErrorLabels.passwordCannotBeEmpty,
 			});
 
 			setIsFieldError({ ...isFieldError, password: true });
@@ -97,24 +97,24 @@ const Login = () => {
 		if (!fieldsVerification(email, password)) return;
 
 		const params = { login: email, password };
-
-		const onSuccess = ({ data }) => {
-			setItem("jwtToken", data);
-			setIsLoading(false);
-
-			navigate("/admin-panel");
-		};
-
-		const onError = (error) => {
-			setIsLoading(false);
-			removeItem("jwtToken");
-
-			console.error(error);
-		};
-
 		setIsLoading(true);
 
-		loginUser(params, onSuccess, onError).then(onSuccess).catch(onError);
+		loginUser(params)
+			.then(({ data }) => {
+				setItem("jwtToken", data);
+				setIsLoading(false);
+				navigate("/admin-panel");
+			})
+			.catch((error) => {
+				setIsLoading(false);
+				removeItem("jwtToken");
+				console.error("Login error:", error);
+				setLabels({
+					...labels,
+					password: "Неверный логин или пароль",
+				});
+				setIsFieldError({ ...isFieldError, password: true });
+			});
 	};
 
 	return (
@@ -180,7 +180,6 @@ const Login = () => {
 							/>
 							<InputRightElement width="4.5rem" marginTop="8">
 								<Button
-									p
 									h="1.75rem"
 									size="sm"
 									variant="solid"

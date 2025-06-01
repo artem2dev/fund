@@ -13,7 +13,7 @@ import {
 import { default as React, useRef, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { uploadImage } from "../../../../api/media";
-import { createNew } from "../../../../api/news";
+import { createNew as createNewAPI } from "../../../../api/news";
 import "./style.css";
 
 const labels = {
@@ -28,7 +28,7 @@ const errorLabels = {
 	mainPicture: "Обложка не может отсутствовать",
 };
 
-export const CreateNew = () => {
+export const CreateNew = ({ onSuccess }) => {
 	const toast = useToast();
 	const fileRef = useRef(null);
 	const formRef = useRef(null);
@@ -111,18 +111,15 @@ export const CreateNew = () => {
 
 		setIsLoading(true);
 
-		const { data: uploadedFilesIds } = await uploadMultipleFiles(mainPicture);
-
 		try {
-			await createNew({
+			const { data: uploadedFilesIds } = await uploadMultipleFiles(mainPicture);
+
+			await createNewAPI({
 				title,
 				content,
 				mainPicture: uploadedFilesIds[0],
 				medias: uploadedFilesIds.slice(1),
 			});
-		} catch (err) {
-			console.error(err);
-		}
 
 		toast({
 			title: "Данные успешно загружены на сервер.",
@@ -131,7 +128,24 @@ export const CreateNew = () => {
 			duration: 5000,
 			isClosable: true,
 		});
+
+			if (onSuccess) {
+				onSuccess();
+			}
+
 		clearFunc();
+		} catch (err) {
+			console.error(err);
+			toast({
+				title: "Произошла ошибка при создании новости.",
+				description: "Пожалуйста, попробуйте еще раз.",
+				status: "error",
+				duration: 5000,
+				isClosable: true,
+			});
+		} finally {
+			setIsLoading(false);
+		}
 
 		return false;
 	};
