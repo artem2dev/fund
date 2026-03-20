@@ -22,11 +22,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# .env
+.env
 frontend/node_modules
 postgres-data/
-# backend/media
 
 frontend/build/
-
-# media/
